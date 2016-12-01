@@ -5,8 +5,14 @@ var request = require('request');
 var path = require('path');
 var googleAPI = require('./env/config.js')
 
-app.use(express.static('Client'));
+var port = 4040;
+var ip : '127.0.0.1';
+//serving static files
+app.use(express.static('public'));
+app.use(express.static('src'));
 app.use(bodyParser.json());
+
+
 
 app.all('*', function(req, res, next) {
     res.header('Access-Control-Allow-Origin', '*');
@@ -21,10 +27,14 @@ app.all('*', function(req, res, next) {
     }
 });
 
+
+
 app.get('/', function(req,res){
   res.sendFile('index.html', {'root':__dirname+'/../client'});
 })
 
+
+//api call for google map
 app.get('/fetchData',function(req,res){
   request(googleAPI.url, function (error, response, body) {
     if (!error && response.statusCode == 200) {
@@ -33,5 +43,5 @@ app.get('/fetchData',function(req,res){
   })
 })
 
-app.listen(4040,'127.0.0.1');
+app.listen(port,ip);
 console.log("Listening to port :4040");
