@@ -13,3 +13,9 @@ build
 .DS_Store
 .env
 npm-debug.log
+<<<<<<< 57b6f31acee8e25c276ec7f79b3b6b09f536795e
+=======
+
+# google api key
+server/env/config.js
+>>>>>>> pushing up react file structure
