@@ -1,0 +1,16 @@
+
+
+body
+{
+  background: #1abc9c;
+  color: #FFF;
+  font-size: 150%;
+  font-family: 'Droid Sans', sans-serif;
+}
+
+.container
+{
+  width: 600px;
+  margin: 0 auto;
+  text-align: center;
+}
