@@ -1,16 +1,15 @@
-var getRestaurants = (options,callback) => {
-  $.ajax({
-    type: 'GET',
-    url: 'http:localhost:4040/fetchData',
-    content-type: 'application/json',
-    success:function(data){
-      var nearByRestaurants = (JSON.parse(data)).results.filter(el=>el.rating >=4&&el.price_level <=2);
-      callback(nearByRestaurants);
-    },
-    error: function(err){
-      console.log("Error": err);
-    }
+var getRestaurants = (callback) => {
+
+  $.get('/fetchData')
+  .done((items) => {
+    console.log(items);
+      callback(JSON.parse(items));
+  })
+  .fail(({responseJSON}) => {
+    responseJSON.error.errors.forEach((err) =>
+      console.error(err)
+    );
   });
 };
 
-window.getRestaurants = getRestaurants;
+export default getRestaurants;
