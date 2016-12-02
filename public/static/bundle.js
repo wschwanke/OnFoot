@@ -58,11 +58,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-<<<<<<< 3231da093056e49de247fe395c82beaa78bfb7e0
-	__webpack_require__(192);
-=======
-	__webpack_require__(185);
->>>>>>> About to merge
+	__webpack_require__(187);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21459,23 +21455,19 @@
 
 	__webpack_require__(174);
 
-<<<<<<< 3231da093056e49de247fe395c82beaa78bfb7e0
-	var _getRestaurants = __webpack_require__(184);
+	var _getRestaurants = __webpack_require__(178);
 
 	var _getRestaurants2 = _interopRequireDefault(_getRestaurants);
 
-	var _List = __webpack_require__(185);
+	var _getAddress = __webpack_require__(179);
+
+	var _getAddress2 = _interopRequireDefault(_getAddress);
+
+	var _List = __webpack_require__(180);
 
 	var _List2 = _interopRequireDefault(_List);
 
-	var _data = __webpack_require__(191);
-=======
-	var _List = __webpack_require__(178);
-
-	var _List2 = _interopRequireDefault(_List);
-
-	var _data = __webpack_require__(184);
->>>>>>> About to merge
+	var _data = __webpack_require__(186);
 
 	var _data2 = _interopRequireDefault(_data);
 
@@ -21517,13 +21509,18 @@
 	      // Get the user's location:
 	      if (navigator.geolocation) {
 	        //use an arrow function to not lose the this binding
-	        navigator.geolocation.getCurrentPosition(function (position) {
+	        navigator.geolocation.watchPosition(function (position) {
 	          console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude);
 	          //we set the state to the location we now have, split into two (not needed) to better manipulate for viewing
-	          _this2.setState({ location: ['latitude: ' + position.coords.latitude, 'longitude: ' + position.coords.longitude] });
+	          (0, _getAddress2.default)({ lat: position.coords.latitude, lng: position.coords.longitude }, function (address) {
+	            return _this2.setState({ location: ['Current Address: ' + address.address.streetNumber + ' ' + address.address.street] });
+	          });
+	          //this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
 	        });
 	      }
 	    }
+	    // get all the restaurants nearby
+
 	  }, {
 	    key: 'getNearbyRestaurants',
 	    value: function getNearbyRestaurants(location) {
@@ -21549,7 +21546,6 @@
 	      var location = this.state.location;
 	      //sets the data to the data variable
 	      var data = this.state.data;
-	      console.log("rest", this.state.rest);
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'App' },
@@ -21569,7 +21565,6 @@
 	          location[0],
 	          ' ',
 	          _react2.default.createElement('br', null),
-	          ' ',
 	          location[1]
 	        ),
 	        _react2.default.createElement(_List2.default, { data: data })
@@ -21609,11 +21604,10 @@
 	"use strict";
 
 /***/ },
-<<<<<<< 3231da093056e49de247fe395c82beaa78bfb7e0
-/* 181 */,
-/* 182 */,
-/* 183 */,
-/* 184 */
+/* 175 */,
+/* 176 */,
+/* 177 */,
+/* 178 */
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21624,7 +21618,6 @@
 	var getRestaurants = function getRestaurants(callback) {
 
 	  $.get('/fetchData').done(function (items) {
-	    console.log(items);
 	    callback(JSON.parse(items));
 	  }).fail(function (_ref) {
 	    var responseJSON = _ref.responseJSON;
@@ -21638,13 +21631,36 @@
 	exports.default = getRestaurants;
 
 /***/ },
-/* 185 */
-=======
-/* 175 */,
-/* 176 */,
-/* 177 */,
-/* 178 */
->>>>>>> About to merge
+/* 179 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var getAddress = function getAddress(options, callback) {
+
+	  $.get('http://api.geonames.org/findNearestAddressJSON', {
+	    lat: options.lat,
+	    lng: options.lng,
+	    username: 'onFoot'
+	  }).done(function (items) {
+	    console.log(items);
+	    callback(items);
+	  }).fail(function (_ref) {
+	    var responseJSON = _ref.responseJSON;
+
+	    responseJSON.error.errors.forEach(function (err) {
+	      return console.error(err);
+	    });
+	  });
+	};
+
+	exports.default = getAddress;
+
+/***/ },
+/* 180 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21657,15 +21673,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-<<<<<<< 3231da093056e49de247fe395c82beaa78bfb7e0
-	__webpack_require__(186);
+	__webpack_require__(181);
 
-	var _Item = __webpack_require__(188);
-=======
-	__webpack_require__(179);
-
-	var _Item = __webpack_require__(181);
->>>>>>> About to merge
+	var _Item = __webpack_require__(183);
 
 	var _Item2 = _interopRequireDefault(_Item);
 
@@ -21687,24 +21697,15 @@
 	exports.default = List;
 
 /***/ },
-<<<<<<< 3231da093056e49de247fe395c82beaa78bfb7e0
-/* 186 */
-=======
-/* 179 */
->>>>>>> About to merge
+/* 181 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	"use strict";
 
 /***/ },
-<<<<<<< 3231da093056e49de247fe395c82beaa78bfb7e0
-/* 187 */,
-/* 188 */
-=======
-/* 180 */,
-/* 181 */
->>>>>>> About to merge
+/* 182 */,
+/* 183 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21717,18 +21718,13 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-<<<<<<< 3231da093056e49de247fe395c82beaa78bfb7e0
-	__webpack_require__(189);
-=======
-	__webpack_require__(182);
->>>>>>> About to merge
+	__webpack_require__(184);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 	var Item = function Item(_ref) {
 	  var item = _ref.item;
 
-	  console.log(item);
 	  return _react2.default.createElement(
 	    'div',
 	    { className: 'Item' },
@@ -21764,24 +21760,15 @@
 	exports.default = Item;
 
 /***/ },
-<<<<<<< 3231da093056e49de247fe395c82beaa78bfb7e0
-/* 189 */
-=======
-/* 182 */
->>>>>>> About to merge
+/* 184 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	"use strict";
 
 /***/ },
-<<<<<<< 3231da093056e49de247fe395c82beaa78bfb7e0
-/* 190 */,
-/* 191 */
-=======
-/* 183 */,
-/* 184 */
->>>>>>> About to merge
+/* 185 */,
+/* 186 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21941,11 +21928,7 @@
 	exports.default = data;
 
 /***/ },
-<<<<<<< 3231da093056e49de247fe395c82beaa78bfb7e0
-/* 192 */
-=======
-/* 185 */
->>>>>>> About to merge
+/* 187 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
