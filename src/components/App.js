@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
-import './Geolocation.js'
+import logo from '../logo.svg';
+import './css/App.css';
 
 
 
@@ -9,7 +8,7 @@ class App extends Component {
   getLocation() {
     if (navigator.geolocation) {
       console.log('Geolocation is supported!');
-      return '';
+     // return '';
       }
       else {
       console.log('Geolocation is not supported for this Browser/OS.');
@@ -17,11 +16,12 @@ class App extends Component {
     // Get the user's location:
  if (navigator.geolocation) {
    navigator.geolocation.getCurrentPosition(function(position) {
-     return "latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude);
-     console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
-       .done(function(data) {
-           $('body').append("#dummy-restaurant");
-})
+    console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
+     return "latitude: " + position.coords.latitude + "<br>longitude: " + position.coords.longitude
+     
+       //.done(function(data) {
+          // $('body').append("#dummy-restaurant");
+//})
    });
  }
   }
