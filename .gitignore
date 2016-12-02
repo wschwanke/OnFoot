@@ -18,3 +18,12 @@ npm-debug.log
 # google api key
 
 server/env/config.js
+
+
+#babel
+
+babel_cache
+
+#compiled stuff
+
+compiled

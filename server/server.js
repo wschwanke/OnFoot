@@ -7,11 +7,13 @@ var googleAPI = require('./env/config.js')
 
 var port = 4040;
 
-var ip : '127.0.0.1';
-//serving static files
-app.use(express.static('public'));
-app.use(express.static('src'));
+var ip = '127.0.0.1';
+//serving react files
+app.use(express.static(path.join(__dirname, '/public')));
+app.use('/static', express.static(path.join(__dirname, '/../public/static')));
+
 app.use(bodyParser.json());
+
 
 
 
@@ -31,10 +33,8 @@ app.all('*', function(req, res, next) {
 
 
 app.get('/', function(req,res){
-  res.sendFile('index.html', {'root':__dirname+'/../public'});
+  res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
 })
-
-
 
 
 // api call for google maps
