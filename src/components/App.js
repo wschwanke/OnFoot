@@ -2,14 +2,16 @@ import React, { Component } from 'react';
 import logo from '../logo.svg';
 import './css/App.css';
 
-
+import List from './List';
+import data from './data/data.js'
 
 class App extends Component {
   constructor () {
     super()
     this.state = {
       //original value so that its not just undefined
-      location: [`Please Wait`]
+      location: [`Please Wait`], 
+      data: data //Using static data for now for rendering, please replace with data from server.
     };
   }
 
@@ -37,6 +39,8 @@ class App extends Component {
   render() {
     //set to a variable for a little better readability
     var location = this.state.location
+    //sets the data to the data variable
+    var data = this.state.data
     return (
       <div className="App">
         <div className="App-header">
@@ -47,6 +51,9 @@ class App extends Component {
 
           {location[0]} <br/> {location[1]}
         </p>
+        
+        <List data={data}/>
+
       </div>
     );
   }
