@@ -58,7 +58,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	__webpack_require__(191);
+	__webpack_require__(192);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21495,11 +21495,15 @@
 
 	__webpack_require__(180);
 
-	var _List = __webpack_require__(184);
+	var _getRestaurants = __webpack_require__(184);
+
+	var _getRestaurants2 = _interopRequireDefault(_getRestaurants);
+
+	var _List = __webpack_require__(185);
 
 	var _List2 = _interopRequireDefault(_List);
 
-	var _data = __webpack_require__(190);
+	var _data = __webpack_require__(191);
 
 	var _data2 = _interopRequireDefault(_data);
 
@@ -21514,7 +21518,7 @@
 	var App = function (_Component) {
 	  _inherits(App, _Component);
 
-	  function App() {
+	  function App(props) {
 	    _classCallCheck(this, App);
 
 	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
@@ -21522,7 +21526,8 @@
 	    _this.state = {
 	      //original value so that its not just undefined
 	      location: ['Please Wait'],
-	      data: _data2.default //Using static data for now for rendering, please replace with data from server.
+	      data: _data2.default, //Using static data for now for rendering, please replace with data from server.
+	      rest: ['default']
 	    };
 	    return _this;
 	  }
@@ -21547,12 +21552,23 @@
 	        });
 	      }
 	    }
+	  }, {
+	    key: 'getNearbyRestaurants',
+	    value: function getNearbyRestaurants(location) {
+	      var _this3 = this;
+
+	      (0, _getRestaurants2.default)(function (restaurants) {
+	        _this3.setState({ data: restaurants });
+	      });
+	    }
+
 	    //this waits till you have rendered something to then run anything in here
 
 	  }, {
 	    key: 'componentDidMount',
 	    value: function componentDidMount() {
 	      this.getLocation();
+	      this.getNearbyRestaurants();
 	    }
 	  }, {
 	    key: 'render',
@@ -21561,6 +21577,7 @@
 	      var location = this.state.location;
 	      //sets the data to the data variable
 	      var data = this.state.data;
+	      console.log("rest", this.state.rest);
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'App' },
@@ -21624,6 +21641,31 @@
 /* 182 */,
 /* 183 */,
 /* 184 */
+/***/ function(module, exports) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+	var getRestaurants = function getRestaurants(callback) {
+
+	  $.get('/fetchData').done(function (items) {
+	    console.log(items);
+	    callback(JSON.parse(items));
+	  }).fail(function (_ref) {
+	    var responseJSON = _ref.responseJSON;
+
+	    responseJSON.error.errors.forEach(function (err) {
+	      return console.error(err);
+	    });
+	  });
+	};
+
+	exports.default = getRestaurants;
+
+/***/ },
+/* 185 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21636,9 +21678,9 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	__webpack_require__(185);
+	__webpack_require__(186);
 
-	var _Item = __webpack_require__(187);
+	var _Item = __webpack_require__(188);
 
 	var _Item2 = _interopRequireDefault(_Item);
 
@@ -21660,15 +21702,15 @@
 	exports.default = List;
 
 /***/ },
-/* 185 */
+/* 186 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	"use strict";
 
 /***/ },
-/* 186 */,
-/* 187 */
+/* 187 */,
+/* 188 */
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21681,7 +21723,7 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	__webpack_require__(188);
+	__webpack_require__(189);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21724,15 +21766,15 @@
 	exports.default = Item;
 
 /***/ },
-/* 188 */
+/* 189 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	"use strict";
 
 /***/ },
-/* 189 */,
-/* 190 */
+/* 190 */,
+/* 191 */
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21892,7 +21934,7 @@
 	exports.default = data;
 
 /***/ },
-/* 191 */
+/* 192 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin

@@ -1,17 +1,19 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import './css/App.css';
+import getRestaurants from './lib/getRestaurants.js'
 
 import List from './List';
 import data from './data/data.js'
 
 class App extends Component {
-  constructor () {
+  constructor (props) {
     super()
     this.state = {
       //original value so that its not just undefined
-      location: [`Please Wait`], 
-      data: data //Using static data for now for rendering, please replace with data from server.
+      location: [`Please Wait`],
+      data:data, //Using static data for now for rendering, please replace with data from server.
+      rest: ['default']
     };
   }
 
@@ -32,15 +34,24 @@ class App extends Component {
       });
     }
   }
+  // get all the restaurants nearby
+  getNearbyRestaurants(location){
+    getRestaurants((restaurants) => {
+      this.setState({data:restaurants});
+    })
+  }
+
   //this waits till you have rendered something to then run anything in here
   componentDidMount() {
     this.getLocation()
+    this.getNearbyRestaurants();
   }
   render() {
     //set to a variable for a little better readability
     var location = this.state.location
     //sets the data to the data variable
     var data = this.state.data
+    console.log("rest",this.state.rest);
     return (
       <div className="App">
         <div className="App-header">
@@ -51,7 +62,7 @@ class App extends Component {
 
           {location[0]} <br/> {location[1]}
         </p>
-        
+
         <List data={data}/>
 
       </div>
