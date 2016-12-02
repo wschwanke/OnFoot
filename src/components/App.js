@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import logo from '../logo.svg';
 import './css/App.css';
 import getRestaurants from './lib/getRestaurants.js'
+import getAddress from './lib/getAddress.js'
 
 import List from './List';
 import data from './data/data.js'
@@ -11,7 +12,7 @@ class App extends Component {
     super()
     this.state = {
       //original value so that its not just undefined
-      location: [`Please Wait`],
+      location: `Please Wait`,
       data:data, //Using static data for now for rendering, please replace with data from server.
       rest: ['default']
     };
@@ -27,11 +28,17 @@ class App extends Component {
     // Get the user's location:
     if (navigator.geolocation) {
       //use an arrow function to not lose the this binding
-      navigator.geolocation.getCurrentPosition( (position) => {
+      //watchPosition will continually get the user's location
+      navigator.geolocation.watchPosition( (position) => {
         console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
-        //we set the state to the location we now have, split into two (not needed) to better manipulate for viewing
-        this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
-      });
+        //getAddress will take our longitude and latitude and find the nearest address to us
+        getAddress({lat:position.coords.latitude,lng:position.coords.longitude},((address)=>
+          //the location state will update each time this is run
+          this.setState({location: `Current Address: ${address.address.streetNumber} ${address.address.street}`})
+      
+            ))
+        //this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
+        })
     }
   }
   // get all the restaurants nearby
@@ -51,7 +58,6 @@ class App extends Component {
     var location = this.state.location
     //sets the data to the data variable
     var data = this.state.data
-    console.log("rest",this.state.rest);
     return (
       <div className="App">
         <div className="App-header">
@@ -60,9 +66,8 @@ class App extends Component {
         </div>
         <p className="App-intro">
 
-          {location[0]} <br/> {location[1]}
+          {location}
         </p>
-
         <List data={data}/>
 
       </div>

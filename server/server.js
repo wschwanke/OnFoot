@@ -45,6 +45,5 @@ app.get('/fetchData',function(req,res){
     }
   })
 })
-
 app.listen(port,ip);
 console.log("Listening to port :4040");

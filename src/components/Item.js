@@ -2,7 +2,6 @@ import React from 'react';
 import './css/Item.css';
 
 const Item = ({item}) => {
-  console.log(item);
   return (
     
     <div className="Item">
