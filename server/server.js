@@ -8,7 +8,7 @@ var googleAPI = require('./env/config.js')
 var port = 4040;
 
 var ip = '127.0.0.1';
-
+//serving react files
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/static', express.static(path.join(__dirname, '/../public/static')));
 
@@ -33,7 +33,6 @@ app.all('*', function(req, res, next) {
 
 
 app.get('/', function(req,res){
-  //res.sendFile('index.html', {'root':__dirname+'/../public'});
   res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
 })
 

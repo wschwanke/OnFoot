@@ -1,3 +1,5 @@
+//type this in the terminal to run the webpack: node_modules/.bin/webpack
+
 const webpack = require('webpack');
 const path = require('path');
 var ExtractTextPlugin = require('extract-text-webpack-plugin');
@@ -10,7 +12,7 @@ module.exports = {
   },
   resolve: {
     extensions: ['', '.js', '.jsx','.css']
-  },//add '.css' "root": __dirname }
+  },
 
   module: {
     loaders: [{
