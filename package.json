@@ -43,7 +43,8 @@
     "webpack-dev-middleware": "^1.8.4"
   },
   "scripts": {
-    "build": "node_modules/.bin/webpack",
+    "react": "node node_modules/react-scripts/scripts/start.js",
+    "build": "node_modules/.bin/webpack ",
     "test": "react-scripts test --env=jsdom",
     "start": "nodemon server/server.js "
   }
