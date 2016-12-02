@@ -22,11 +22,15 @@
   from { transform: rotate(0deg); }
   to { transform: rotate(360deg); }
 }
-body {
+.List {
+  text-align: left;
+}body {
   margin: 0;
   padding: 0;
   font-family: sans-serif;
+
 };
+
 .App {
   border: 2px solid black;
   text-align: center;
@@ -34,4 +38,5 @@ body {
   color: #333;
   margin: 20px;
   padding: 20px;
+
 };

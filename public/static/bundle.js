@@ -58,7 +58,7 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
-	__webpack_require__(183);
+	__webpack_require__(191);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21489,7 +21489,19 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
-	__webpack_require__(179);
+	var _logo = __webpack_require__(179);
+
+	var _logo2 = _interopRequireDefault(_logo);
+
+	__webpack_require__(180);
+
+	var _List = __webpack_require__(184);
+
+	var _List2 = _interopRequireDefault(_List);
+
+	var _data = __webpack_require__(190);
+
+	var _data2 = _interopRequireDefault(_data);
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21498,8 +21510,6 @@
 	function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
 
 	function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
-	//import logo from './logo.svg';
-
 
 	var App = function (_Component) {
 	  _inherits(App, _Component);
@@ -21507,19 +21517,57 @@
 	  function App() {
 	    _classCallCheck(this, App);
 
-	    return _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).apply(this, arguments));
+	    var _this = _possibleConstructorReturn(this, (App.__proto__ || Object.getPrototypeOf(App)).call(this));
+
+	    _this.state = {
+	      //original value so that its not just undefined
+	      location: ['Please Wait'],
+	      data: _data2.default //Using static data for now for rendering, please replace with data from server.
+	    };
+	    return _this;
 	  }
 
 	  _createClass(App, [{
+	    key: 'getLocation',
+	    value: function getLocation() {
+	      var _this2 = this;
+
+	      if (navigator.geolocation) {
+	        console.log('Geolocation is supported!');
+	      } else {
+	        console.log('Geolocation is not supported for this Browser/OS.');
+	      }
+	      // Get the user's location:
+	      if (navigator.geolocation) {
+	        //use an arrow function to not lose the this binding
+	        navigator.geolocation.getCurrentPosition(function (position) {
+	          console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude);
+	          //we set the state to the location we now have, split into two (not needed) to better manipulate for viewing
+	          _this2.setState({ location: ['latitude: ' + position.coords.latitude, 'longitude: ' + position.coords.longitude] });
+	        });
+	      }
+	    }
+	    //this waits till you have rendered something to then run anything in here
+
+	  }, {
+	    key: 'componentDidMount',
+	    value: function componentDidMount() {
+	      this.getLocation();
+	    }
+	  }, {
 	    key: 'render',
 	    value: function render() {
+	      //set to a variable for a little better readability
+	      var location = this.state.location;
+	      //sets the data to the data variable
+	      var data = this.state.data;
 	      return _react2.default.createElement(
 	        'div',
 	        { className: 'App' },
 	        _react2.default.createElement(
 	          'div',
 	          { className: 'App-header' },
-	          _react2.default.createElement('img', { src: logo, className: 'App-logo', alt: 'logo' }),
+	          _react2.default.createElement('img', { src: _logo2.default, className: 'App-logo', alt: 'logo' }),
 	          _react2.default.createElement(
 	            'h2',
 	            null,
@@ -21528,25 +21576,14 @@
 	        ),
 	        _react2.default.createElement(
 	          'p',
-	          null,
-	          'Server is working yess!!!'
-	        ),
-	        _react2.default.createElement(
-	          'p',
-	          null,
-	          'Test live server'
-	        ),
-	        _react2.default.createElement(
-	          'p',
 	          { className: 'App-intro' },
-	          'To get started, edit ',
-	          _react2.default.createElement(
-	            'code',
-	            null,
-	            'src/App.js'
-	          ),
-	          ' and save to reload.'
-	        )
+	          location[0],
+	          ' ',
+	          _react2.default.createElement('br', null),
+	          ' ',
+	          location[1]
+	        ),
+	        _react2.default.createElement(_List2.default, { data: data })
 	      );
 	    }
 	  }]);
@@ -21558,16 +21595,304 @@
 
 /***/ },
 /* 179 */
+/***/ function(module, exports, __webpack_require__) {
+
+	/* WEBPACK VAR INJECTION */(function(React) {"use strict";
+
+	React.createElement(
+	    "svg",
+	    { xmlns: "http://www.w3.org/2000/svg", viewBox: "0 0 841.9 595.3" },
+	    React.createElement(
+	        "g",
+	        { fill: "#61DAFB" },
+	        React.createElement("path", { d: "M666.3 296.5c0-32.5-40.7-63.3-103.1-82.4 14.4-63.6 8-114.2-20.2-130.4-6.5-3.8-14.1-5.6-22.4-5.6v22.3c4.6 0 8.3.9 11.4 2.6 13.6 7.8 19.5 37.5 14.9 75.7-1.1 9.4-2.9 19.3-5.1 29.4-19.6-4.8-41-8.5-63.5-10.9-13.5-18.5-27.5-35.3-41.6-50 32.6-30.3 63.2-46.9 84-46.9V78c-27.5 0-63.5 19.6-99.9 53.6-36.4-33.8-72.4-53.2-99.9-53.2v22.3c20.7 0 51.4 16.5 84 46.6-14 14.7-28 31.4-41.3 49.9-22.6 2.4-44 6.1-63.6 11-2.3-10-4-19.7-5.2-29-4.7-38.2 1.1-67.9 14.6-75.8 3-1.8 6.9-2.6 11.5-2.6V78.5c-8.4 0-16 1.8-22.6 5.6-28.1 16.2-34.4 66.7-19.9 130.1-62.2 19.2-102.7 49.9-102.7 82.3 0 32.5 40.7 63.3 103.1 82.4-14.4 63.6-8 114.2 20.2 130.4 6.5 3.8 14.1 5.6 22.5 5.6 27.5 0 63.5-19.6 99.9-53.6 36.4 33.8 72.4 53.2 99.9 53.2 8.4 0 16-1.8 22.6-5.6 28.1-16.2 34.4-66.7 19.9-130.1 62-19.1 102.5-49.9 102.5-82.3zm-130.2-66.7c-3.7 12.9-8.3 26.2-13.5 39.5-4.1-8-8.4-16-13.1-24-4.6-8-9.5-15.8-14.4-23.4 14.2 2.1 27.9 4.7 41 7.9zm-45.8 106.5c-7.8 13.5-15.8 26.3-24.1 38.2-14.9 1.3-30 2-45.2 2-15.1 0-30.2-.7-45-1.9-8.3-11.9-16.4-24.6-24.2-38-7.6-13.1-14.5-26.4-20.8-39.8 6.2-13.4 13.2-26.8 20.7-39.9 7.8-13.5 15.8-26.3 24.1-38.2 14.9-1.3 30-2 45.2-2 15.1 0 30.2.7 45 1.9 8.3 11.9 16.4 24.6 24.2 38 7.6 13.1 14.5 26.4 20.8 39.8-6.3 13.4-13.2 26.8-20.7 39.9zm32.3-13c5.4 13.4 10 26.8 13.8 39.8-13.1 3.2-26.9 5.9-41.2 8 4.9-7.7 9.8-15.6 14.4-23.7 4.6-8 8.9-16.1 13-24.1zM421.2 430c-9.3-9.6-18.6-20.3-27.8-32 9 .4 18.2.7 27.5.7 9.4 0 18.7-.2 27.8-.7-9 11.7-18.3 22.4-27.5 32zm-74.4-58.9c-14.2-2.1-27.9-4.7-41-7.9 3.7-12.9 8.3-26.2 13.5-39.5 4.1 8 8.4 16 13.1 24 4.7 8 9.5 15.8 14.4 23.4zM420.7 163c9.3 9.6 18.6 20.3 27.8 32-9-.4-18.2-.7-27.5-.7-9.4 0-18.7.2-27.8.7 9-11.7 18.3-22.4 27.5-32zm-74 58.9c-4.9 7.7-9.8 15.6-14.4 23.7-4.6 8-8.9 16-13 24-5.4-13.4-10-26.8-13.8-39.8 13.1-3.1 26.9-5.8 41.2-7.9zm-90.5 125.2c-35.4-15.1-58.3-34.9-58.3-50.6 0-15.7 22.9-35.6 58.3-50.6 8.6-3.7 18-7 27.7-10.1 5.7 19.6 13.2 40 22.5 60.9-9.2 20.8-16.6 41.1-22.2 60.6-9.9-3.1-19.3-6.5-28-10.2zM310 490c-13.6-7.8-19.5-37.5-14.9-75.7 1.1-9.4 2.9-19.3 5.1-29.4 19.6 4.8 41 8.5 63.5 10.9 13.5 18.5 27.5 35.3 41.6 50-32.6 30.3-63.2 46.9-84 46.9-4.5-.1-8.3-1-11.3-2.7zm237.2-76.2c4.7 38.2-1.1 67.9-14.6 75.8-3 1.8-6.9 2.6-11.5 2.6-20.7 0-51.4-16.5-84-46.6 14-14.7 28-31.4 41.3-49.9 22.6-2.4 44-6.1 63.6-11 2.3 10.1 4.1 19.8 5.2 29.1zm38.5-66.7c-8.6 3.7-18 7-27.7 10.1-5.7-19.6-13.2-40-22.5-60.9 9.2-20.8 16.6-41.1 22.2-60.6 9.9 3.1 19.3 6.5 28.1 10.2 35.4 15.1 58.3 34.9 58.3 50.6-.1 15.7-23 35.6-58.4 50.6zM320.8 78.4z" }),
+	        React.createElement("circle", { cx: "420.9", cy: "296.5", r: "45.7" }),
+	        React.createElement("path", { d: "M520.5 78.1z" })
+	    )
+	);
+	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(1)))
+
+/***/ },
+/* 180 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	"use strict";
 
 /***/ },
-/* 180 */,
 /* 181 */,
 /* 182 */,
-/* 183 */
+/* 183 */,
+/* 184 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	__webpack_require__(185);
+
+	var _Item = __webpack_require__(187);
+
+	var _Item2 = _interopRequireDefault(_Item);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var List = function List(_ref) {
+	  var data = _ref.data;
+
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'List' },
+	    'Places you may get to On-Foot:',
+	    data.results.map(function (result) {
+	      return _react2.default.createElement(_Item2.default, { item: result });
+	    })
+	  );
+	};
+
+	exports.default = List;
+
+/***/ },
+/* 185 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	"use strict";
+
+/***/ },
+/* 186 */,
+/* 187 */
+/***/ function(module, exports, __webpack_require__) {
+
+	'use strict';
+
+	Object.defineProperty(exports, "__esModule", {
+	  value: true
+	});
+
+	var _react = __webpack_require__(1);
+
+	var _react2 = _interopRequireDefault(_react);
+
+	__webpack_require__(188);
+
+	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+	var Item = function Item(_ref) {
+	  var item = _ref.item;
+
+	  console.log(item);
+	  return _react2.default.createElement(
+	    'div',
+	    { className: 'Item' },
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      _react2.default.createElement('img', { src: item.icon })
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      ' NAME: ',
+	      item.name,
+	      ' '
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      ' RATING: ',
+	      item.rating,
+	      ' '
+	    ),
+	    _react2.default.createElement(
+	      'div',
+	      null,
+	      ' VICINITY: ',
+	      item.vicinity,
+	      ' '
+	    )
+	  );
+	};
+
+	exports.default = Item;
+
+/***/ },
+/* 188 */
+/***/ function(module, exports) {
+
+	// removed by extract-text-webpack-plugin
+	"use strict";
+
+/***/ },
+/* 189 */,
+/* 190 */
+/***/ function(module, exports) {
+
+	"use strict";
+
+	Object.defineProperty(exports, "__esModule", {
+	   value: true
+	});
+	var data = {
+	   "html_attributions": [],
+	   "next_page_token": "CpQCDgEAAHBYLqzcj0RukeyhHlQCMdTKuRsEA-pVIP4b3rvQPeOr-7S4QR1bDsjyKg_eLgNQly1TfAOy0MZkwbbe6aYRD1T6gNS1cpOyhNWnt1j6pulbet7rnfVXNSJDnQSZ5QrgT-UQYO8PoXTl4cK-z5LLrQpXRXOIwPWshr6DKDCGb8VzIlUEfC1-H0hgs4fBqi35LdemftxjOTjJS4Q5ANYmo1dzZGBrt5ce4KTmBaMh393UY0Z1QvOZsr3Qhc9XRTv4RGe-CzNiije4_h7Ldo5ynWzB_K_ebykiyxcWyqVtxhEXZSEbqsKQigqnTGWuQqWV-ghFZA2ecLpf0ZEefepC3PTefqmxfv8i2nTBH4NU4Ii1EhDWlcYEUUA1_XEHtMMwW9WqGhT5dFj22vGe9d6cxX_Rq2T_Et6-tA",
+	   "results": [{
+	      "geometry": {
+	         "location": {
+	            "lat": 30.270508,
+	            "lng": -97.73433519999999
+	         },
+	         "viewport": {
+	            "northeast": {
+	               "lat": 30.27097284999999,
+	               "lng": -97.73415865
+	            },
+	            "southwest": {
+	               "lat": 30.27035305,
+	               "lng": -97.73439404999998
+	            }
+	         }
+	      },
+	      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/lodging-71.png",
+	      "id": "dea9b01009c90b56eb16da055e042af1c6538ae7",
+	      "name": "Sheraton Austin Hotel at the Capitol",
+	      "photos": [{
+	         "height": 4160,
+	         "html_attributions": ["<a href=\"https://maps.google.com/maps/contrib/100342451397102086879/photos\">Tavares Harris</a>"],
+	         "photo_reference": "CoQBdwAAAHI5RkZZ12TpO01BcH8yAoPDy2MS4h8vTmHAjd-O6aEJGsx-e4Nq1NzUjOge-LiLfK_RX5LOMkgzValckSlC9k2BffJBOtF185Wa5oq3w_uvWe5EVHRHSWfBW6hN2-06xkIadxdELMEqs2Brlnt_4-dumlWGSfPwEaZKV3v75H0vEhB73wr5LEci_yVU_S55dDzxGhRbl1cBV4XNA7WBKTVgrKXbmNrmRQ",
+	         "width": 3120
+	      }],
+	      "place_id": "ChIJZxY7iKO1RIYRXGdhRpd2dRI",
+	      "rating": 3.7,
+	      "reference": "CmRRAAAAb-cTA7TayoxT1rjCO0sViNGDnfNV7vEQ6aBIXWxx5LTniuTg14JbEnuQ5bkOQHxNL0W7xWP2Y1mcXacgUDRjq6kFzQ_G9jLTqTUZr1gst4HZFnGYTOuOPIP7cu3X-AszEhApMbG0nCyRhsNuglhHqFDSGhQFz_ZYJGSFxwK3e9HMZXqAUl4WqA",
+	      "scope": "GOOGLE",
+	      "types": ["lodging", "restaurant", "food", "point_of_interest", "establishment"],
+	      "vicinity": "701 East 11th Street, Austin"
+	   }, {
+	      "geometry": {
+	         "location": {
+	            "lat": 30.267062,
+	            "lng": -97.74032299999999
+	         },
+	         "viewport": {
+	            "northeast": {
+	               "lat": 30.26746534999999,
+	               "lng": -97.74016954999999
+	            },
+	            "southwest": {
+	               "lat": 30.26692755,
+	               "lng": -97.74037415000001
+	            }
+	         }
+	      },
+	      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
+	      "id": "39d0e6d218dc49b50befd04e239dddb50effa737",
+	      "name": "Parkside",
+	      "opening_hours": {
+	         "open_now": false,
+	         "weekday_text": []
+	      },
+	      "photos": [{
+	         "height": 2988,
+	         "html_attributions": ["<a href=\"https://maps.google.com/maps/contrib/103779141826590306882/photos\">Nizam Hyd</a>"],
+	         "photo_reference": "CoQBdwAAADfIr1nn6ymrINapeXJeOPlSifPxYkkFjEXP6gQ-lbaF_7FKY0JwzNh00xYULhd1S_oT7elu_wcTiw6J5EWKf8zeATDnTzO1cMVa7qiTJ9ubGa3-GsS6Sl5t4FShJqeuA2LFlZ3W7kaG_bDmNF0AE7qrnHtEiRxSQ1agQkY_ZjqxEhASISYQoMK7WI_oS_umE3w0GhRJ_sQQ9CApJ__flJ91n6S1q4Fq0A",
+	         "width": 5312
+	      }],
+	      "place_id": "ChIJrQKrmKe1RIYRPghJQoExXJM",
+	      "price_level": 2,
+	      "rating": 4.2,
+	      "reference": "CmRSAAAANXM1_8oWZlBYjyIfmdyxQYp5jZzqDoDPqzIzVcECAk3sD3G-MiB0KYiafHMNU5bpPqzyRw6WtOFQaErkdt_kC74Fr67qGulkP5HTW3SudzFiB5Go0VuBXlXqa9EFxERvEhDW47BhSk58-Omt-DpwOEJ1GhQB_lntd_3k27a_Yhaiaq6pj9qUIg",
+	      "scope": "GOOGLE",
+	      "types": ["bar", "restaurant", "food", "point_of_interest", "establishment"],
+	      "vicinity": "301 East 6th Street, Austin"
+	   }, {
+	      "geometry": {
+	         "location": {
+	            "lat": 30.263855,
+	            "lng": -97.7415953
+	         },
+	         "viewport": {
+	            "northeast": {
+	               "lat": 30.2638651,
+	               "lng": -97.7415367
+	            },
+	            "southwest": {
+	               "lat": 30.26382469999999,
+	               "lng": -97.74177109999998
+	            }
+	         }
+	      },
+	      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
+	      "id": "7c34c2814c66dc33534adbeb4e64ae7117ec7501",
+	      "name": "P.F. Chang's",
+	      "opening_hours": {
+	         "open_now": true,
+	         "weekday_text": []
+	      },
+	      "photos": [{
+	         "height": 2988,
+	         "html_attributions": ["<a href=\"https://maps.google.com/maps/contrib/107023948769061454618/photos\">Melissa Paterniti</a>"],
+	         "photo_reference": "CoQBdwAAAHnlDe4iO31PD_Ak3FIlpEuW17bti2kwe8bOLXG7aQiSvTJui0VuG5_h1Tkb1lSLaZ7Y5O2ZUvMTxXftYO4LgBHvRr3WKijz2hpuoge7mAEsQZFkbliENFqyOe-ZArhI_g021WfIqmYmHHsnw8jwH5yuVK0S5cOF9UZNZz9k4aLHEhC_lOzKRbE1ksR6Zyib9coMGhRLl0cmSY6Z2jX7JHcIUeGI_iJlfw",
+	         "width": 5312
+	      }],
+	      "place_id": "ChIJF9q49we1RIYRilv3WAdeeQM",
+	      "price_level": 2,
+	      "rating": 3.9,
+	      "reference": "CmRRAAAAR5hUf-mleU8tp9D3EyB936cVD7mAs7CCOau_6AtAaME_3nhHUVGN_z6LBDf7VpYM1WCWan-aBLs7pVUiPK1vGo1i2Mooip3BgSY4jrz6zvBIJ2IOfdkDnVuwjlEAvXiuEhAEOCY3LeSymGibJN95qjCfGhSL7brN5M9SMfaRo09Gf4LxpimnJQ",
+	      "scope": "GOOGLE",
+	      "types": ["restaurant", "food", "point_of_interest", "establishment"],
+	      "vicinity": "201 San Jacinto Boulevard, Austin"
+	   }, {
+	      "geometry": {
+	         "location": {
+	            "lat": 30.2662553,
+	            "lng": -97.7406582
+	         },
+	         "viewport": {
+	            "northeast": {
+	               "lat": 30.2664812,
+	               "lng": -97.7405175
+	            },
+	            "southwest": {
+	               "lat": 30.26618,
+	               "lng": -97.74070510000001
+	            }
+	         }
+	      },
+	      "icon": "https://maps.gstatic.com/mapfiles/place_api/icons/restaurant-71.png",
+	      "id": "baf44558bd5c0d4f5a50df47b43df5b32ac7f973",
+	      "name": "Eddie V's",
+	      "opening_hours": {
+	         "open_now": false,
+	         "weekday_text": []
+	      },
+	      "photos": [{
+	         "height": 2526,
+	         "html_attributions": ["<a href=\"https://maps.google.com/maps/contrib/101760556264876550718/photos\">Amy Ma</a>"],
+	         "photo_reference": "CoQBdwAAALFVGGCKXIjoB8Cm_i27eELBuyNZ9paWMjQZXomHJXnB4eMYr4NiFBFdxrfPgnHA_xSMC9E7_raVA_XfTpwX7kWSsINRclIOoCfBlCF3j5Spnk-lSvQUuYCPauReO0y4rgbrjkT8zxK1hJC8krQp1nWo-TkbR3Kt7SbXupTF3NQZEhCWW-7raI8PXDntvJzvkEeVGhTgQbN2ueT0JtJxf3yiidNECy-sAQ",
+	         "width": 3648
+	      }],
+	      "place_id": "ChIJlZRUkae1RIYRm5oaF2g0dSM",
+	      "price_level": 3,
+	      "rating": 4.5,
+	      "reference": "CmRRAAAAoLpHbN0WeYT6ImED4fvZorunHVTTRDP_oa2OTDjJ1RsIJrhGUPPccm-UwtBfycE-6VaPVuseQK-iVznbKyXencg1DHsCmEZoBYvF5E1zGavvBBWeeRYMwL4MdNPdiXWVEhCniG98XusXQoLZkv4mG0Z8GhRHmhYEUri8bR7fpopC63pW4YclOA",
+	      "scope": "GOOGLE",
+	      "types": ["bar", "restaurant", "food", "point_of_interest", "establishment"],
+	      "vicinity": "301 East 5th Street, Austin"
+	   }]
+	};
+
+	exports.default = data;
+
+/***/ },
+/* 191 */
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
