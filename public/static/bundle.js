@@ -21489,7 +21489,7 @@
 
 	    _this.state = {
 	      //original value so that its not just undefined
-	      location: ['Please Wait'],
+	      location: 'Please Wait',
 	      data: _data2.default, //Using static data for now for rendering, please replace with data from server.
 	      rest: ['default']
 	    };
@@ -21509,11 +21509,15 @@
 	      // Get the user's location:
 	      if (navigator.geolocation) {
 	        //use an arrow function to not lose the this binding
+	        //watchPosition will continually get the user's location
 	        navigator.geolocation.watchPosition(function (position) {
 	          console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude);
-	          //we set the state to the location we now have, split into two (not needed) to better manipulate for viewing
+	          //getAddress will take our longitude and latitude and find the nearest address to us
 	          (0, _getAddress2.default)({ lat: position.coords.latitude, lng: position.coords.longitude }, function (address) {
-	            return _this2.setState({ location: ['Current Address: ' + address.address.streetNumber + ' ' + address.address.street] });
+	            return (
+	              //the location state will update each time this is run
+	              _this2.setState({ location: 'Current Address: ' + address.address.streetNumber + ' ' + address.address.street })
+	            );
 	          });
 	          //this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
 	        });
@@ -21562,10 +21566,7 @@
 	        _react2.default.createElement(
 	          'p',
 	          { className: 'App-intro' },
-	          location[0],
-	          ' ',
-	          _react2.default.createElement('br', null),
-	          location[1]
+	          location
 	        ),
 	        _react2.default.createElement(_List2.default, { data: data })
 	      );
@@ -21640,13 +21641,13 @@
 	  value: true
 	});
 	var getAddress = function getAddress(options, callback) {
-
+	  //sends off an api request with options we pass in, this gets the closest address to our lat & long
 	  $.get('http://api.geonames.org/findNearestAddressJSON', {
 	    lat: options.lat,
 	    lng: options.lng,
+	    //the username is required to use this api call
 	    username: 'onFoot'
 	  }).done(function (items) {
-	    console.log(items);
 	    callback(items);
 	  }).fail(function (_ref) {
 	    var responseJSON = _ref.responseJSON;
