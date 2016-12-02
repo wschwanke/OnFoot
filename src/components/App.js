@@ -10,6 +10,7 @@ class App extends Component {
   constructor (props) {
     super()
     this.state = {
+      map: undefined,
       //original value so that its not just undefined
       location: [`Please Wait`],
       data:data, //Using static data for now for rendering, please replace with data from server.
@@ -28,6 +29,7 @@ class App extends Component {
     if (navigator.geolocation) {
       //use an arrow function to not lose the this binding
       navigator.geolocation.getCurrentPosition( (position) => {
+        console.log('position object: ',position)
         console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
         //we set the state to the location we now have, split into two (not needed) to better manipulate for viewing
         this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
