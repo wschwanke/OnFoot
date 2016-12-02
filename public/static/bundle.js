@@ -58,7 +58,11 @@
 
 	var _App2 = _interopRequireDefault(_App);
 
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 	__webpack_require__(187);
+=======
+	__webpack_require__(186);
+>>>>>>> testing to see if static file was needed
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -6594,6 +6598,8 @@
 
 /***/ },
 /* 51 */
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
+=======
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6632,6 +6638,50 @@
 
 /***/ },
 /* 52 */
+>>>>>>> testing to see if static file was needed
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
+	 * @providesModule getTextContentAccessor
+=======
+	 * @providesModule SyntheticCompositionEvent
+>>>>>>> testing to see if static file was needed
+	 */
+
+	'use strict';
+
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
+	var ExecutionEnvironment = __webpack_require__(49);
+
+	var contentKey = null;
+
+	/**
+	 * Gets the key used to access text content on a DOM node.
+	 *
+	 * @return {?string} Key used to access text content.
+	 * @internal
+	 */
+	function getTextContentAccessor() {
+	  if (!contentKey && ExecutionEnvironment.canUseDOM) {
+	    // Prefer textContent to innerText because many browsers support both but
+	    // SVG <text> elements don't support innerText even when <div> does.
+	    contentKey = 'textContent' in document.documentElement ? 'textContent' : 'innerText';
+	  }
+	  return contentKey;
+	}
+
+	module.exports = getTextContentAccessor;
+
+/***/ },
+/* 52 */
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -6647,6 +6697,8 @@
 
 	'use strict';
 
+=======
+>>>>>>> testing to see if static file was needed
 	var SyntheticEvent = __webpack_require__(53);
 
 	/**
@@ -7680,9 +7732,15 @@
 	  }
 
 	});
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 
 	PooledClass.addPoolingTo(CallbackQueue);
 
+=======
+
+	PooledClass.addPoolingTo(CallbackQueue);
+
+>>>>>>> testing to see if static file was needed
 	module.exports = CallbackQueue;
 	/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(3)))
 
@@ -10676,6 +10734,7 @@
 
 /***/ },
 /* 92 */
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 /***/ function(module, exports, __webpack_require__) {
 
 	/**
@@ -10692,6 +10751,54 @@
 	'use strict';
 
 	var keyMirror = __webpack_require__(23);
+
+	/**
+	 * When a component's children are updated, a series of update configuration
+	 * objects are created in order to batch and serialize the required changes.
+	 *
+	 * Enumerates all the possible types of update configurations.
+	 *
+	 * @internal
+	 */
+	var ReactMultiChildUpdateTypes = keyMirror({
+	  INSERT_MARKUP: null,
+	  MOVE_EXISTING: null,
+	  REMOVE_NODE: null,
+	  SET_MARKUP: null,
+	  TEXT_CONTENT: null
+	});
+
+	module.exports = ReactMultiChildUpdateTypes;
+
+/***/ },
+/* 93 */
+=======
+>>>>>>> testing to see if static file was needed
+/***/ function(module, exports, __webpack_require__) {
+
+	/**
+	 * Copyright 2013-present, Facebook, Inc.
+	 * All rights reserved.
+	 *
+	 * This source code is licensed under the BSD-style license found in the
+	 * LICENSE file in the root directory of this source tree. An additional grant
+	 * of patent rights can be found in the PATENTS file in the same directory.
+	 *
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
+	 * @providesModule ReactDOMIDOperations
+=======
+	 * @providesModule ReactMultiChildUpdateTypes
+>>>>>>> testing to see if static file was needed
+	 */
+
+	'use strict';
+
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
+	var DOMChildrenOperations = __webpack_require__(81);
+	var ReactDOMComponentTree = __webpack_require__(36);
+=======
+	var keyMirror = __webpack_require__(23);
+>>>>>>> testing to see if static file was needed
 
 	/**
 	 * When a component's children are updated, a series of update configuration
@@ -16019,6 +16126,7 @@
 	 */
 
 	/*eslint-disable no-self-compare */
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 
 	'use strict';
 
@@ -16058,6 +16166,47 @@
 	  var keysA = Object.keys(objA);
 	  var keysB = Object.keys(objB);
 
+=======
+
+	'use strict';
+
+	var hasOwnProperty = Object.prototype.hasOwnProperty;
+
+	/**
+	 * inlined Object.is polyfill to avoid requiring consumers ship their own
+	 * https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Object/is
+	 */
+	function is(x, y) {
+	  // SameValue algorithm
+	  if (x === y) {
+	    // Steps 1-5, 7-10
+	    // Steps 6.b-6.e: +0 != -0
+	    // Added the nonzero y check to make Flow happy, but it is redundant
+	    return x !== 0 || y !== 0 || 1 / x === 1 / y;
+	  } else {
+	    // Step 6.a: NaN == NaN
+	    return x !== x && y !== y;
+	  }
+	}
+
+	/**
+	 * Performs equality by iterating through keys on an object and returning false
+	 * when any key has values which are not strictly equal between the arguments.
+	 * Returns true when the values of all keys are strictly equal.
+	 */
+	function shallowEqual(objA, objB) {
+	  if (is(objA, objB)) {
+	    return true;
+	  }
+
+	  if (typeof objA !== 'object' || objA === null || typeof objB !== 'object' || objB === null) {
+	    return false;
+	  }
+
+	  var keysA = Object.keys(objA);
+	  var keysB = Object.keys(objB);
+
+>>>>>>> testing to see if static file was needed
 	  if (keysA.length !== keysB.length) {
 	    return false;
 	  }
@@ -19579,6 +19728,7 @@
 	    phasedRegistrationNames: {
 	      bubbled: keyOf({ onSubmit: true }),
 	      captured: keyOf({ onSubmitCapture: true })
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 	    }
 	  },
 	  suspend: {
@@ -19611,6 +19761,40 @@
 	      captured: keyOf({ onTouchMoveCapture: true })
 	    }
 	  },
+=======
+	    }
+	  },
+	  suspend: {
+	    phasedRegistrationNames: {
+	      bubbled: keyOf({ onSuspend: true }),
+	      captured: keyOf({ onSuspendCapture: true })
+	    }
+	  },
+	  timeUpdate: {
+	    phasedRegistrationNames: {
+	      bubbled: keyOf({ onTimeUpdate: true }),
+	      captured: keyOf({ onTimeUpdateCapture: true })
+	    }
+	  },
+	  touchCancel: {
+	    phasedRegistrationNames: {
+	      bubbled: keyOf({ onTouchCancel: true }),
+	      captured: keyOf({ onTouchCancelCapture: true })
+	    }
+	  },
+	  touchEnd: {
+	    phasedRegistrationNames: {
+	      bubbled: keyOf({ onTouchEnd: true }),
+	      captured: keyOf({ onTouchEndCapture: true })
+	    }
+	  },
+	  touchMove: {
+	    phasedRegistrationNames: {
+	      bubbled: keyOf({ onTouchMove: true }),
+	      captured: keyOf({ onTouchMoveCapture: true })
+	    }
+	  },
+>>>>>>> testing to see if static file was needed
 	  touchStart: {
 	    phasedRegistrationNames: {
 	      bubbled: keyOf({ onTouchStart: true }),
@@ -21459,6 +21643,7 @@
 
 	var _getRestaurants2 = _interopRequireDefault(_getRestaurants);
 
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 	var _getAddress = __webpack_require__(179);
 
 	var _getAddress2 = _interopRequireDefault(_getAddress);
@@ -21468,6 +21653,13 @@
 	var _List2 = _interopRequireDefault(_List);
 
 	var _data = __webpack_require__(186);
+=======
+	var _List = __webpack_require__(179);
+
+	var _List2 = _interopRequireDefault(_List);
+
+	var _data = __webpack_require__(185);
+>>>>>>> testing to see if static file was needed
 
 	var _data2 = _interopRequireDefault(_data);
 
@@ -21633,6 +21825,7 @@
 
 /***/ },
 /* 179 */
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 /***/ function(module, exports) {
 
 	'use strict';
@@ -21662,6 +21855,8 @@
 
 /***/ },
 /* 180 */
+=======
+>>>>>>> testing to see if static file was needed
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21674,9 +21869,15 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 	__webpack_require__(181);
 
 	var _Item = __webpack_require__(183);
+=======
+	__webpack_require__(180);
+
+	var _Item = __webpack_require__(182);
+>>>>>>> testing to see if static file was needed
 
 	var _Item2 = _interopRequireDefault(_Item);
 
@@ -21698,15 +21899,24 @@
 	exports.default = List;
 
 /***/ },
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 /* 181 */
+=======
+/* 180 */
+>>>>>>> testing to see if static file was needed
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	"use strict";
 
 /***/ },
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 /* 182 */,
 /* 183 */
+=======
+/* 181 */,
+/* 182 */
+>>>>>>> testing to see if static file was needed
 /***/ function(module, exports, __webpack_require__) {
 
 	'use strict';
@@ -21719,7 +21929,11 @@
 
 	var _react2 = _interopRequireDefault(_react);
 
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 	__webpack_require__(184);
+=======
+	__webpack_require__(183);
+>>>>>>> testing to see if static file was needed
 
 	function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -21761,15 +21975,24 @@
 	exports.default = Item;
 
 /***/ },
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 /* 184 */
+=======
+/* 183 */
+>>>>>>> testing to see if static file was needed
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
 	"use strict";
 
 /***/ },
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 /* 185 */,
 /* 186 */
+=======
+/* 184 */,
+/* 185 */
+>>>>>>> testing to see if static file was needed
 /***/ function(module, exports) {
 
 	"use strict";
@@ -21929,7 +22152,11 @@
 	exports.default = data;
 
 /***/ },
+<<<<<<< 83017ca9e42e3cbbafe9671448acee274dddd58a
 /* 187 */
+=======
+/* 186 */
+>>>>>>> testing to see if static file was needed
 /***/ function(module, exports) {
 
 	// removed by extract-text-webpack-plugin
