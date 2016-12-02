@@ -3,11 +3,22 @@
   "version": "0.1.0",
   "private": true,
   "devDependencies": {
+    "babel-loader": "^6.2.8",
+    "css-loader": "^0.26.0",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "http-server": "^0.9.0",
     "mocha": "^3.2.0",
-    "react-scripts": "0.7.0"
+    "postcss-loader": "^1.1.1",
+    "react-scripts": "0.7.0",
+    "sass-loader": "^4.0.2",
+    "style-loader": "^0.13.1",
+    "toolbox-loader": "0.0.3",
+    "webpack": "^1.13.3"
   },
   "dependencies": {
     "babel-eslint": "^7.0.0",
+    "babel-loader": "^6.2.8",
+    "body-parser": "^1.15.2",
     "eslint": "^3.8.1",
     "eslint-config-react-app": "^0.3.0",
     "eslint-plugin-flowtype": "^2.21.0",
@@ -15,15 +26,18 @@
     "eslint-plugin-jsx-a11y": "^2.2.3",
     "eslint-plugin-react": "^6.4.1",
     "express": "^4.14.0",
+    "extract-text-webpack-plugin": "^1.0.1",
     "jquery": "^3.1.1",
+    "nodemon": "^1.11.0",
     "react": "^15.4.1",
     "react-dom": "^15.4.1",
-    "underscore": "^1.8.3"
+    "request": "^2.79.0",
+    "underscore": "^1.8.3",
+    "webpack-dev-middleware": "^1.8.4"
   },
   "scripts": {
-    "start": "react-scripts start",
-    "build": "react-scripts build",
-    "test": "react-scripts test --env=jsdom"
-
+    "build": "node_modules/.bin/webpack ",
+    "test": "react-scripts test --env=jsdom",
+    "start": "nodemon server/server.js "
   }
 }
