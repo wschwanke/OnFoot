@@ -2,7 +2,6 @@ import React from 'react';
 //import './css/Item.css';
 
 const Item = ({item}) => {
-  console.log(item);
   return (
     <li>
       <span className="ribbon icon"><a href="/fav" title="title">{item.rating}</a></span>
