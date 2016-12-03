@@ -1,3 +1,4 @@
+import $ from 'jquery'; 
 var getAddress = (options,callback) => {
 //sends off an api request with options we pass in, this gets the closest address to our lat & long
   $.get('http://api.geonames.org/findNearestAddressJSON',{

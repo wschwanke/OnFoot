@@ -1,3 +1,4 @@
+import $ from 'jquery'; 
 var getRestaurants = (callback) => {
 
   $.get('/fetchData')
