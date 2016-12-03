@@ -6,6 +6,7 @@ import getAddress from './lib/getAddress.js'
 
 import List from './List';
 import data from './data/data.js'
+import Loading from './Loading';
 
 class App extends Component {
   constructor (props) {
@@ -59,15 +60,13 @@ class App extends Component {
     //sets the data to the data variable
     var data = this.state.data
     return (
-      <div className="App">
-        <div className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <h2>Welcome to React</h2>
-        </div>
+     <div className="App">
+        
         <p className="App-intro">
-
           {location}
         </p>
+
+        <Loading />
         <List data={data}/>
 
       </div>

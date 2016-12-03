@@ -1,18 +1,23 @@
 import React from 'react';
-import './css/Item.css';
+//import './css/Item.css';
 
 const Item = ({item}) => {
   return (
-    
-    <div className="Item">
-      <div>
-        <img src={item.icon} />
-      </div>
-      <div> NAME: {item.name} </div>
-      <div> RATING: {item.rating} </div>
-      <div> VICINITY: {item.vicinity} </div>
-    </div>
+    <li>
+      <span className="ribbon icon"><a href="/fav" title="title">{item.rating}</a></span>
+      <a href="#">
+        {/*<span className="grid-number"></span>*/}
+        <figure>
+          <img src="http://placehold.it/800x600" alt="Photo of a restaurant" />
+          <figcaption>
+            
+            <h2>{item.name}</h2>
+            <h3>{item.vicinity}</h3>
 
+          </figcaption>
+        </figure>
+      </a>
+    </li>
     );
 };
 
