@@ -13,7 +13,7 @@ class App extends Component {
     super()
     this.state = {
       //original value so that its not just undefined
-      location: `Please Wait`,
+      location: `Getting your location...`,
       data:data, //Using static data for now for rendering, please replace with data from server.
       showList: false,
       hideButton: false
@@ -69,11 +69,7 @@ class App extends Component {
     return (
      <div className="App">
 
-        <p className="App-intro">
-          {location}
-        </p>
-
-        <Loading />
+        <Loading location={location}/>
         //check if hideButton is false then hide the button
         {
           this.state.hideButton ?
@@ -85,6 +81,7 @@ class App extends Component {
            <List data={data} /> :
            null
         }
+
       </div>
     );
   }
