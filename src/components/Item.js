@@ -8,9 +8,9 @@ const Item = ({item}) => {
     <li>
       <span className="ribbon icon"><a href="/fav" title="title">{item.rating}</a></span>
       <a href="#">
-        {/*<span className="grid-number"></span>*/}
+        <span className="grid-number"><img src={item.icon} alt="Google maps icon" /></span>
         <figure>
-          <img src="http://placehold.it/800x600" alt="Photo of a restaurant" />
+          <img src="./static/placeholder_logo_img_black.png" alt="Photo of a restaurant" />
           <figcaption>
             
             <h2>{item.name}</h2>
