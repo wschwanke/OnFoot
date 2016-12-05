@@ -2,6 +2,8 @@ import React from 'react';
 //import './css/Item.css';
 
 const Item = ({item}) => {
+  // variable string for link to Google maps directions
+  var queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + item.geometry.location.lat + "," + item.geometry.location.lng
   return (
     <li>
       <span className="ribbon icon"><a href="/fav" title="title">{item.rating}</a></span>
@@ -13,6 +15,11 @@ const Item = ({item}) => {
             
             <h2>{item.name}</h2>
             <h3>{item.vicinity}</h3>
+              <button className="loading-list-button">
+            {/* Link to map directions */}
+                <h2><a href={queryStr}>Go</a></h2>
+              }
+              </button>
 
           </figcaption>
         </figure>
