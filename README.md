@@ -15,6 +15,8 @@ Never Yelp Again
 1. npm install
 2. npm run build
 3. npm start
+4. Will need a server/env/config.js file with an object containing an api key + dbUrl
+
 
 ## Scripts
 
