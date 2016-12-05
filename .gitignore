@@ -18,6 +18,7 @@ npm-debug.log
 # google api key
 
 server/env/config.js
+src/components/env/config.js
 
 
 #babel
@@ -29,4 +30,3 @@ babel_cache
 compiled
 public/static/bundle.js
 public/static/main.css
-
