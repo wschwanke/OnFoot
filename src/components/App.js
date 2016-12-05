@@ -71,16 +71,16 @@ class App extends Component {
      <div className="App">
 
         <Loading location={location}/>
-        //check if hideButton is false then hide the button
-        {
+        {//check if hideButton is false then hide the button
+        
           this.state.hideButton ?
           null : <button onClick ={ this.displayList.bind(this) }>Restaurants</button>
         }
-        //check if showList is true then call the List component
+
         {
+          
           this.state.showList ?
-           <List data={data} /> :
-           null
+           <List data={data} /> : null
         }
 
       </div>
