@@ -9,15 +9,15 @@ const List = ({data}) => {
         <div className="list-header-container"><h3>Top-rated restaurants near you</h3></div>
          <main role="main">
           <ul className="flexgrid columns-news">
-        
+
         {
           data === undefined ? null :
           //filters the data right here
-            data.results.filter(result => result.rating >=4)
+            data.results.filter(result => result.rating >= 3.9)
             .map((result) =>
             <Item item={result} />
             )
-          
+
         }
 
         </ul>
