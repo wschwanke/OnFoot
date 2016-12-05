@@ -15,7 +15,8 @@ class App extends Component {
       //original value so that its not just undefined
       location: `Please Wait`,
       data:data, //Using static data for now for rendering, please replace with data from server.
-      rest: ['default']
+      showList: false,
+      hideButton: false
     };
   }
 
@@ -36,7 +37,7 @@ class App extends Component {
         getAddress({lat:position.coords.latitude,lng:position.coords.longitude},((address)=>
           //the location state will update each time this is run
           this.setState({location: `Current Address: ${address.address.streetNumber} ${address.address.street}`})
-      
+
             ))
         //this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
         })
@@ -54,6 +55,12 @@ class App extends Component {
     this.getLocation()
     this.getNearbyRestaurants();
   }
+
+  //this is for displaying the list, once this function was called it will hide the button
+  displayList(){
+    this.setState({showList:true});
+    this.setState({hideButton:true});
+  }
   render() {
     //set to a variable for a little better readability
     var location = this.state.location
@@ -61,14 +68,23 @@ class App extends Component {
     var data = this.state.data
     return (
      <div className="App">
-        
+
         <p className="App-intro">
           {location}
         </p>
 
         <Loading />
-        <List data={data}/>
-
+        //check if hideButton is false then hide the button
+        {
+          this.state.hideButton ?
+          null : <button onClick ={ this.displayList.bind(this) }>Restaurants</button>
+        }
+        //check if showList is true then call the List component
+        {
+          this.state.showList ?
+           <List data={data} /> :
+           null
+        }
       </div>
     );
   }
