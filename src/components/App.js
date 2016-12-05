@@ -78,7 +78,7 @@ class App extends Component {
         {//check if hideButton is false then hide the button
         
           this.state.hideButton ?
-          null : <button onClick ={ this.displayList.bind(this) }>Restaurants</button>
+          null : <button className="load-list-button" onClick ={ this.displayList.bind(this) }>Restaurants</button>
         }
 
         {
