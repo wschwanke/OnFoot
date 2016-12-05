@@ -74,13 +74,8 @@ class App extends Component {
     return (
      <div className="App">
 
-        <Loading location={location}/>
-        {//check if hideButton is false then hide the button
+        <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
         
-          this.state.hideButton ?
-          null : <button className="load-list-button" onClick ={ this.displayList.bind(this) }>Restaurants</button>
-        }
-
         {
           //check if showList is true then call the List component 
           this.state.showList ?
