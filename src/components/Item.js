@@ -3,7 +3,7 @@ import React from 'react';
 
 const Item = ({item}) => {
   // variable string for link to Google maps directions
-  var queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + item.geometry.location.lat + "," + item.geometry.location.lng
+  var queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + item.geometry.location.lat + "," + item.geometry.location.lng + "&dirflg=w"
   return (
     <li>
       <span className="ribbon icon"><a href="/fav" title="title">{item.rating}</a></span>
@@ -18,7 +18,6 @@ const Item = ({item}) => {
               <button className="loading-list-button">
             {/* Link to map directions */}
                 <h2><a href={queryStr}>Go</a></h2>
-              }
               </button>
 
           </figcaption>
