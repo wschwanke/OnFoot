@@ -1,7 +1,8 @@
 var express = require('express');
 var app = express();
 var bodyParser = require('body-parser');
-var request = require('request');
+//need to import request module for ajax call
+var request = require('request')
 var path = require('path');
 var googleAPI = require('./env/config.js')
 
