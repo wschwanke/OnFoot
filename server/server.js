@@ -38,9 +38,11 @@ app.get('/', function(req,res){
 })
 
 
-// api call for google maps
-app.get('/fetchData',function(req,res){
-  request(googleAPI.url, function (error, response, body) {
+// api call for google maps and modifies it to use our current location
+app.get('/fetchData/:location',function(req,res){
+  location = req.params.location
+
+  request(`${googleAPI.url}&location=${location}&key=${googleAPI.key}`, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       res.json(body);
     }
@@ -62,10 +64,10 @@ mongoose.connect(googleAPI.dbUrl);
 var db = mongoose.connection;
  
 db.on('error', function (err) {
-console.log('connection error', err);
+//console.log('connection error', err);
 });
 db.once('open', function () {
-console.log('connected to server.');
+//console.log('connected to server.');
 });
 
 
@@ -92,14 +94,14 @@ isAlive : true
  
 arvind.save(function (err, data) {
 if (err) console.log(err);
-else console.log('Saved : ', data );
+//else console.log('Saved : ', data );
 }); //synchronicity issues - this is logging out last.
 
-console.log('isYounger : ',arvind.isYounger());
+//console.log('isYounger : ',arvind.isYounger());
 
 User.find(function(err, data) {
   if (err) return console.error(err);
-  console.log("I AM THE DATA!!!!!!!!!!!!!", data);
+  //console.log("I AM THE DATA!!!!!!!!!!!!!", data);
    });
 
 

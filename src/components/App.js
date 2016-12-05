@@ -14,7 +14,8 @@ class App extends Component {
     this.state = {
       //original value so that its not just undefined
       location: `Getting your location...`,
-      data:data, //Using static data for now for rendering, please replace with data from server.
+      latlong:undefined,
+      data:undefined, 
       showList: false,
       hideButton: false
     };
@@ -33,11 +34,14 @@ class App extends Component {
       //watchPosition will continually get the user's location
       navigator.geolocation.watchPosition( (position) => {
         console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
+        this.setState({latlong:`${position.coords.latitude},${position.coords.longitude}`});
+        //passes in the location to start finding restaraunts
+        this.getNearbyRestaurants({location:this.state.latlong});
         //getAddress will take our longitude and latitude and find the nearest address to us
-        getAddress({lat:position.coords.latitude,lng:position.coords.longitude},((address)=>
+        getAddress({lat:position.coords.latitude,lng:position.coords.longitude},((location)=>
           //the location state will update each time this is run
-
-          this.setState({location: `Current Location: ${address.address.streetNumber} ${address.address.street}`})
+          
+          this.setState({location: `Current Location: ${location.address.streetNumber} ${location.address.street}`})
 
             ))
         //this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
@@ -46,7 +50,7 @@ class App extends Component {
   }
   // get all the restaurants nearby
   getNearbyRestaurants(location){
-    getRestaurants((restaurants) => {
+    getRestaurants(location,(restaurants) => {
       this.setState({data:restaurants});
     })
   }
@@ -54,7 +58,7 @@ class App extends Component {
   //this waits till you have rendered something to then run anything in here
   componentDidMount() {
     this.getLocation()
-    this.getNearbyRestaurants();
+    //this.getNearbyRestaurants({location:this.state.latlong});
   }
 
   //this is for displaying the list, once this function was called it will hide the button
