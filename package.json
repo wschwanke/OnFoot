@@ -41,7 +41,8 @@
     "react-router": "^2.6.1",
     "request": "^2.79.0",
     "underscore": "^1.8.3",
-    "webpack-dev-middleware": "^1.8.4"
+    "webpack-dev-middleware": "^1.8.4",
+    "yelp": "^1.0.1"
   },
   "scripts": {
     "react": "node node_modules/react-scripts/scripts/start.js",

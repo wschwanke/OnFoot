@@ -4,7 +4,9 @@ var bodyParser = require('body-parser');
 //need to import request module for ajax call
 var request = require('request')
 var path = require('path');
-var googleAPI = require('./env/config.js')
+var credentials = require('./env/config.js')
+
+var Yelp = require('yelp');
 
 var port = 4040;
 
@@ -15,7 +17,9 @@ app.use('/static', express.static(path.join(__dirname, '/../public/static')));
 
 app.use(bodyParser.json());
 
-
+var yelp = new Yelp(
+  credentials.yelp
+)
 
 
 //for cors error
@@ -37,7 +41,6 @@ app.get('/', function(req,res){
   res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
 })
 
-
 // api call for google maps and modifies it to use our current location
 app.get('/fetchData/:location',function(req,res){
   location = req.params.location
@@ -48,21 +51,36 @@ app.get('/fetchData/:location',function(req,res){
     }
   })
 })
+
+app.get('/fetchRestaurantImage', function(){
+  console.log("passsss");
+  request(`https:`)
+  // yelp.search({ cll: '30.270508,-97.73433519999999'})
+  // .then(function (data) {
+  //   console.log(data);
+  //   res.json(data);
+  // })
+  // .catch(function (err) {
+  //   console.error(err);
+  // });
+  request()
+});
+
 app.listen(port,ip);
 console.log("Listening to port :4040");
 
 
-//MONOGODB Stuff below 
+//MONOGODB Stuff below
 // var options = {
-//   user: googleAPI.user,
-//   pass: googleAPI.pass
+//   user: credentials.user,
+//   pass: credentials.pass
 // };
 
 var mongoose = require('mongoose');
-mongoose.connect(googleAPI.dbUrl);
- 
+mongoose.connect(credentials.dbUrl);
+
 var db = mongoose.connection;
- 
+
 db.on('error', function (err) {
 //console.log('connection error', err);
 });
@@ -91,7 +109,7 @@ age : 99,
 DOB : '01/01/1915',
 isAlive : true
 });
- 
+
 arvind.save(function (err, data) {
 if (err) console.log(err);
 //else console.log('Saved : ', data );
@@ -128,7 +146,7 @@ User.find(function(err, data) {
 // var Sheraton = new Restaurant({
 // lat: 30.270508,
 // long: -97.73433519999999,
-// name : "Sheraton Austin at the Capitol", 
+// name : "Sheraton Austin at the Capitol",
 // rating : 3.7,
 // types: [ 'lodging',
 //      'restaurant',
@@ -152,7 +170,7 @@ User.find(function(err, data) {
 // vicinity: "301 East 6th Street, Austin",
 // users: ['Sheel', 'Ethan']
 // });
- 
+
 // Sheraton.save(function (err, data) {
 // if (err) console.log(err);
 // else console.log('Saved 111111 : ', data );
