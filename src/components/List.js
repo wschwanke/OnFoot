@@ -10,9 +10,15 @@ const List = ({data}) => {
          <main role="main">
           <ul className="flexgrid columns-news">
         
-        {data.results.map((result) =>
-          <Item item={result} />
-        )}
+        {
+          data === undefined ? null :
+          //filters the data right here
+            data.results.filter(result => result.rating >=4)
+            .map((result) =>
+            <Item item={result} />
+            )
+          
+        }
 
         </ul>
       </main>
