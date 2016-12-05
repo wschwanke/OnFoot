@@ -27,4 +27,6 @@ babel_cache
 #compiled stuff
 
 compiled
-public/static
+public/static/bundle.js
+public/static/main.css
+
