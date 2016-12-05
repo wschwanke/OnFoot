@@ -8,12 +8,22 @@ const Item = ({item}) => {
 
   //get the latitude and longtitude of a restaurant
   var geolocation = `${item.geometry.location.lat},${item.geometry.location.lng}`;
+  
   //url for google street view api
   var url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${geolocation}&key=${streetViewApi}`
-
+  
+  // this function turns `item.price_level` into a dollar sign level
+  var priceLevel = function() {
+    var result = '';
+    for (var i = 0; i < item.price_level; i++) {
+      result += '$';
+    }
+    return result;
+  }
+  //
   return (
     <li>
-      <span className="ribbon icon"><a href="/fav" title="title">{item.rating}</a></span>
+      <span className="ribbon icon"><a href="/fav" title="title">{item.rating}, {priceLevel()}</a></span>
       <a href="#">
         <span className="grid-number"><img src={item.icon} alt="Google maps icon" /></span>
         <figure>
