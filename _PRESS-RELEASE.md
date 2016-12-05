@@ -17,35 +17,26 @@ Once the project moves into development, the press release can be used as a touc
  -->
  
 ## Heading ##
-  > Name the product in a way the reader (i.e. your target customers) will understand.
-  OnFoot.
+  > OnFoot!
 
 ## Sub-Heading ##
   >Never Yelp again.
 
 ## Summary ##
-  > Give a summary of the product and the benefit. Assume the reader will not read anything else so make this paragraph good.
-  At one touch, get a curated list of the best open restaurants within walking distance. 
-.
+  > At one touch, get a curated list of the best open restaurants within walking distance. 
 ## Problem ##
-  > Describe the problem your product solves.
-  You'll never have to bother with multiple buttons, confusing interfaces, or reading through long text fields again.   
+  >You'll never have to bother with multiple buttons, confusing interfaces, or reading through long text fields again.   
 ## Solution ##
-  > Describe how your product elegantly solves the problem.
-  We do that work for you - OnFoot delivers a preselected list of places.
+  > We do that work for you - OnFoot delivers a preselected list of places.
 
 ## Quote from You ##
-  > A quote from a spokesperson in your company.
-  "This product was borne out of our own frustrations in picking restaurants while traveling, trying to find places that are both cheap and good."
+  > "This product was borne out of our own frustrations in picking restaurants while traveling, trying to find places that are both cheap and good."
 
 ## How to Get Started ##
-  > Describe how easy it is to get started.
-  Just push a button. 
+  > Just push a button. 
 
 ## Customer Quote ##
-  > Provide a quote from a hypothetical customer that describes how they experienced the benefit.
-  "As a touring musician, I'm often in a new city. I use OnFoot to quickly and efficiently find inexpensive, good places to eat that are close by."
+  > "As a touring musician, I'm often in a new city. I use OnFoot to quickly and efficiently find inexpensive, good places to eat that are close by."
 
 ## Closing and Call to Action ##
-  > Wrap it up and give pointers where the reader should go next.
-  "Go to OnFoot.com and you get started within seconds."
+  > "Go to OnFoot.com and you get started within seconds."

@@ -78,7 +78,7 @@ class App extends Component {
         }
 
         {
-          
+          //check if showList is true then call the List component 
           this.state.showList ?
            <List data={data} /> : null
         }
