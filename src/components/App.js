@@ -36,8 +36,13 @@ class App extends Component {
         //getAddress will take our longitude and latitude and find the nearest address to us
         getAddress({lat:position.coords.latitude,lng:position.coords.longitude},((address)=>
           //the location state will update each time this is run
+<<<<<<< 0d2bbf40227d53d82a57cc534f5d8fc34e1abb38
           this.setState({location: `Current Address: ${address.address.streetNumber} ${address.address.street}`})
 
+=======
+          this.setState({location: `Current Location: ${address.address.streetNumber} ${address.address.street}`})
+      
+>>>>>>> adding css for address loading container
             ))
         //this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
         })

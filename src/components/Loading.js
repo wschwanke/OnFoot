@@ -7,7 +7,7 @@ const Loading = ({location}) => {
      <h1>On-FoOt!</h1>
      <img src="/static/foot_logo_white.png" alt="on-foot"/>
      <h5>Hyper-Local GeoLocation</h5>
-     <div>{location}</div>
+     <div className="location-loading-container"><h5>{location}</h5></div>
    </div>
  
   );
