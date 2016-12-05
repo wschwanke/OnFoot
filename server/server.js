@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 //need to import request module for ajax call
 var request = require('request')
 var path = require('path');
-var credentials = require('./env/config.js')
+var googleAPI = require('./env/config.js')
 
 var Yelp = require('yelp');
 
@@ -17,9 +17,12 @@ app.use('/static', express.static(path.join(__dirname, '/../public/static')));
 
 app.use(bodyParser.json());
 
-var yelp = new Yelp(
-  credentials.yelp
-)
+var yelp = new Yelp({
+  consumer_key: 'F0oFzKCB9-_oH1V1p3vyXA',
+  consumer_secret: 'LtZ-gFl6mq0RaFyuFYkY0yZB5JI',
+  token: 'yN6osb7uQvqQa8hjvMcOBxa_G-fOQLMt',
+  token_secret: 'PAL9BfB8XOjAjttSf--bkhI4JCs',
+});
 
 
 //for cors error
@@ -52,19 +55,6 @@ app.get('/fetchData/:location',function(req,res){
   })
 })
 
-app.get('/fetchRestaurantImage', function(){
-  console.log("passsss");
-  request(`https:`)
-  // yelp.search({ cll: '30.270508,-97.73433519999999'})
-  // .then(function (data) {
-  //   console.log(data);
-  //   res.json(data);
-  // })
-  // .catch(function (err) {
-  //   console.error(err);
-  // });
-  request()
-});
 
 app.listen(port,ip);
 console.log("Listening to port :4040");
@@ -77,7 +67,7 @@ console.log("Listening to port :4040");
 // };
 
 var mongoose = require('mongoose');
-mongoose.connect(credentials.dbUrl);
+mongoose.connect(googleAPI.dbUrl);
 
 var db = mongoose.connection;
 
