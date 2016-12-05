@@ -1,6 +1,7 @@
 import React from 'react';
 import './css/Loading.css';
 
+{/*We pass hideButton and displayList in and because we're using ES6 we dont have to use bind or props*/}
 const Loading = ({location, hideButton, displayList}) => {
   return (
    <div className="loading-container">
@@ -12,7 +13,7 @@ const Loading = ({location, hideButton, displayList}) => {
 
         {//check if hideButton is false then hide the button
           hideButton ?
-          null : <button className="load-list-button" onClick={displayList}>Restaurants</button>
+          null : <button className="load-list-button" onClick={displayList}>Take me some place close!</button>
         }
 
    </div>/*end loading container*/

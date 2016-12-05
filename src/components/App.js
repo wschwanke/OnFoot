@@ -74,8 +74,8 @@ class App extends Component {
     return (
      <div className="App">
 
+       {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/}
         <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
-        
         {
           //check if showList is true then call the List component 
           this.state.showList ?
