@@ -34,7 +34,7 @@ const Item = ({item}) => {
             <h3>{item.vicinity}</h3>
               <button className="loading-list-button">
             {/* Link to map directions */}
-                <h2><a href={queryStr}>Go</a></h2>
+                <a href={queryStr}><h2>Go</h2></a>
               </button>
 
           </figcaption>
