@@ -1,19 +1,26 @@
 import React from 'react';
+<<<<<<< 732878e92d43b99ff4692370fdbec5ec0b892eae
 
 // import streetViewApi from './env/config.js'
 //import './css/Item.css';
 
 const Item = ({item,API,showDirections,displayDirections}) => {
 
+=======
+import streetViewApi from './env/config.js'
+//import './css/Item.css';
+
+const Item = ({item, API}) => {
+>>>>>>> about to pull down new changes
   // variable string for link to Google maps directions
   var queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + item.geometry.location.lat + "," + item.geometry.location.lng + "&dirflg=w"
-
+  console.log("We're getting API: ", API)
   //get the latitude and longtitude of a restaurant
   var geolocation = `${item.geometry.location.lat},${item.geometry.location.lng}`;
 
   //url for google street view api
-
   var url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${geolocation}&key=${API}`
+
   // this function turns `item.price_level` into a dollar sign level
   var priceLevel = function() {
     var result = '';
