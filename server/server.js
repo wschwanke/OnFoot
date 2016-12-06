@@ -72,11 +72,12 @@ app.get('/fetchData/:location',function(req,res){
 
 //api call for direction from origin to destination
 app.get('/directions/:origin/:destination', function(req, res){
+  var directionKey = process.env.directionKey || googleAPI.directionKey
   var origin = req.params.origin;
   var destination = req.params.destination;
   var url = 'https://maps.googleapis.com/maps/api/directions/json?mode=walking';
 
-  request(`${url}&origin=${origin}&destination=${destination}&key=${googleAPI.directionKey}`, function (error, response, body){
+  request(`${url}&origin=${origin}&destination=${destination}&key=${directionKey}`, function (error, response, body){
     if (!error && response.statusCode == 200) {
       res.json(body);
     }
