@@ -67,6 +67,9 @@ class App extends Component {
   //this waits till you have rendered something to then run anything in here
   componentDidMount() {
     this.getLocation()
+
+   // calls getAPI and returns the environment variable API or deployment config API and
+   // sets state to that so we can pass it down
     getAPI((api)=>{
       this.setState({imageAPI:api})
       

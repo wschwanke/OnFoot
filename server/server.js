@@ -73,7 +73,7 @@ app.get('/directions/:origin/:destination', function(req, res){
   })
 })
 app.get('/fetchAPI',function(req,res){
-  var API = process.env.mapKey || googleAPI.imageKey
+  var API = process.env.imageKey || googleAPI.imageKey
   res.send(API)
 })
 
