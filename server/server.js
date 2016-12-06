@@ -23,7 +23,17 @@ var Yelp = require('yelp');
 
 var port = process.env.PORT || 4040;
 
-var ip = '127.0.0.1';
+// var ip = '127.0.0.1';
+// tryping to get real ip address
+var ip = req.headers["x-forwarded-for"];
+  if (ip){
+    var list = ip.split(",");
+    ip = list[list.length-1];
+  } else {
+    ip = req.connection.remoteAddress;
+  }
+
+
 //serving react files
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/static', express.static(path.join(__dirname, '/../public/static')));
