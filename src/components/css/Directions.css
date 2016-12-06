@@ -11,10 +11,10 @@
 
 .directions-list-container {
 	margin: 0 auto;
-	font: 4em 'Droid Sans', Helvetica, Arial, sans-serif;
+	font: 1em 'Droid Sans', Helvetica, Arial, sans-serif;
 	color: #ffffff;
 	line-height: 1.4em;
-	background: rgb(0,0,0,.1);
+	background-color: rgba(0,0,0,.1);
 	min-width: 230px;
 	max-width: 550px;
 	box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.2),
