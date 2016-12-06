@@ -87,6 +87,7 @@ app.get('/fetchAPI',function(req,res){
   var API = process.env.imageKey || googleAPI.imageKey
   res.send(API)
 })
+//gets our address
 app.get('/fetchAddress/:latlng',function(req,res){
   var latlng = req.params.latlng
   request(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}`,function (error, response, body){
