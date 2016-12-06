@@ -16,7 +16,7 @@ if(!process.env.mapKey){
 }
 
 // assigning our nearby search url
-googleAPI.url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant%7Cgas_station%7C&sensor=false' 
+var googleUrl='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant%7Cgas_station%7C&sensor=false' 
 
 
 var Yelp = require('yelp');
@@ -53,7 +53,7 @@ app.get('/', function(req,res){
 app.get('/fetchData/:location',function(req,res){
   location = req.params.location
 
-  request(`${googleAPI.url}&location=${location}&key=${mapKey}`, function (error, response, body) {
+  request(`${googleUrl}&location=${location}&key=${mapKey}`, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       res.json(body);
     }
