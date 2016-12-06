@@ -78,7 +78,7 @@ app.get('/fetchAPI',function(req,res){
 })
 
 app.listen(port,ip);
-console.log("The magic happens on port :4040");
+console.log("The magic happens on port :", port);
 
 
 //MONOGODB Stuff below
