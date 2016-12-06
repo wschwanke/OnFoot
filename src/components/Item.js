@@ -2,6 +2,13 @@ import React from 'react';
 import streetViewApi from './env/config.js'
 //import './css/Item.css';
 
+// config vars
+if(!process.env.imageKey){
+ var streetViewAPI = require( './env/config.js' )
+} else {
+ streetViewAPI = process.env.imageKey;
+}
+
 const Item = ({item}) => {
   // variable string for link to Google maps directions
   var queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + item.geometry.location.lat + "," + item.geometry.location.lng + "&dirflg=w"

@@ -4,7 +4,18 @@ var bodyParser = require('body-parser');
 //need to import request module for ajax call
 var request = require('request')
 var path = require('path');
-var googleAPI = require('./env/config.js')
+// var googleAPI = require('./env/config.js')
+
+// config vars
+if(!process.env.mapKey){
+ var googleAPI = require( './env/config.js' )
+} else {
+ googleAPI.mapKey = process.env.mapKey;
+}
+
+// assigning our nearby search url
+googleAPI.url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant%7Cgas_station%7C&sensor=false' 
+
 
 var Yelp = require('yelp');
 
@@ -48,7 +59,7 @@ app.get('/', function(req,res){
 app.get('/fetchData/:location',function(req,res){
   location = req.params.location
 
-  request(`${googleAPI.url}&location=${location}&key=${googleAPI.key}`, function (error, response, body) {
+  request(`${googleAPI.url}&location=${location}&key=${googleAPI.mapKey}`, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       res.json(body);
     }
