@@ -6,7 +6,7 @@ const Item = ({item,API,showDirections,displayDirections}) => {
 
   // variable string for link to Google maps directions
   var queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + item.geometry.location.lat + "," + item.geometry.location.lng + "&dirflg=w"
-  console.log("We're getting API: ", API)
+
   //get the latitude and longtitude of a restaurant
   var geolocation = `${item.geometry.location.lat},${item.geometry.location.lng}`;
 
