@@ -1,5 +1,6 @@
 import React from 'react';
-
+// import streetViewApi from './env/config.js'
+//import './css/Item.css';
 
 const Item = ({item,API,showDirections,displayDirections}) => {
 
@@ -10,8 +11,8 @@ const Item = ({item,API,showDirections,displayDirections}) => {
   var geolocation = `${item.geometry.location.lat},${item.geometry.location.lng}`;
 
   //url for google street view api
-
   var url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${geolocation}&key=${API}`
+
   // this function turns `item.price_level` into a dollar sign level
   var priceLevel = function() {
     var result = '';
