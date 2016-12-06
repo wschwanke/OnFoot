@@ -25,6 +25,7 @@
     "babel-preset-es2015": "^6.13.2",
     "babel-preset-react": "^6.11.1",
     "body-parser": "^1.15.2",
+    "css-loader": "^0.26.0",
     "ejs": "^2.5.3",
     "eslint": "^3.8.1",
     "eslint-config-react-app": "^0.3.0",
