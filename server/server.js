@@ -88,9 +88,9 @@ app.get('/fetchAPI',function(req,res){
 })
 
 // app.listen(port,ip);
-// console.log("The magic happens on port :", port);
+// console.log("Listening on port :", port);
 app.listen(port);
-console.log("tyring it with no IP address and the magic is happening on port:", port);
+console.log("The magic is happening on port:", port);
 
 //MONOGODB Stuff below
 // var options = {
