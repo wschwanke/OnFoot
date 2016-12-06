@@ -38,19 +38,21 @@ const Item = ({item,API,showDirections,displayDirections}) => {
 
             <h2>{item.name}</h2>
             <h3>{item.vicinity}</h3>
-            <h4 className="directions-list">              
-              {item.directions && item.directions.map((x) => {
-                return (<h5>{x}</h5>)
-              })}
-              
-            </h4>
               <button className="loading-list-button">
            
                 {/* Link to map directions */}
                 <a href={queryStr}><h2>Go</h2></a></button>
                 
                 {/* Show directions in app */}
-              <button onClick={actionClick}>Get Directions</button>
+              <button onClick={directionsClick}>Get Directions</button>
+
+            {/* Show directions below list button */}
+              <h4 className="directions-list">              
+              {item.directions && item.directions.map((x) => {
+                return (<h5>{x}</h5>)
+              })}
+              
+            </h4>
 
           </figcaption>
         </figure>
