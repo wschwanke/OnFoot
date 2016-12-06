@@ -95,11 +95,20 @@ class App extends Component {
       // this.setState({showDirections:true});
       
       // we get an array with the results back from the Google API; that's what we're accessing
-      var data=this.state.data.results
+      var data=this.state.data.results;
+    
+      // getting the directions out of the JSON object and onto the page
+      var directionSteps = steps.routes[0].legs[0].steps.reduce((a,x) => {
+        a+= x.html_instructions+'<br />';
+        return a;
+      },'');
+
       // look up the item in our state by state.id and 
       // set a directions property equal to the "steps" from Google's directions 
       // (with quadratic time complexity :) )
-      data[data.map(x => x.id).indexOf(id)]['directions'] = steps
+      data[data.map(x => x.id).indexOf(id)]['directions'] = directionSteps;
+      
+      console.log('steps for the place you just clicked', steps);
 
 
     })
