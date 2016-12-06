@@ -9,6 +9,7 @@ import List from './List';
 import Directions from './Directions';
 import Loading from './Loading';
 import data from './data/data.js';
+import getMap from './lib/getMap.js'
 
 class App extends Component {
   constructor (props) {
@@ -89,9 +90,11 @@ class App extends Component {
 
     getDirections(location,(steps) => {
       //get all data needed then replace the current display to a direction component
+      console.log(steps)
       this.setState({directions:steps});
       this.setState({showList:false});
       this.setState({showDirections:true});
+      getMap({waypoints:steps.routes[0].legs})
     })
 
   }
@@ -115,6 +118,7 @@ class App extends Component {
         {
           //check if showDirections is true then call the Directions component
           this.state.showDirections ?
+          
            <Directions directions={this.state.directions}/> : null
         }
 
