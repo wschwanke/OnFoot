@@ -22,9 +22,10 @@
   font-family: 'Sigmar One', cursive;
 }
 
-.directions-test {
-  font-size: 2em;
+.directions-list h5 {
+  font-size: 1em;
   color: #000;
+  font-weight: 400px;
 }
 
 *,

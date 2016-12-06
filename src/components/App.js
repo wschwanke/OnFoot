@@ -72,9 +72,7 @@ class App extends Component {
    // sets state to that so we can pass it down
     getAPI((api)=>{
       this.setState({imageAPI:api})
-      
-    })
-    
+      })    
   }
 
   //this is for displaying the list, once this function was called it will hide the button
@@ -85,7 +83,7 @@ class App extends Component {
 
   //this is for displaying the Direction component, this needs to be called when a restaurant has been clicked
   // we pass the desired destination Lat & Long, and the id; id corresponds to the Google maps JSON object id
-  displayDirections(destinationLatLng, id) {
+  displayDirections(destinationLatLng, id, e) {
     var location = {origin:this.state.latlong, destination: destinationLatLng};
 
     getDirections(location,(steps) => {
