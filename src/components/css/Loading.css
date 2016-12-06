@@ -58,3 +58,19 @@ button {
 .load-list-button:active {
   transform: scale(1.1)
 }
+
+.loading-list-button {
+  overflow         : hidden;
+  color            : red;
+  background-color : transparent;
+  border-radius: 14px;
+  border           : 3px solid black;
+  transition       : all 0.3s ease;
+}
+.loading-list-button:hover {
+  background-color : black;
+  color            : #ffffff;
+}
+.loading-list-button:active {
+  transform: scale(1.1)
+}
