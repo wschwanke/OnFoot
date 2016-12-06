@@ -1,5 +1,7 @@
 import React from 'react';
 
+// import streetViewApi from './env/config.js'
+//import './css/Item.css';
 
 const Item = ({item,API,showDirections,displayDirections}) => {
 
