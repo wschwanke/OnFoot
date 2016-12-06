@@ -33,7 +33,14 @@ const Item = ({item,API,showDirections,displayDirections}) => {
 
             <h2>{item.name}</h2>
             <h3>{item.vicinity}</h3>
-            <h5 className="directions-test">{item.directions || 'No directions for you'}</h5>
+            <h5 className="directions-test">
+              {console.log('item.directions', item.directions)}
+              
+              {item.directions && item.directions.map((x) => {
+                return (<h4>{x}</h4>)
+              })}
+              
+            </h5>
               <button className="loading-list-button">
            
                 {/* Link to map directions */}

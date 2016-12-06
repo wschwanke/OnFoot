@@ -97,20 +97,30 @@ class App extends Component {
       // we get an array with the results back from the Google API; that's what we're accessing
       var data=this.state.data.results;
     
-      // getting the directions out of the JSON object and onto the page
-      var directionSteps = steps.routes[0].legs[0].steps.reduce((a,x) => {
-        a+= x.html_instructions+'<br />';
-        return a;
-      },'');
+      // Take a deep breath...
+      // get the directions out of the JSON object and onto the page
+      var directionSteps = steps.routes[0].legs[0].steps
+        // map 
+        .map(x=>x.html_instructions.replace(/<(?:.|\n)*?>/gm, ' '))
+
+
+      // .reduce((a,x) => {
+      //   // add new lines....
+      //   a+= x.html_instructions
+      //   return a;
+      // },'')
+      //   // ...and strip out the html tags that the Google Maps directions object returns 
+      //   .replace(/<(?:.|\n)*?>/gm, '')
 
       // look up the item in our state by state.id and 
       // set a directions property equal to the "steps" from Google's directions 
       // (with quadratic time complexity :) )
       data[data.map(x => x.id).indexOf(id)]['directions'] = directionSteps;
-      
-      console.log('steps for the place you just clicked', steps);
 
-
+      // In order to get the directions to display in each "card", we had to use forceUpdate.
+      // There's probably a better way to handle this...
+      this.forceUpdate();
+      console.log('Here are the steps results for the place you just clicked', steps);
     })
 
   }
