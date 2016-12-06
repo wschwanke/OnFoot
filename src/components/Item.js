@@ -1,17 +1,9 @@
 import React from 'react';
-<<<<<<< 732878e92d43b99ff4692370fdbec5ec0b892eae
-
 // import streetViewApi from './env/config.js'
 //import './css/Item.css';
 
 const Item = ({item,API,showDirections,displayDirections}) => {
 
-=======
-import streetViewApi from './env/config.js'
-//import './css/Item.css';
-
-const Item = ({item, API}) => {
->>>>>>> about to pull down new changes
   // variable string for link to Google maps directions
   var queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + item.geometry.location.lat + "," + item.geometry.location.lng + "&dirflg=w"
   console.log("We're getting API: ", API)
