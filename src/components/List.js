@@ -3,7 +3,7 @@ import './css/List.css';
 
 import Item from './Item';
 
-const List = ({data}) => {
+const List = ({data, showDirections, displayDirections}) => {
   return (
     <div className="list">
         <div className="list-header-container"><h3>Top-rated restaurants near you</h3></div>
@@ -13,11 +13,10 @@ const List = ({data}) => {
         {
           data === undefined ? null :
           //filters the data right here
-            data.results.filter(result => result.rating >= 3.9)
+            data.results.filter(result => result.rating >= 3.9 && result.price_level < 3)
             .map((result) =>
-            <Item item={result} />
+            <Item item={result} showDirections={showDirections} displayDirections={displayDirections} />
             )
-
         }
 
         </ul>

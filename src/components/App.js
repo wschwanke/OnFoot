@@ -3,10 +3,12 @@ import logo from '../logo.svg';
 import './css/App.css';
 import getRestaurants from './lib/getRestaurants.js'
 import getAddress from './lib/getAddress.js'
+import getDirections from './lib/getDirections.js'
 
 import List from './List';
-import data from './data/data.js'
+import Directions from './Directions';
 import Loading from './Loading';
+import data from './data/data.js';
 
 class App extends Component {
   constructor (props) {
@@ -15,9 +17,11 @@ class App extends Component {
       //original value so that its not just undefined
       location: `Getting your location...`,
       latlong:undefined,
-      data:undefined, 
+      data:undefined,
       showList: false,
-      hideButton: false
+      hideButton: false,
+      showDirections: false,
+      directions: undefined
     };
   }
 
@@ -40,7 +44,7 @@ class App extends Component {
         //getAddress will take our longitude and latitude and find the nearest address to us
         getAddress({lat:position.coords.latitude,lng:position.coords.longitude},((location)=>
           //the location state will update each time this is run
-          
+
           this.setState({location: `Current Location: ${location.address.streetNumber} ${location.address.street}`})
 
             ))
@@ -55,6 +59,7 @@ class App extends Component {
     })
   }
 
+
   //this waits till you have rendered something to then run anything in here
   componentDidMount() {
     this.getLocation()
@@ -66,6 +71,20 @@ class App extends Component {
     this.setState({showList:true});
     this.setState({hideButton:true});
   }
+
+  //this is for displaying the Direction component, this needs to be called when a restaurant has been clicked
+  displayDirections(destinationLatLng) {
+    var location = {origin:this.state.latlong, destination: destinationLatLng};
+
+    getDirections(location,(steps) => {
+      //get all data needed then replace the current display to a direction component
+      this.setState({directions:steps});
+      this.setState({showList:false});
+      this.setState({showDirections:true});
+    })
+
+  }
+
   render() {
     //set to a variable for a little better readability
     var location = this.state.location
@@ -77,9 +96,15 @@ class App extends Component {
        {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/}
         <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
         {
-          //check if showList is true then call the List component 
+          //check if showList is true then call the List component
           this.state.showList ?
-           <List data={data} /> : null
+          <List data={data} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
+        }
+
+        {
+          //check if showDirections is true then call the Directions component
+          this.state.showDirections ?
+           <Directions directions={this.state.directions}/> : null
         }
 
       </div>
