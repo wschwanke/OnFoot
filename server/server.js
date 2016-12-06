@@ -72,11 +72,12 @@ app.get('/fetchData/:location',function(req,res){
 
 //api call for direction from origin to destination
 app.get('/directions/:origin/:destination', function(req, res){
+  var directionKey = process.env.directionKey || googleAPI.directionKey
   var origin = req.params.origin;
   var destination = req.params.destination;
   var url = 'https://maps.googleapis.com/maps/api/directions/json?mode=walking';
 
-  request(`${url}&origin=${origin}&destination=${destination}&key=${googleAPI.directionKey}`, function (error, response, body){
+  request(`${url}&origin=${origin}&destination=${destination}&key=${directionKey}`, function (error, response, body){
     if (!error && response.statusCode == 200) {
       res.json(body);
     }
@@ -86,7 +87,15 @@ app.get('/fetchAPI',function(req,res){
   var API = process.env.imageKey || googleAPI.imageKey
   res.send(API)
 })
-
+//gets our address
+app.get('/fetchAddress/:latlng',function(req,res){
+  var latlng = req.params.latlng
+  request(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}`,function (error, response, body){
+    if (!error && response.statusCode == 200) {
+      res.json(body);
+    }
+  })
+})
 // app.listen(port,ip);
 // console.log("Listening on port :", port);
 app.listen(port);
