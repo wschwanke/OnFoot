@@ -42,12 +42,19 @@ class App extends Component {
         //passes in the location to start finding restaraunts
         this.getNearbyRestaurants({location:this.state.latlong});
         //getAddress will take our longitude and latitude and find the nearest address to us
-        getAddress({lat:position.coords.latitude,lng:position.coords.longitude},((location)=>
+        getAddress({latlng:this.state.latlong},((location)=>{
+          console.log(location)
           //the location state will update each time this is run
+<<<<<<< 61eff28fa9d8af3617dcf8a8f1cf3f424779632b
 
           this.setState({location: `Current Location: ${location.address.streetNumber} ${location.address.street}`})
+=======
+          var streetNum  = location[0].long_name
+          var streetName = location[1].long_name
+          this.setState({location: `Current Location: ${streetNum} ${streetName}`})
+>>>>>>> had to re-do everything since a merge deleted everything I did,looks more readable now
 
-            ))
+            }))
         //this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
         })
     }
