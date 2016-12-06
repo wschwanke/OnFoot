@@ -86,7 +86,14 @@ app.get('/fetchAPI',function(req,res){
   var API = process.env.imageKey || googleAPI.imageKey
   res.send(API)
 })
-
+app.get('/fetchAddress/:latlng',function(req,res){
+  var latlng = req.params.latlng
+  request(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}`,function (error, response, body){
+    if (!error && response.statusCode == 200) {
+      res.json(body);
+    }
+  })
+})
 // app.listen(port,ip);
 // console.log("Listening on port :", port);
 app.listen(port);
