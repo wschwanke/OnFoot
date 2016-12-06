@@ -7,10 +7,12 @@ var path = require('path');
 // var googleAPI = require('./env/config.js')
 
 // config vars
+var mapKey;
 if(!process.env.mapKey){
  var googleAPI = require( './env/config.js' )
+  mapKey= googleAPI.mapKey;
 } else {
- googleAPI.mapKey = process.env.mapKey;
+  mapKey= process.env.mapKey;
 }
 
 // assigning our nearby search url
@@ -51,7 +53,7 @@ app.get('/', function(req,res){
 app.get('/fetchData/:location',function(req,res){
   location = req.params.location
 
-  request(`${googleAPI.url}&location=${location}&key=${googleAPI.mapKey}`, function (error, response, body) {
+  request(`${googleAPI.url}&location=${location}&key=${mapKey}`, function (error, response, body) {
     if (!error && response.statusCode == 200) {
       res.json(body);
     }
@@ -69,6 +71,10 @@ app.get('/directions/:origin/:destination', function(req, res){
       res.json(body);
     }
   })
+})
+app.get('/fetchAPI',function(req,res){
+  var API = process.env.mapKey || googleAPI.imageKey
+  res.send(API)
 })
 
 app.listen(port,ip);

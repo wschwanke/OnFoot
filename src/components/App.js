@@ -4,7 +4,7 @@ import './css/App.css';
 import getRestaurants from './lib/getRestaurants.js'
 import getAddress from './lib/getAddress.js'
 import getDirections from './lib/getDirections.js'
-
+import getAPI from './lib/getImageAPI.js'
 import List from './List';
 import Directions from './Directions';
 import Loading from './Loading';
@@ -21,7 +21,8 @@ class App extends Component {
       showList: false,
       hideButton: false,
       showDirections: false,
-      directions: undefined
+      directions: undefined,
+      imageAPI:undefined
     };
   }
 
@@ -66,6 +67,11 @@ class App extends Component {
   //this waits till you have rendered something to then run anything in here
   componentDidMount() {
     this.getLocation()
+    getAPI((api)=>{
+      this.setState({imageAPI:api})
+      
+    })
+    
   }
 
   //this is for displaying the list, once this function was called it will hide the button
@@ -91,6 +97,7 @@ class App extends Component {
     //set to a variable for a little better readability
     var location = this.state.location
     var data = this.state.data
+    var api = this.state.imageAPI
     return (
      <div className="App">
 
@@ -99,7 +106,7 @@ class App extends Component {
         {
           //check if showList is true then call the List component
           this.state.showList ?
-          <List data={data} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
+          <List data={data} API={api} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
         }
 
         {

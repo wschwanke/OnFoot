@@ -1,13 +1,7 @@
 import React from 'react';
 
-// config vars
-if(!process.env.imageKey){
- var streetViewAPI = require( './env/config.js' )
-} else {
- streetViewAPI = process.env.imageKey;
-}
 
-const Item = ({item,showDirections,displayDirections}) => {
+const Item = ({item,API,showDirections,displayDirections}) => {
 
   // variable string for link to Google maps directions
   var queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + item.geometry.location.lat + "," + item.geometry.location.lng + "&dirflg=w"
@@ -16,8 +10,8 @@ const Item = ({item,showDirections,displayDirections}) => {
   var geolocation = `${item.geometry.location.lat},${item.geometry.location.lng}`;
 
   //url for google street view api
-  var url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${geolocation}&key=${streetViewApi}`
 
+  var url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${geolocation}&key=${API}`
   // this function turns `item.price_level` into a dollar sign level
   var priceLevel = function() {
     var result = '';
