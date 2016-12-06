@@ -4,7 +4,7 @@ import './css/App.css';
 import getRestaurants from './lib/getRestaurants.js'
 import getAddress from './lib/getAddress.js'
 import getDirections from './lib/getDirections.js'
-
+import getAPI from './lib/getImageAPI.js'
 import List from './List';
 import Directions from './Directions';
 import Loading from './Loading';
@@ -21,7 +21,8 @@ class App extends Component {
       showList: false,
       hideButton: false,
       showDirections: false,
-      directions: undefined
+      directions: undefined,
+      imageAPI:undefined
     };
   }
 
@@ -35,21 +36,24 @@ class App extends Component {
     // Get the user's location:
     if (navigator.geolocation) {
       //use an arrow function to not lose the this binding
-      //watchPosition will continually get the user's location
+      //watchPosition will constantly get the user's location
       navigator.geolocation.watchPosition( (position) => {
         console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
         this.setState({latlong:`${position.coords.latitude},${position.coords.longitude}`});
         //passes in the location to start finding restaraunts
         this.getNearbyRestaurants({location:this.state.latlong});
         //getAddress will take our longitude and latitude and find the nearest address to us
-        getAddress({lat:position.coords.latitude,lng:position.coords.longitude},((location)=>
+        getAddress({latlng:this.state.latlong},((location)=>{
+          console.log(location)
           //the location state will update each time this is run
+          //split data into variables to increase readability
+          var streetNum  = location[0].long_name
+          var streetName = location[1].long_name
+          //the location state will update each time this is run
+          this.setState({location: `Current Location: ${streetNum} ${streetName}`})
 
-          this.setState({location: `Current Location: ${location.address.streetNumber} ${location.address.street}`})
-
-            ))
-        //this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
-        })
+        }))
+      })
     }
   }
   // get all the restaurants nearby
@@ -63,7 +67,14 @@ class App extends Component {
   //this waits till you have rendered something to then run anything in here
   componentDidMount() {
     this.getLocation()
-    //this.getNearbyRestaurants({location:this.state.latlong});
+
+   // calls getAPI and returns the environment variable API or deployment config API and
+   // sets state to that so we can pass it down
+    getAPI((api)=>{
+      this.setState({imageAPI:api})
+      
+    })
+    
   }
 
   //this is for displaying the list, once this function was called it will hide the button
@@ -88,8 +99,8 @@ class App extends Component {
   render() {
     //set to a variable for a little better readability
     var location = this.state.location
-    //sets the data to the data variable
     var data = this.state.data
+    var api = this.state.imageAPI
     return (
      <div className="App">
 
@@ -98,7 +109,7 @@ class App extends Component {
         {
           //check if showList is true then call the List component
           this.state.showList ?
-          <List data={data} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
+          <List data={data} API={api} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
         }
 
         {

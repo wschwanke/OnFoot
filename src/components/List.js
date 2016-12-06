@@ -3,7 +3,8 @@ import './css/List.css';
 
 import Item from './Item';
 
-const List = ({data, showDirections, displayDirections}) => {
+const List = ({data, showDirections, displayDirections,API}) => {
+
   return (
     <div className="list">
         <div className="list-header-container"><h3>Top-rated restaurants near you</h3></div>
@@ -15,7 +16,7 @@ const List = ({data, showDirections, displayDirections}) => {
           //filters the data right here
             data.results.filter(result => result.rating >= 3.9 && result.price_level < 3)
             .map((result) =>
-            <Item item={result} showDirections={showDirections} displayDirections={displayDirections} />
+            <Item item={result} API={API} showDirections={showDirections} displayDirections={displayDirections} />
             )
         }
 

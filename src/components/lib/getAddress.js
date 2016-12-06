@@ -1,14 +1,12 @@
 import $ from 'jquery'; 
 var getAddress = (options,callback) => {
 //sends off an api request with options we pass in, this gets the closest address to our lat & long
-  $.get('http://api.geonames.org/findNearestAddressJSON',{
-    lat: options.lat,
-    lng: options.lng,
-    //the username is required to use this api call
-    username: 'onFoot'
+  $.get('http://maps.googleapis.com/maps/api/geocode/json',{
+    latlng: options.latlng,
   })
   .done((items) => {
-      callback(items);
+    //filtering it down so we just get what we need
+      callback(items.results[0].address_components);
   })
   .fail(({responseJSON}) => {
     responseJSON.error.errors.forEach((err) =>
