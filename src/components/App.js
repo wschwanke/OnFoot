@@ -100,17 +100,10 @@ class App extends Component {
       // Take a deep breath...
       // get the directions out of the JSON object and onto the page
       var directionSteps = steps.routes[0].legs[0].steps
-        // map 
+        // map over the array we get back for the html_instructions, and then 
+        // strip out the html tags that the Google Maps directions object returns 
         .map(x=>x.html_instructions.replace(/<(?:.|\n)*?>/gm, ' '))
 
-
-      // .reduce((a,x) => {
-      //   // add new lines....
-      //   a+= x.html_instructions
-      //   return a;
-      // },'')
-      //   // ...and strip out the html tags that the Google Maps directions object returns 
-      //   .replace(/<(?:.|\n)*?>/gm, '')
 
       // look up the item in our state by state.id and 
       // set a directions property equal to the "steps" from Google's directions 
