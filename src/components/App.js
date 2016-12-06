@@ -38,14 +38,12 @@ class App extends Component {
         //passes in the location to start finding restaraunts
         this.getNearbyRestaurants({location:this.state.latlong});
         //getAddress will take our longitude and latitude and find the nearest address to us
-        //the location state will update each time this is run
-        getAddress({lat:position.coords.latitude,lng:position.coords.longitude},((location)=> {
-          //split it into variables to increase readability
-          var streetNum  = location[0].address_components[0].long_name;
-          var streetName = location[0].address_components[1].long_name;
-          this.setState({location: `Current Location: ${streetNum} ${streetName}`})
+        getAddress({lat:position.coords.latitude,lng:position.coords.longitude},((location)=>
+          //the location state will update each time this is run
+          
+          this.setState({location: `Current Location: ${location.address.streetNumber} ${location.address.street}`})
 
-            }))
+            ))
         //this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
         })
     }
