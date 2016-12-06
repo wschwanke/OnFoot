@@ -1,6 +1,4 @@
 import React from 'react';
-import streetViewApi from './env/config.js'
-//import './css/Item.css';
 
 // config vars
 if(!process.env.imageKey){
@@ -9,16 +7,17 @@ if(!process.env.imageKey){
  streetViewAPI = process.env.imageKey;
 }
 
-const Item = ({item}) => {
+const Item = ({item,showDirections,displayDirections}) => {
+
   // variable string for link to Google maps directions
   var queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + item.geometry.location.lat + "," + item.geometry.location.lng + "&dirflg=w"
 
   //get the latitude and longtitude of a restaurant
   var geolocation = `${item.geometry.location.lat},${item.geometry.location.lng}`;
-  
+
   //url for google street view api
   var url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${geolocation}&key=${streetViewApi}`
-  
+
   // this function turns `item.price_level` into a dollar sign level
   var priceLevel = function() {
     var result = '';
@@ -43,6 +42,7 @@ const Item = ({item}) => {
             {/* Link to map directions */}
                 <a href={queryStr}><h2>Go</h2></a>
               </button>
+              <button onClick = {()=>{displayDirections(geolocation)}}>Get Directions</button>
 
           </figcaption>
         </figure>
