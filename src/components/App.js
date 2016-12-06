@@ -35,7 +35,7 @@ class App extends Component {
     // Get the user's location:
     if (navigator.geolocation) {
       //use an arrow function to not lose the this binding
-      //watchPosition will continually get the user's location
+      //watchPosition will constantly get the user's location
       navigator.geolocation.watchPosition( (position) => {
         console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
         this.setState({latlong:`${position.coords.latitude},${position.coords.longitude}`});
@@ -45,18 +45,14 @@ class App extends Component {
         getAddress({latlng:this.state.latlong},((location)=>{
           console.log(location)
           //the location state will update each time this is run
-<<<<<<< 61eff28fa9d8af3617dcf8a8f1cf3f424779632b
-
-          this.setState({location: `Current Location: ${location.address.streetNumber} ${location.address.street}`})
-=======
+          //split data into variables to increase readability
           var streetNum  = location[0].long_name
           var streetName = location[1].long_name
+          //the location state will update each time this is run
           this.setState({location: `Current Location: ${streetNum} ${streetName}`})
->>>>>>> had to re-do everything since a merge deleted everything I did,looks more readable now
 
-            }))
-        //this.setState({location :  [`latitude: ${position.coords.latitude}`,`longitude: ${position.coords.longitude}`]})
-        })
+        }))
+      })
     }
   }
   // get all the restaurants nearby
@@ -70,7 +66,6 @@ class App extends Component {
   //this waits till you have rendered something to then run anything in here
   componentDidMount() {
     this.getLocation()
-    //this.getNearbyRestaurants({location:this.state.latlong});
   }
 
   //this is for displaying the list, once this function was called it will hide the button
@@ -95,7 +90,6 @@ class App extends Component {
   render() {
     //set to a variable for a little better readability
     var location = this.state.location
-    //sets the data to the data variable
     var data = this.state.data
     return (
      <div className="App">
