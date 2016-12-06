@@ -25,13 +25,13 @@ var port = process.env.PORT || 4040;
 
 // var ip = '127.0.0.1';
 // tryping to get real ip address
-var ip = req.headers["x-forwarded-for"];
-  if (ip){
-    var list = ip.split(",");
-    ip = list[list.length-1];
-  } else {
-    ip = req.connection.remoteAddress;
-  }
+// var ip = req.headers["x-forwarded-for"];
+//   if (ip){
+//     var list = ip.split(",");
+//     ip = list[list.length-1];
+//   } else {
+//     ip = req.connection.remoteAddress;
+//   }
 
 
 //serving react files
@@ -87,9 +87,10 @@ app.get('/fetchAPI',function(req,res){
   res.send(API)
 })
 
-app.listen(port,ip);
-console.log("The magic happens on port :", port);
-
+// app.listen(port,ip);
+// console.log("The magic happens on port :", port);
+app.listen(port);
+console.log("tyring it with no IP address and the magic is happening on port:", port);
 
 //MONOGODB Stuff below
 // var options = {
