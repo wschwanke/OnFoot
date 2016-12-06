@@ -39,6 +39,7 @@ const Item = ({item,API,showDirections,displayDirections}) => {
             <h2>{item.name}</h2>
             <h3>{item.vicinity}</h3>
               <button className="loading-list-button">
+
            
                 {/* Link to map directions */}
                 <a href={queryStr}><h2>Go</h2></a></button>
@@ -53,6 +54,7 @@ const Item = ({item,API,showDirections,displayDirections}) => {
               })}
               
             </h4>
+
 
           </figcaption>
         </figure>
