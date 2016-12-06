@@ -21,7 +21,7 @@ var googleUrl='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radi
 
 var Yelp = require('yelp');
 
-var port = 4040;
+var port = process.env.port || 4040;
 
 var ip = '127.0.0.1';
 //serving react files
