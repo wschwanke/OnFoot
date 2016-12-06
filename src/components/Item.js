@@ -33,11 +33,14 @@ const Item = ({item,API,showDirections,displayDirections}) => {
 
             <h2>{item.name}</h2>
             <h3>{item.vicinity}</h3>
+            <h5 className="directions-test">{item.directions || 'No directions for you'}</h5>
               <button className="loading-list-button">
-            {/* Link to map directions */}
-                <a href={queryStr}><h2>Go</h2></a>
-              </button>
-              <button onClick = {()=>{displayDirections(geolocation)}}>Get Directions</button>
+           
+                {/* Link to map directions */}
+                <a href={queryStr}><h2>Go</h2></a></button>
+                
+                {/* Show directions in app */}
+              <button onClick = {()=>{displayDirections(geolocation, item.id)}}>Get Directions</button>
 
           </figcaption>
         </figure>

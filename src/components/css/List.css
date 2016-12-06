@@ -22,6 +22,11 @@
   font-family: 'Sigmar One', cursive;
 }
 
+.directions-test {
+  font-size: 2em;
+  color: #000;
+}
+
 *,
 *:before,
 *:after {
