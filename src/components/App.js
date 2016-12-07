@@ -135,11 +135,12 @@ class App extends Component {
     var location = this.state.location
     var data = this.state.data
     var api = this.state.imageAPI
+    var isLogin = this.state.isLogin
     return (
       <div className="App">
 
         {
-          <Nav isLogin={this.state.isLogin} displayName={this.state.displayName}/>
+          <Nav isLogin={isLogin} displayName={this.state.displayName}/>
         }
 
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/}
@@ -147,7 +148,7 @@ class App extends Component {
         {
           //check if showList is true then call the List component
           this.state.showList ?
-          <List data={data} API={api} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
+          <List data={data} API={api} isLogin={isLogin} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
         }
 
         {
