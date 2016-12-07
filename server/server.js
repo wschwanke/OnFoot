@@ -117,6 +117,7 @@ app.get('/', function(req,res){
 
 // api call for google maps and modifies it to use our current location
 app.get('/fetchData/:location',function(req,res){
+  var mapKey = process.env.mapKey || credentials.mapKey
   location = req.params.location
   var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant%7Cgas_station%7C&sensor=false'
 
