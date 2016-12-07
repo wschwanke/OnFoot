@@ -42,11 +42,13 @@ passport.serializeUser(function(user, done) {
 passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
-
+var clientID = process.env.clientID||credentials.facebook.clientID
+var clientSecret = process.env.clientSecret||credentials.facebook.clientSecret
+var callbackURL = process.env.callbackURL||credentials.facebook.callbackURL
 passport.use(new FacebookStrategy({
-  clientID: process.env.clientID||credentials.facebook.clientID,
-  clientSecret: process.env.clientSecret||credentials.facebook.clientSecret,
-  callbackURL:process.env.callbackURL||credentials.facebook.callbackURL
+  clientID: clientID,
+  clientSecret: clientSecret,
+  callbackURL:callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
@@ -138,7 +140,7 @@ app.get('/directions/:origin/:destination', function(req, res){
   var destination = req.params.destination;
   var url = 'https://maps.googleapis.com/maps/api/directions/json?mode=walking';
 
-  request(`${url}&origin=${origin}&destination=${destination}&key=${credentials.directionKey}`, function (error, response, body){
+  request(`${url}&origin=${origin}&destination=${destination}&key=${directionKey}`, function (error, response, body){
 
     if (!error && response.statusCode == 200) {
       res.json(body);
