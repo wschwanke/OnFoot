@@ -2,23 +2,23 @@ import $ from 'jquery';
 
 var getMap = (location,callback) => {
   var waypoints = ''
-  for (var i = 0; i < location.waypoints[0].steps.length; i++) {
-    waypoints+=location.waypoints[0].steps[i].end_location.lat+','+location.waypoints[0].steps[i].end_location.lng+'|';
+  var shorten = location.waypoints[0]
+  for (var i = 0; i < shorten.steps.length; i++) {
+    waypoints+=shorten.steps[i].start_location.lat+','+shorten.steps[i].start_location.lng+'|'+shorten.steps[i].end_location.lat+','+shorten.steps[i].end_location.lng+'|';
   }
-  var start = location.waypoints[0].start_address
-  var end = location.waypoints[0].end_address
-  console.log('we\'re going from', start,' to ',end)
+  //just make the pain go away
+  var start = shorten.steps[0].start_location.lat+','+shorten.steps[0].start_location.lng
+  var end = shorten.steps[shorten.steps.length-1].end_location.lat+','+shorten.steps[shorten.steps.length-1].end_location.lng
   var waypoints= waypoints.slice(0,waypoints.length-1)
-  console.log('please work',waypoints)
-//   $.get(`/map/${location.origin}/${location.destination}`)
-//   .done((directions)=>{
-//     callback(JSON.parse(directions));
-//   })
-//   .fail(({responseJSON})=>{
-//     responseJSON.error.errors.forEach((err) =>
-//       console.error(err)
-//     );
-//   });
+  $.get(`/fetchMap/${start}/${end}/${waypoints}`)
+   .done((map)=>{
+     callback(map);
+   })
+   .fail(({responseJSON})=>{
+     responseJSON.error.errors.forEach((err) =>
+       console.error(err)
+     );
+   });
  };
 
 export default getMap

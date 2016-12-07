@@ -8,8 +8,8 @@ import getAPI from './lib/getImageAPI.js'
 import List from './List';
 import Directions from './Directions';
 import Loading from './Loading';
-import data from './data/data.js';
-import getMap from './lib/getMap.js'
+import getMap from './lib/getMap.js';
+import Mapimage from './Mapimage';
 
 class App extends Component {
   constructor (props) {
@@ -23,7 +23,9 @@ class App extends Component {
       hideButton: false,
       showDirections: false,
       directions: undefined,
-      imageAPI:undefined
+      imageAPI:undefined,
+      link:undefined,
+      showMap:false
     };
   }
 
@@ -45,14 +47,13 @@ class App extends Component {
         this.getNearbyRestaurants({location:this.state.latlong});
         //getAddress will take our longitude and latitude and find the nearest address to us
         getAddress({latlng:this.state.latlong},((location)=>{
-          console.log(location)
           //the location state will update each time this is run
           //split data into variables to increase readability
           var streetNum  = location[0].long_name
           var streetName = location[1].long_name
           //the location state will update each time this is run
           this.setState({location: `Current Location: ${streetNum} ${streetName}`})
-
+          
         }))
       })
     }
@@ -90,11 +91,14 @@ class App extends Component {
 
     getDirections(location,(steps) => {
       //get all data needed then replace the current display to a direction component
-      console.log(steps)
       this.setState({directions:steps});
       this.setState({showList:false});
       this.setState({showDirections:true});
-      getMap({waypoints:steps.routes[0].legs})
+      getMap({waypoints:steps.routes[0].legs},(map)=>{
+        console.log(map)
+        this.setState({link:`${map}`})
+        this.setState({showMap:true})
+      })
     })
 
   }
@@ -116,9 +120,12 @@ class App extends Component {
         }
 
         {
+          this.state.showMap ?
+            <Mapimage link={this.state.link}/> : null
+        }
+        {
           //check if showDirections is true then call the Directions component
           this.state.showDirections ?
-          
            <Directions directions={this.state.directions}/> : null
         }
 

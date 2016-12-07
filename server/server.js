@@ -96,6 +96,17 @@ app.get('/fetchAddress/:latlng',function(req,res){
     }
   })
 })
+app.get('/fetchmap/:start/:end/:waypoints',function(req,res) {
+  var start = req.params.start
+  var end = req.params.end
+  var waypoints = req.params.waypoints
+  var staticMapKey = process.env.staticMapKey || googleAPI.staticMapKey
+  //res.writeHeader({'Content-Type':'image/jpg'});
+  console.log('start',start,' end ',end,' waypoints ',waypoints)
+  var image = `https://maps.googleapis.com/maps/api/staticmap?size=600x300&path=${waypoints}&markers=label:A%7C${start}&markers=label:B%7C${end}&key=${staticMapKey}`
+  res.send(image);
+  })
+//})
 // app.listen(port,ip);
 // console.log("Listening on port :", port);
 app.listen(port);
