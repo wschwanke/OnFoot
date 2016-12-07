@@ -4,9 +4,6 @@ var bodyParser = require('body-parser');
 //need to import request module for ajax call
 var request = require('request')
 var path = require('path');
-if(!process.env.clientID) {
-var credentials = require('./env/config.js')
-}
 var createSession = require('./util.js');
 
 
@@ -17,9 +14,10 @@ var passport = require('passport');
 var FacebookStrategy = require('passport-facebook').Strategy;
 var session = require('express-session');
 
-
+if(!process.env.clientID) {
+var credentials = require('./env/config.js')
+}
 // config vars
-var mapKey = process.env.mapKey || require( './env/config.js' ).mapKey ;
 
 var port = process.env.PORT || 4040;
 
