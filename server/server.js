@@ -4,7 +4,9 @@ var bodyParser = require('body-parser');
 //need to import request module for ajax call
 var request = require('request')
 var path = require('path');
+if(!process.env.clientID) {
 var credentials = require('./env/config.js')
+}
 var createSession = require('./util.js');
 
 
@@ -44,9 +46,9 @@ passport.deserializeUser(function(obj, done) {
 });
 
 passport.use(new FacebookStrategy({
-  clientID: credentials.facebook.clientID,
-  clientSecret: credentials.facebook.clientSecret,
-  callbackURL:credentials.facebook.callbackURL
+  clientID: process.env.clientID||credentials.facebook.clientID,
+  clientSecret: process.env.clientSecret||credentials.facebook.clientSecret,
+  callbackURL:process.env.callbackURL||credentials.facebook.callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
