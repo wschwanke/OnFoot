@@ -72,9 +72,7 @@ class App extends Component {
    // sets state to that so we can pass it down
     getAPI((api)=>{
       this.setState({imageAPI:api})
-      
-    })
-    
+      })    
   }
 
   //this is for displaying the list, once this function was called it will hide the button
@@ -84,14 +82,36 @@ class App extends Component {
   }
 
   //this is for displaying the Direction component, this needs to be called when a restaurant has been clicked
-  displayDirections(destinationLatLng) {
+  // we pass the desired destination Lat & Long, and the id; id corresponds to the Google maps JSON object id
+  displayDirections(destinationLatLng, id, e) {
     var location = {origin:this.state.latlong, destination: destinationLatLng};
 
     getDirections(location,(steps) => {
       //get all data needed then replace the current display to a direction component
       this.setState({directions:steps});
-      this.setState({showList:false});
-      this.setState({showDirections:true});
+      // this.setState({showList:false});
+      // this.setState({showDirections:true});
+      
+      // we get an array with the results back from the Google API; that's what we're accessing
+      var data=this.state.data.results;
+    
+      // Take a deep breath...
+      // get the directions out of the JSON object and onto the page
+      var directionSteps = steps.routes[0].legs[0].steps
+        // map over the array we get back for the html_instructions, and then 
+        // strip out the html tags that the Google Maps directions object returns 
+        .map(x=>x.html_instructions.replace(/<(?:.|\n)*?>/gm, ' '))
+
+
+      // look up the item in our state by state.id and 
+      // set a directions property equal to the "steps" from Google's directions 
+      // (with quadratic time complexity :) )
+      data[data.map(x => x.id).indexOf(id)]['directions'] = directionSteps;
+
+      // In order to get the directions to display in each "card", we had to use forceUpdate.
+      // There's probably a better way to handle this...
+      this.forceUpdate();
+      console.log('Here are the steps results for the place you just clicked', steps);
     })
 
   }

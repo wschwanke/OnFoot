@@ -1,4 +1,5 @@
 import React from 'react';
+import './css/Directions.css';
 
 var Step = ({item}) => {
   return(
