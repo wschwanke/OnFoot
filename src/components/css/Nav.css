@@ -1,0 +1,35 @@
+.nav{
+  position: absolute;
+  top:20px;
+  width: 100%;
+  height: 30px;
+}
+
+.nav a {
+  float          :right;
+  margin         :5px 30px 5px 25px;
+  padding        :5px;
+  display        : block;
+  position       : relative;
+  font-family    : sans-serif;
+  font-size      : 14px;
+  font-weight    : bold;
+  text-transform : uppercase;
+  text-align     : center;
+  color          : white;
+  letter-spacing : 1px;
+  width          : 100px;
+  border-radius  : 10px;
+  border           : 2px solid white;
+  transition       : all 0.3s ease;
+  box-sizing         : border-box;
+  -moz-box-sizing    : border-box;
+  -webkit-box-sizing : border-box;
+  background-color : transparent;
+
+}
+
+a:hover{
+  background-color : white;
+  color            : #0E83CD;
+}
