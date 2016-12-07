@@ -1,136 +1,72 @@
 # Contributing
 
-## General Workflow
+## Team Green-Dream's General Mistake-Proof-Spread-the-Pain-Out-So-It-Doesn't-Hit-You-All-At-Once™ Git Workflow
 
-1. Clone down the master
-1. Cut a namespaced feature branch from master
-  - bug/...
-  - feat/...
-  - test/...
-  - doc/...
-  - refactor/...
-1. Make commits to your feature branch. Prefix each commit like so:
-  - (feat) Added a new feature
-  - (fix) Fixed inconsistent tests [Fixes #0]
-  - (refactor) ...
-  - (cleanup) ...
-  - (test) ...
-  - (doc) ...
-1. When you've finished with your fix or feature, Rebase upstream changes into your branch. submit a [pull request][]
-   directly to master. Include a description of your changes.
-1. Your pull request will be reviewed by another maintainer. The point of code
-   reviews is to help keep the codebase clean and of high quality and, equally
-   as important, to help you grow as a programmer. If your code reviewer
-   requests you make a change you don't understand, ask them why.
-1. Fix any issues raised by your code reviwer, and push your fixes as a single
-   new commit.
-1. Once the pull request has been reviewed, it will be merged by another member of the team. Do not merge your own commits.
+1. Make sure all members of the team are STARTING from the correct local version of the Master. 
 
-## Detailed Workflow
+`git pull` to pull down the master. 
 
-### Clone Down the Master
+2. Cut a namespaced feature branch from the master for the feature or bug you're going to be working on. If your team is using GitHub's Project Issue Tracker, create a new issue in the GUI and add the issue or bug number in your branch name. For example: 
 
-Use github’s interface to clone the master down to your computer
+`#74-procfile-port-variable` or `bug-#65-distance-list-view`
+  
+3. Make sure you are working on the correct local branch. Type `git branch`. The branch you're working on should be green.
 
-### Cut a namespaced feature branch from master
+4. Make commits to that feature branch. Code code code, work work work. `git add .` and `git commit -m "<your commit notes in quotes here>"`. Be descriptive in your commit notes. 
 
-Your branch should follow this naming convention:
-  - bug/...
-  - feat/...
-  - test/...
-  - doc/...
-  - refactor/...
+5. Does your feature work? Test it in the browser. 
 
-These commands will help you do this:
+6. IMPORTANT: AT EVERY COMMIT, YOU WILL BE REBASING. If your feature works or your bug is fixed, commit your changes. After you commit, SWITCH TO THE MASTER. 
 
-``` bash
+`git checkout master`
 
-# Creates your branch and brings you there
-git checkout -b `your-branch-name`
-```
+If you type `git branch`, master should be green. ONCE ON THE MASTER, DO NOT COMMIT. The goal here is to make sure your local master is up to date with the rest of the team's. This way, the master stays pure. 
 
-### Make commits to your feature branch. 
+7. `git pull` - there should be no merge conflicts.
 
-Prefix each commit like so
-  - (feat) Added a new feature
-  - (fix) Fixed inconsistent tests [Fixes #0]
-  - (refactor) ...
-  - (cleanup) ...
-  - (test) ...
-  - (doc) ...
+8. NOW, SWITCH BACK TO YOUR BRANCH. 
 
-Make changes and commits on your branch, and make sure that you
-only make changes that are relevant to this branch. If you find
-yourself making unrelated changes, make a new branch for those
-changes.
+`git checkout <your-cool-branch-name>`
 
-#### Commit Message Guidelines
+9. REBASE ANY UPSTREAM CHANGES INTO YOUR BRANCH:
 
-- Commit messages should be written in the present tense; e.g. "Fix continuous
-  integration script".
-- The first line of your commit message should be a brief summary of what the
-  commit changes. Aim for about 70 characters max. Remember: This is a summary,
-  not a detailed description of everything that changed.
-- If you want to explain the commit in more depth, following the first line should
-  be a blank line and then a more detailed description of the commit. This can be
-  as detailed as you want, so dig into details here and keep the first line short.
+`git pull --rebase origin master`
 
-### Rebase master branch changes into your branch
+Merge any changes on the master with the local branch you've been working on. See #10 below.
 
-Once you are done making changes, you can begin the process of getting
-your code merged into the main repo. Step 1 is to pull down any changes to the master branch
-to your local master branch
-```bash
-git checkout master
-git pull
-```
-you will then switch back to your branch and attempt you rebase these new changes into your code
-```bash
-git checkout branchname
-git pull --rebase origin master
-```
-If there are conflicting changes, git will start yelling at you part way
-through the rebasing process. Git will pause rebasing to allow you to sort
-out the conflicts. You do this the same way you solve merge conflicts,
-by checking all of the files git says have been changed in both histories
-and picking the versions you want. Be aware that these changes will show
-up in your pull request, so try and incorporate upstream changes as much
-as possible.
+10. CONFLICTS: In the terminal, if there are conflicts between your local feature/bug branch and the master, you'll see the word `CONFLICT` in all-caps with a reference to where you can find it in your code.
 
-You pick a file by `git add`ing it - you do not make commits during a
-rebase.
+Many people use XCode or another mergetools product at this point. Our team finds that it's easiest simply to open up your code editor, and look for the HEAD of the CONFLICT in your code. It will be a super long number. The new stuff from the master will be on top. If you've been diligent in rebasing at every commit, this step should be pretty easy. If you've been working on your own for a while, it may be the case that you'll need to discuss with a team mate how best to "braid" your most recent changes into hers.
 
-Once you are done fixing conflicts for a specific commit, run:
+11. Save your code editor file and switch back to the Terminal. ADD BUT DO NOT COMMIT.
 
-```bash
-git rebase --continue
-```
+`git add .`
 
-This will continue the rebasing process. Once you are done fixing all
-conflicts you should run the existing tests to make sure you didn’t break
-anything, then run your new tests (there are new tests, right?) and
-make sure they work also.
+12. Continue the rebase process.
 
-If rebasing broke anything, fix it, then repeat the above process until
-you get here again and nothing is broken and all the tests pass.
+`git rebase --continue`
 
-### Make a pull request
+13. You'll continue to make changes in your editor, saving, and adding (but not committing), and typing 
 
-Make a clear pull request from your branch to the master
-branch, detailing exactly what changes you made and what feature this
-should add. The clearer your pull request is the faster you can get
-your changes incorporated into this repo.
+`git rebase --continue`
 
-At least one other person MUST give your changes a code review, and once
-they are satisfied they will merge your changes into the master branch. Alternatively,
-they may have some requested changes. You should make more commits to your
-branch to fix these, then follow this process again from rebasing onwards.
+until there are no longer any changes to merge.
 
-Once you get back here, make a comment requesting further review and
-someone will look at your code again. If they like it, it will get merged,
-else, just repeat again.
+14. Once you're finished merging your changes, push your changes onto the remote branch.
 
-Thanks for contributing!
+`git push origin <your-cool-branch-name>`
+
+15. Now it's time to make a Pull Request. Did your feature break the project, or does it still work? Make sure you know the answer to this question. Now navigate to GitHub, and submit a pull request directly to the master. Have another member of the team approve or reject the changes.
+
+16. Once the Pull Request is approved, every member of the team will checkout to the master branch and pull those changes down:
+
+`git checkout master`
+
+and then
+
+`git pull`
+
+17. You're now back at step 1. Create a new issue, cut a new branch, and continue.
 
 ### Guidelines
 
