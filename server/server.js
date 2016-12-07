@@ -70,10 +70,8 @@ app.get('/auth/facebook/callback',
     console.log("req",req.user);
     User.findOne({id:req.user.id}).exec(function(err,found){
       if(!found){
-        console.log("found",found);
         var user = new User({id:req.user.id,name:req.user.displayName})
         .save(function(err,data){
-          console.log("data",data);
           createSession(req,res,req.user.id);
         })
       }else{
@@ -95,7 +93,14 @@ app.get('/logout', function(req, res){
 
 app.get('/isLogin', function(req, res){
   var isLogin = req.session.userID ? true : false;
-  res.send(isLogin);
+  User.findOne({id:req.session.userID}).exec(function(err,user){
+    console.log("found",user);
+    var user = user ? user.name : ""
+    var data = {isLogin:isLogin,name:user};
+    res.json(data);
+  })
+
+
 })
 
 //---------------------------Authentication
@@ -134,7 +139,6 @@ app.get('/fetchData/:location',function(req,res){
 
   console.log("passs 1");
   request(`${url}&location=${location}&key=${mapKey}`, function (error, response, body) {
-    console.log("passs 2");
     console.log(error);
     if (!error && response.statusCode == 200) {
       res.json(body);
@@ -173,14 +177,11 @@ app.get('/fetchAddress/:latlng',function(req,res){
   })
 })
 
-app.post('/create', function(req,res){
-  var user = new User({id:1232,name:"rrrrrr"}).save(function(err,data){
-    res.send(data);
-  })
-})
 
-app.get('/user', function(req, res){
-  User.find().exec(function(err,found){
+app.get('/username', function(req, res){
+  console.log("user",req.session.userID);
+  User.findOne().exec(function(err,found){
+    console.log("found",found);
     res.send();
   })
 })

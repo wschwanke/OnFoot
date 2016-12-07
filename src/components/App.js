@@ -8,6 +8,7 @@ import getAddress from './lib/getAddress.js'
 import getDirections from './lib/getDirections.js'
 import getAPI from './lib/getImagesAPI.js'
 import isLogin from './lib/isLogin.js'
+import getDisplayName from './lib/getDisplayName.js'
 
 
 import List from './List';
@@ -29,7 +30,8 @@ class App extends Component {
       showDirections: false,
       directions: undefined,
       imageAPI:undefined,
-      isLogin:false
+      isLogin:false,
+      displayName:undefined
     };
   }
 
@@ -82,8 +84,9 @@ class App extends Component {
 
     })
 
-    isLogin((login)=>{
-      this.setState({isLogin:login});
+    isLogin((user)=>{
+      this.setState({isLogin:user.isLogin});
+      this.setState({displayName:user.name});
     })
   }
 
@@ -136,7 +139,7 @@ class App extends Component {
       <div className="App">
 
         {
-          <Nav isLogin = {this.state.isLogin}/>
+          <Nav isLogin={this.state.isLogin} displayName={this.state.displayName}/>
         }
 
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/}
