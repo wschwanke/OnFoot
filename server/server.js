@@ -161,7 +161,6 @@ app.get('/fetchAddress/:latlng',function(req,res){
   })
 })
 
-
 app.post('/create', function(req,res){
   var user = new User({id:1232,name:"rrrrrr"}).save(function(err,data){
     res.send(data);
