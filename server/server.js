@@ -4,22 +4,20 @@ var bodyParser = require('body-parser');
 //need to import request module for ajax call
 var request = require('request')
 var path = require('path');
-// var googleAPI = require('./env/config.js')
+var credentials = require('./env/config.js')
+var createSession = require('./util.js');
+
+
+var User = require('./db/user');
+
+
+var passport = require('passport');
+var FacebookStrategy = require('passport-facebook').Strategy;
+var session = require('express-session');
+
 
 // config vars
-var mapKey;
-if(!process.env.mapKey){
- var googleAPI = require( './env/config.js' )
-  mapKey= googleAPI.mapKey;
-} else {
-  mapKey= process.env.mapKey;
-}
-
-// assigning our nearby search url
-var googleUrl='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant%7Cgas_station%7C&sensor=false' 
-
-
-var Yelp = require('yelp');
+var mapKey = process.env.mapKey || require( './env/config.js' ).mapKey ;
 
 var port = process.env.PORT || 4040;
 
@@ -32,6 +30,63 @@ var port = process.env.PORT || 4040;
 //   } else {
 //     ip = req.connection.remoteAddress;
 //   }
+
+
+var ip = '127.0.0.1';
+
+
+//Authentication ---------------------------
+passport.serializeUser(function(user, done) {
+  done(null, user);
+});
+passport.deserializeUser(function(obj, done) {
+  done(null, obj);
+});
+
+passport.use(new FacebookStrategy({
+  clientID: credentials.facebook.clientID,
+  clientSecret: credentials.facebook.clientSecret,
+  callbackURL:credentials.facebook.callbackURL
+  },
+  function(accessToken, refreshToken, profile, done) {
+    process.nextTick(function () {
+      return done(null, profile);
+    });
+  }
+));
+
+app.use(passport.initialize());
+app.use(passport.session());
+app.use(session({ secret: 'on_foot' }));
+
+
+app.get('/auth/facebook',
+  passport.authenticate('facebook'),
+  function(req, res){});
+
+app.get('/auth/facebook/callback',
+  passport.authenticate('facebook', { authType: 'reauthenticate',failureRedirect: '/' }),
+  function(req, res) {
+    createSession(req,res,req.user.id);
+});
+
+
+app.get('/login', function(req,res){
+  res.redirect('/auth/facebook/callback');
+})
+
+app.get('/logout', function(req, res){
+  req.session.destroy()
+  req.logout()
+  res.redirect('/')
+});
+
+app.get('/isLogin', function(req, res){
+  var isLogin = req.session.userID ? true : false;
+  res.send(isLogin);
+})
+
+//---------------------------Authentication
 
 
 //serving react files
@@ -56,14 +111,19 @@ app.all('*', function(req, res, next) {
 
 
 app.get('/', function(req,res){
+  console.log("auth", req.isAuthenticated());
   res.sendFile(path.resolve(__dirname, '..', 'public', 'index.html'));
 })
 
 // api call for google maps and modifies it to use our current location
 app.get('/fetchData/:location',function(req,res){
   location = req.params.location
+  var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant%7Cgas_station%7C&sensor=false'
 
-  request(`${googleUrl}&location=${location}&key=${mapKey}`, function (error, response, body) {
+  console.log("passs 1");
+  request(`${url}&location=${location}&key=${mapKey}`, function (error, response, body) {
+    console.log("passs 2");
+    console.log(error);
     if (!error && response.statusCode == 200) {
       res.json(body);
     }
@@ -72,21 +132,25 @@ app.get('/fetchData/:location',function(req,res){
 
 //api call for direction from origin to destination
 app.get('/directions/:origin/:destination', function(req, res){
-  var directionKey = process.env.directionKey || googleAPI.directionKey
+  var directionKey = process.env.directionKey || credentials.directionKey
   var origin = req.params.origin;
   var destination = req.params.destination;
   var url = 'https://maps.googleapis.com/maps/api/directions/json?mode=walking';
 
-  request(`${url}&origin=${origin}&destination=${destination}&key=${directionKey}`, function (error, response, body){
+  request(`${url}&origin=${origin}&destination=${destination}&key=${credentials.directionKey}`, function (error, response, body){
+
     if (!error && response.statusCode == 200) {
       res.json(body);
     }
   })
 })
+
 app.get('/fetchAPI',function(req,res){
-  var API = process.env.imageKey || googleAPI.imageKey
+  var API = process.env.imageKey || credentials.imageKey
   res.send(API)
 })
+
+
 //gets our address
 app.get('/fetchAddress/:latlng',function(req,res){
   var latlng = req.params.latlng
@@ -96,131 +160,19 @@ app.get('/fetchAddress/:latlng',function(req,res){
     }
   })
 })
-// app.listen(port,ip);
-// console.log("Listening on port :", port);
+
+app.post('/create', function(req,res){
+  var user = new User({id:1232,name:"rrrrrr"}).save(function(err,data){
+    res.send(data);
+  })
+})
+
+app.get('/user', function(req, res){
+  User.find().exec(function(err,found){
+    res.send();
+  })
+})
+
+
 app.listen(port);
 console.log("The magic is happening on port:", port);
-
-//MONOGODB Stuff below
-// var options = {
-//   user: credentials.user,
-//   pass: credentials.pass
-// };
-
-// var mongoose = require('mongoose');
-// mongoose.connect(googleAPI.dbUrl);
-
-// var db = mongoose.connection;
-
-// db.on('error', function (err) {
-// //console.log('connection error', err);
-// });
-// db.once('open', function () {
-// //console.log('connected to server.');
-// });
-
-
-// var Schema = mongoose.Schema;
-// var userSchema = new Schema({
-// name : String,
-// age : Number,
-// DOB : Date,
-// isAlive : Boolean
-// });
-
-// userSchema.methods.isYounger = function () {
-// return this.model('User').age < 50 ? true : false;
-// };
-
-// var User = mongoose.model('User', userSchema);
-
-// var arvind = new User({
-// name : 'Arvind',
-// age : 99,
-// DOB : '01/01/1915',
-// isAlive : true
-// });
-
-// arvind.save(function (err, data) {
-// if (err) console.log(err);
-// //else console.log('Saved : ', data );
-// }); //synchronicity issues - this is logging out last.
-
-// //console.log('isYounger : ',arvind.isYounger());
-
-// User.find(function(err, data) {
-//   if (err) return console.error(err);
-//   //console.log("I AM THE DATA!!!!!!!!!!!!!", data);
-//    });
-
-// User.find(function(err, data) {
-//   if (err) return console.error(err);
-//   //console.log("I AM THE DATA!!!!!!!!!!!!!", data);
-//    });
-
-
-// Below is a proposed model schema for our data - this has been tested and shown to work
-//The properties are labeled to correspond as closely as possible to the properties of the data returned by the google API
-// var restaurantSchema = new mongoose.Schema({
-//   lat: Number,
-//   long: Number,
-//   name:  String,
-//   rating: Number,
-//   types: Array,
-//   vicinity: String,
-//   users: Array
-// });
-
-
-// restaurantSchema.methods.isRated = function () { //Sample function to check if a restaurant's rating is higher than 4
-// return this.model('Restaurant').rating > 4 ? true : false;
-// };
-
-// var Restaurant = mongoose.model('Restaurant', restaurantSchema);
-
-//Hardcoded sample data
-// var Sheraton = new Restaurant({
-// lat: 30.270508,
-// long: -97.73433519999999,
-// name : "Sheraton Austin at the Capitol",
-// rating : 3.7,
-// types: [ 'lodging',
-//      'restaurant',
-//      'food',
-//      'point_of_interest',
-//      'establishment' ],
-// vicinity: "701 East 11th Street, Austin",
-// users: ['Sheel', 'Ethan']
-// });
-
-// var Parkside = new Restaurant({
-// lat: 30.267062,
-// long: -97.74032299999999,
-// name : "Parkside",
-// rating : 4.2,
-// types: [ 'bar',
-//      'restaurant',
-//      'food',
-//      'point_of_interest',
-//      'establishment' ],
-// vicinity: "301 East 6th Street, Austin",
-// users: ['Sheel', 'Ethan']
-// });
-
-// Sheraton.save(function (err, data) {
-// if (err) console.log(err);
-// else console.log('Saved 111111 : ', data );
-// });
-
-// Parkside.save(function (err, data) {
-// if (err) console.log(err);
-// else console.log('Saved 222222 : ', data );
-// });
-
-// console.log('isRated : ', Sheraton.name, " ", Sheraton.isRated(), Parkside.name, " ", Parkside.isRated());
-
-// Restaurant.find(function(err, data) {
-//   if (err) return console.error(err);
-//   console.log("I AM THE DATA!!!!!!!!!!!!!", data);
-// });
-

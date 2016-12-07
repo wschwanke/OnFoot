@@ -1,14 +1,20 @@
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import './css/App.css';
+
+
 import getRestaurants from './lib/getRestaurants.js'
 import getAddress from './lib/getAddress.js'
 import getDirections from './lib/getDirections.js'
 import getAPI from './lib/getImageAPI.js'
+import isLogin from './lib/isLogin.js'
+
+
 import List from './List';
 import Directions from './Directions';
 import Loading from './Loading';
-import data from './data/data.js';
+import LoginButton from './LoginButton'
+
 
 class App extends Component {
   constructor (props) {
@@ -22,7 +28,8 @@ class App extends Component {
       hideButton: false,
       showDirections: false,
       directions: undefined,
-      imageAPI:undefined
+      imageAPI:undefined,
+      isLogin:false
     };
   }
 
@@ -72,7 +79,12 @@ class App extends Component {
    // sets state to that so we can pass it down
     getAPI((api)=>{
       this.setState({imageAPI:api})
-      })    
+
+    })
+
+    isLogin((login)=>{
+      this.setState({isLogin:login});
+    })
   }
 
   //this is for displaying the list, once this function was called it will hide the button
@@ -91,20 +103,20 @@ class App extends Component {
       this.setState({directions:steps});
       // this.setState({showList:false});
       // this.setState({showDirections:true});
-      
+
       // we get an array with the results back from the Google API; that's what we're accessing
       var data=this.state.data.results;
-    
+
       // Take a deep breath...
       // get the directions out of the JSON object and onto the page
       var directionSteps = steps.routes[0].legs[0].steps
-        // map over the array we get back for the html_instructions, and then 
-        // strip out the html tags that the Google Maps directions object returns 
+        // map over the array we get back for the html_instructions, and then
+        // strip out the html tags that the Google Maps directions object returns
         .map(x=>x.html_instructions.replace(/<(?:.|\n)*?>/gm, ' '))
 
 
-      // look up the item in our state by state.id and 
-      // set a directions property equal to the "steps" from Google's directions 
+      // look up the item in our state by state.id and
+      // set a directions property equal to the "steps" from Google's directions
       // (with quadratic time complexity :) )
       data[data.map(x => x.id).indexOf(id)]['directions'] = directionSteps;
 
@@ -113,7 +125,6 @@ class App extends Component {
       this.forceUpdate();
       console.log('Here are the steps results for the place you just clicked', steps);
     })
-
   }
 
   render() {
@@ -122,9 +133,15 @@ class App extends Component {
     var data = this.state.data
     var api = this.state.imageAPI
     return (
-     <div className="App">
+      <div className="App">
 
-       {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/}
+        {
+          this.state.isLogin ?
+
+          <a href="/logout">Logout</a> : <LoginButton login = {()=>Login()}/>
+        }
+
+        {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/}
         <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
         {
           //check if showList is true then call the List component
