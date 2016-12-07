@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-var mlab = require('../env/config.js');
+//var mlab = require('../env/config.js');
 
 mongoose.connect('mongodb://root:password123@ds117348.mlab.com:17348/on-foot');
 
