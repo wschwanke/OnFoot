@@ -40,12 +40,13 @@ const Item = ({item,API,showDirections,displayDirections}) => {
             <h3>{item.vicinity}</h3>
               <button className="loading-list-button">
 
+
            
                 {/* Link to map directions */}
-                <a href={queryStr}><h2>Go</h2></a></button>
+                <a href={queryStr}><h2 className="loading-list-text">Go</h2></a></button>
                 
                 {/* Show directions in app */}
-              <button onClick={directionsClick}>Get Directions</button>
+              <button className="get-directions-button" onClick={directionsClick}>Get Directions</button>
 
             {/* Show directions below list button */}
               <h4 className="directions-list">              
@@ -55,7 +56,6 @@ const Item = ({item,API,showDirections,displayDirections}) => {
               
             </h4>
 
-
           </figcaption>
         </figure>
       </a>
@@ -64,3 +64,5 @@ const Item = ({item,API,showDirections,displayDirections}) => {
 };
 
 export default Item;
+
+

@@ -74,3 +74,34 @@ button {
 .loading-list-button:active {
   transform: scale(1.1)
 }
+
+.get-directions-button {
+  overflow         : hidden;
+  color            : red;
+  background-color : transparent;
+  border-radius: 14px;
+  border           : 3px solid black;
+  transition       : all 0.3s ease;
+}
+
+.get-directions-button:hover {
+  background-color : black;
+  color            : #ffffff;
+}
+
+.get-directions-button:active {
+  transform: scale(1.1)
+}
+
+.loading-list-text {
+  color            : red;
+  background-color : transparent;
+}
+
+.loading-list-text:hover {
+  background-color : black;
+  color            : #ffffff;
+}
+.loading-list-text:active {
+  transform: scale(1.1)
+}
