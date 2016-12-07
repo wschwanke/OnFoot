@@ -16,27 +16,19 @@ Oh, and I also like to write press-releases in what I call "Oprah-speak" for mai
 Once the project moves into development, the press release can be used as a touchstone; a guiding light. The product team can ask themselves, "Are we building what is in the press release?" If they find they're spending time building things that aren't in the press release (overbuilding), they need to ask themselves why. This keeps product development focused on achieving the customer benefits and not building extraneous stuff that takes longer to build, takes resources to maintain, and doesn't provide real customer benefit (at least not enough to warrant inclusion in the press release).
  -->
  
-## Heading ##
-  > OnFoot!
 
-## Sub-Heading ##
-  >Never Yelp again.
+  OnFoot!
+  Never Yelp again.
 
-## Summary ##
-  > At one touch, get a curated list of the best open restaurants within walking distance. 
-## Problem ##
-  >You'll never have to bother with multiple buttons, confusing interfaces, or reading through long text fields again.   
-## Solution ##
-  > We do that work for you - OnFoot delivers a preselected list of places.
+  At one touch, get a curated list of the best open restaurants within walking distance. You'll never have to bother with multiple buttons, confusing interfaces, or reading through long text fields again. OnFoot does the work, delivering a preselected list of places. All highly rated, all near you.
 
 ## Quote from You ##
-  > "This product was borne out of our own frustrations in picking restaurants while traveling, trying to find places that are both cheap and good."
+  >"OnFoot was borne out of our own frustrations in picking restaurants while traveling, trying to find places that are both cheap and good." - Team GreenDream
 
-## How to Get Started ##
-  > Just push a button. 
+  All you need to do to start is push a button. 
 
 ## Customer Quote ##
-  > "As a touring musician, I'm often in a new city. I use OnFoot to quickly and efficiently find inexpensive, good places to eat that are close by."
+  "As a touring musician, I'm often in a new city. I use OnFoot to quickly and efficiently find inexpensive, good places to eat that are close by." - Matt Oliver.
 
-## Closing and Call to Action ##
-  > "Go to OnFoot.com and you get started within seconds."
+
+  Go to OnFoot.com and get started within seconds.
