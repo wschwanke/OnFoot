@@ -68,6 +68,30 @@ and then
 
 17. You're now back at step 1. Create a new issue, cut a new branch, and continue.
 
+### API Keys and Database Config
+
+You're going to need a few. There are *three* Google Maps API keys required: one for maps, one for directions, and one to use the photos in Google maps. The current version of the app requires keys for those Google Maps API endpoints and keys for hooking into the Facebook API for the authentication layer. There are a couple of links below for how to include your MongoDB URL credentials to hook up to the database and adding config vars to Heroku. If using MongoDB, we recommend mLab. The first url in the object below is the actual Google Maps search url. You can leave that url as-is (unless you decide to change the search filter). Here's the structure of our config file. (/path/to/your/app/server/env/config.js):
+
+```
+module.exports = {
+  url : 'https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant%7Cgas_station%7C&sensor=false',
+  mapKey : 'API KEY HERE',
+  dbUrl: 'mongodb://(username):(password).mlab.com:17348/(database-name)',
+  imageKey: 'API KEY HERE',
+  directionKey: 'API KEY HERE',
+    facebook:{
+      clientID: 'API KEY HERE',
+      clientSecret: 'API KEY HERE',
+      callbackURL: 'http://127.0.0.1:4040/auth/facebook/callback'
+    }
+}
+
+```
+https://devcenter.heroku.com/articles/mongolab#getting-your-connection-uri
+https://devcenter.heroku.com/articles/facebook
+http://docs.mlab.com/connecting/
+
+
 ### Guidelines
 
 1. Uphold the current code standard:
