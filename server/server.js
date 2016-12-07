@@ -11,7 +11,7 @@ var createSession = require('./util.js');
 if(!process.env.clientID) {
 var credentials = require('./env/config.js')
 } else {
- var deployedURL = `https://onf00t.herokuapp.com/:${process.env.PORT}/auth/facebook/callback`
+ var deployedURL = `https://onf00t.herokuapp.com/auth/facebook/callback`
 }
 
 var User = require('./db/user');
