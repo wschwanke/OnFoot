@@ -1,7 +1,11 @@
 var mongoose = require('mongoose');
-var mlab = require('../env/config.js');
 
-mongoose.connect('mongodb://root:password123@ds117348.mlab.com:17348/on-foot');
+if(!process.env.dbUrl) {
+var mlab = require('../env/config.js') 
+}
+var link = process.env.dbUrl || mlab.dbUrl
+mongoose.connect(`${link}`);
+
 
 var db = mongoose.connection;
 
