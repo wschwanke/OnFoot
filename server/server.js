@@ -17,7 +17,7 @@ var session = require('express-session');
 if(!process.env.clientID) {
 var credentials = require('./env/config.js')
 } else {
-  var deployedURL = `https://onfoot.herokuapp.com/`
+  var deployedURL = `https://onfoot.herokuapp.com/:${process.env.PORT}/auth/facebook/callback`
 }
 // config vars
 
@@ -46,7 +46,7 @@ passport.deserializeUser(function(obj, done) {
 });
 var clientID = process.env.clientID||credentials.facebook.clientID
 var clientSecret = process.env.clientSecret||credentials.facebook.clientSecret
-var callbackURL = deployedURL+':'+process.env.PORT||credentials.facebook.callbackURL
+var callbackURL = deployedURL||credentials.facebook.callbackURL
 passport.use(new FacebookStrategy({
   clientID: clientID,
   clientSecret: clientSecret,
