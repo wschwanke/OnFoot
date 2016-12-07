@@ -43,3 +43,16 @@ a:hover{
   background-color : white;
   color            : #0E83CD;
 }
+
+
+.save-restaurant {
+  position: absolute;
+  width: 500px;
+  height:500px;
+  background-color: white;
+  top:50px;
+}
+
+.save-restaurant  p {
+  float: left;
+}

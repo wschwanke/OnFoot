@@ -9,12 +9,14 @@ import getDirections from './lib/getDirections.js'
 import getAPI from './lib/getImagesAPI.js'
 import isLogin from './lib/isLogin.js'
 import getDisplayName from './lib/getDisplayName.js'
+import getSaveRestaurant from './lib/getSaveRestaurant.js'
 
 
 import List from './List';
 import Directions from './Directions';
 import Loading from './Loading';
 import Nav from './Nav'
+import SaveRestaurants from './SaveRestaurants'
 
 
 class App extends Component {
@@ -31,7 +33,9 @@ class App extends Component {
       directions: undefined,
       imageAPI:undefined,
       isLogin:false,
-      displayName:undefined
+      displayName:undefined,
+      saveRestaurants: undefined,
+      showSaveRestaurants: false
     };
   }
 
@@ -70,6 +74,18 @@ class App extends Component {
     getRestaurants(location,(restaurants) => {
       this.setState({data:restaurants});
     })
+  }
+
+  showSaveRestaurants(){
+    getSaveRestaurant((restaurants)=>{
+      console.log("res",restaurants);
+      this.setState({saveRestaurants: restaurants});
+      this.setState({showSaveRestaurants: true});
+    })
+  }
+
+  hidSaveRestaurants(){
+    this.setState({showSaveRestaurants: false});
   }
 
 
@@ -140,7 +156,7 @@ class App extends Component {
       <div className="App">
 
         {
-          <Nav isLogin={isLogin} displayName={this.state.displayName}/>
+          <Nav isLogin={isLogin} displayName={this.state.displayName} showSaveRestaurants={() => this.showSaveRestaurants()}/>
         }
 
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/}
@@ -157,8 +173,13 @@ class App extends Component {
            <Directions directions={this.state.directions}/> : null
         }
 
+        {
+          this.state.showSaveRestaurants ?
+          <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
+        }
+
       </div>
-    );
+    )
   }
 }
 
