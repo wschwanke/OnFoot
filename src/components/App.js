@@ -13,7 +13,7 @@ import isLogin from './lib/isLogin.js'
 import List from './List';
 import Directions from './Directions';
 import Loading from './Loading';
-import LoginButton from './LoginButton'
+import Nav from './Nav'
 
 
 class App extends Component {
@@ -136,9 +136,7 @@ class App extends Component {
       <div className="App">
 
         {
-          this.state.isLogin ?
-
-          <a href="/logout">Logout</a> : <LoginButton login = {()=>Login()}/>
+          <Nav isLogin = {this.state.isLogin}/>
         }
 
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/}
