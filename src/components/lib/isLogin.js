@@ -5,7 +5,7 @@ var isLogin = (callback) => {
   //pass in the lat/long so we can get the results for our current location
   $.get('/isLogin')
   .done((data) => {
-    console.log("login",data);
+    console.log("data",data);
       callback(data);
   })
   .fail(({responseJSON}) => {

@@ -8,12 +8,15 @@ import getAddress from './lib/getAddress.js'
 import getDirections from './lib/getDirections.js'
 import getAPI from './lib/getImagesAPI.js'
 import isLogin from './lib/isLogin.js'
+import getDisplayName from './lib/getDisplayName.js'
+import getSaveRestaurant from './lib/getSaveRestaurant.js'
 
 
 import List from './List';
 import Directions from './Directions';
 import Loading from './Loading';
-import LoginButton from './LoginButton'
+import Nav from './Nav'
+import SaveRestaurants from './SaveRestaurants'
 
 
 class App extends Component {
@@ -29,7 +32,10 @@ class App extends Component {
       showDirections: false,
       directions: undefined,
       imageAPI:undefined,
-      isLogin:false
+      isLogin:false,
+      displayName:undefined,
+      saveRestaurants: undefined,
+      showSaveRestaurants: false
     };
   }
 
@@ -70,6 +76,18 @@ class App extends Component {
     })
   }
 
+  showSaveRestaurants(){
+    getSaveRestaurant((restaurants)=>{
+      console.log("res",restaurants);
+      this.setState({saveRestaurants: restaurants});
+      this.setState({showSaveRestaurants: true});
+    })
+  }
+
+  hidSaveRestaurants(){
+    this.setState({showSaveRestaurants: false});
+  }
+
 
   //this waits till you have rendered something to then run anything in here
   componentDidMount() {
@@ -82,8 +100,9 @@ class App extends Component {
 
     })
 
-    isLogin((login)=>{
-      this.setState({isLogin:login});
+    isLogin((user)=>{
+      this.setState({isLogin:user.isLogin});
+      this.setState({displayName:user.name});
     })
   }
 
@@ -132,13 +151,12 @@ class App extends Component {
     var location = this.state.location
     var data = this.state.data
     var api = this.state.imageAPI
+    var isLogin = this.state.isLogin
     return (
       <div className="App">
 
         {
-          this.state.isLogin ?
-
-          <a href="/logout">Logout</a> : <LoginButton login = {()=>Login()}/>
+          <Nav isLogin={isLogin} displayName={this.state.displayName} showSaveRestaurants={() => this.showSaveRestaurants()}/>
         }
 
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/}
@@ -146,7 +164,7 @@ class App extends Component {
         {
           //check if showList is true then call the List component
           this.state.showList ?
-          <List data={data} API={api} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
+          <List data={data} API={api} isLogin={isLogin} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
         }
 
         {
@@ -155,8 +173,13 @@ class App extends Component {
            <Directions directions={this.state.directions}/> : null
         }
 
+        {
+          this.state.showSaveRestaurants ?
+          <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
+        }
+
       </div>
-    );
+    )
   }
 }
 

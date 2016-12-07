@@ -4,9 +4,15 @@ var bodyParser = require('body-parser');
 //need to import request module for ajax call
 var request = require('request')
 var path = require('path');
-var credentials = require('./env/config.js')
+//var credentials = require('./env/config.js')
 var createSession = require('./util.js');
 
+
+if(!process.env.clientID) {
+var credentials = require('./env/config.js')
+} else {
+ var deployedURL = `https://onf00t.herokuapp.com/auth/facebook/callback`
+}
 
 var User = require('./db/user');
 
@@ -17,7 +23,6 @@ var session = require('express-session');
 
 
 // config vars
-var mapKey = process.env.mapKey || require( './env/config.js' ).mapKey ;
 
 var port = process.env.PORT || 4040;
 
@@ -43,10 +48,14 @@ passport.deserializeUser(function(obj, done) {
   done(null, obj);
 });
 
+var clientID = process.env.clientID||credentials.facebook.clientID
+var clientSecret = process.env.clientSecret||credentials.facebook.clientSecret
+var callbackURL = deployedURL||credentials.facebook.callbackURL
+
 passport.use(new FacebookStrategy({
-  clientID: credentials.facebook.clientID,
-  clientSecret: credentials.facebook.clientSecret,
-  callbackURL:credentials.facebook.callbackURL
+  clientID: clientID,
+  clientSecret: clientSecret,
+  callbackURL:callbackURL
   },
   function(accessToken, refreshToken, profile, done) {
     process.nextTick(function () {
@@ -67,7 +76,17 @@ app.get('/auth/facebook',
 app.get('/auth/facebook/callback',
   passport.authenticate('facebook', { authType: 'reauthenticate',failureRedirect: '/' }),
   function(req, res) {
-    createSession(req,res,req.user.id);
+    console.log("req",req.user);
+    User.findOne({id:req.user.id}).exec(function(err,found){
+      if(!found){
+        var user = new User({id:req.user.id,name:req.user.displayName})
+        .save(function(err,data){
+          createSession(req,res,req.user.id);
+        })
+      }else{
+        createSession(req,res,req.user.id);
+      }
+    })
 });
 
 
@@ -83,7 +102,14 @@ app.get('/logout', function(req, res){
 
 app.get('/isLogin', function(req, res){
   var isLogin = req.session.userID ? true : false;
-  res.send(isLogin);
+  User.findOne({id:req.session.userID}).exec(function(err,user){
+    console.log("found",user);
+    var user = user ? user.name : ""
+    var data = {isLogin:isLogin,name:user};
+    res.json(data);
+  })
+
+
 })
 
 //---------------------------Authentication
@@ -117,12 +143,12 @@ app.get('/', function(req,res){
 
 // api call for google maps and modifies it to use our current location
 app.get('/fetchData/:location',function(req,res){
+  var mapKey = process.env.mapKey || credentials.mapKey
   location = req.params.location
   var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant%7Cgas_station%7C&sensor=false'
 
   console.log("passs 1");
   request(`${url}&location=${location}&key=${mapKey}`, function (error, response, body) {
-    console.log("passs 2");
     console.log(error);
     if (!error && response.statusCode == 200) {
       res.json(body);
@@ -137,7 +163,7 @@ app.get('/directions/:origin/:destination', function(req, res){
   var destination = req.params.destination;
   var url = 'https://maps.googleapis.com/maps/api/directions/json?mode=walking';
 
-  request(`${url}&origin=${origin}&destination=${destination}&key=${credentials.directionKey}`, function (error, response, body){
+  request(`${url}&origin=${origin}&destination=${destination}&key=${directionKey}`, function (error, response, body){
 
     if (!error && response.statusCode == 200) {
       res.json(body);
@@ -161,17 +187,38 @@ app.get('/fetchAddress/:latlng',function(req,res){
   })
 })
 
-app.post('/create', function(req,res){
-  var user = new User({id:1232,name:"rrrrrr"}).save(function(err,data){
-    res.send(data);
-  })
-})
 
-app.get('/user', function(req, res){
-  User.find().exec(function(err,found){
+app.get('/username', function(req, res){
+  console.log("user",req.session.userID);
+  User.findOne().exec(function(err,found){
+    console.log("found",found);
     res.send();
   })
 })
+
+app.post('/checkList/:id/:name', function(req, res){
+  var user = req.session.userID;
+  var placeId = req.params.id;
+  var placeName = req.params.name;
+  console.log(user,placeId,placeName);
+  User.findOneAndUpdate({id:user},{$push:{"checkList":{placeIdid:placeId, place: placeName }}},
+    {safe: true, upsert: true, new : true},
+         function(err, model) {
+             console.log(err);
+             res.send("success");
+         }
+  )
+})
+
+app.get('/checkList', function(req, res){
+  var user = req.session.userID;
+  User.findOne({id:user}).exec(function(err,user){
+    console.log("found",user);
+    res.send(user);
+  })
+})
+
+
 
 
 app.listen(port);
