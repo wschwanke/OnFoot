@@ -132,7 +132,7 @@ app.get('/fetchData/:location',function(req,res){
 
 //api call for direction from origin to destination
 app.get('/directions/:origin/:destination', function(req, res){
-  var directionKey = process.env.directionKey || googleAPI.directionKey
+  var directionKey = process.env.directionKey || credentials.directionKey
   var origin = req.params.origin;
   var destination = req.params.destination;
   var url = 'https://maps.googleapis.com/maps/api/directions/json?mode=walking';
