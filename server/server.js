@@ -101,8 +101,7 @@ app.get('/fetchmap/:start/:end/:waypoints',function(req,res) {
   var end = req.params.end
   var waypoints = req.params.waypoints
   var staticMapKey = process.env.staticMapKey || googleAPI.staticMapKey
-  //res.writeHeader({'Content-Type':'image/jpg'});
-  console.log('start',start,' end ',end,' waypoints ',waypoints)
+  //we're basically just building a url with what we're passed
   var image = `https://maps.googleapis.com/maps/api/staticmap?size=600x300&path=${waypoints}&markers=label:A%7C${start}&markers=label:B%7C${end}&key=${staticMapKey}`
   res.send(image);
   })

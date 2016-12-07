@@ -53,7 +53,7 @@ class App extends Component {
           var streetName = location[1].long_name
           //the location state will update each time this is run
           this.setState({location: `Current Location: ${streetNum} ${streetName}`})
-          
+
         }))
       })
     }
@@ -94,9 +94,11 @@ class App extends Component {
       this.setState({directions:steps});
       this.setState({showList:false});
       this.setState({showDirections:true});
+      //call get map since its reliant on what getDirections returns
       getMap({waypoints:steps.routes[0].legs},(map)=>{
-        console.log(map)
+        //update our state so it contains the url we want and can then pass down to an img tag
         this.setState({link:`${map}`})
+        //sets our showMap to true so we know the map is available to show
         this.setState({showMap:true})
       })
     })
