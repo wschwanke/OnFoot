@@ -89,8 +89,6 @@ app.get('/isLogin', function(req, res){
 //---------------------------Authentication
 
 
-
->>>>>>> Working Login And Logout
 //serving react files
 app.use(express.static(path.join(__dirname, '/public')));
 app.use('/static', express.static(path.join(__dirname, '/../public/static')));
@@ -120,10 +118,12 @@ app.get('/', function(req,res){
 // api call for google maps and modifies it to use our current location
 app.get('/fetchData/:location',function(req,res){
   location = req.params.location
-  var url='https://maps.credentialss.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant%7Cgas_station%7C&sensor=false'
+  var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant%7Cgas_station%7C&sensor=false'
 
+  console.log("passs 1");
   request(`${url}&location=${location}&key=${mapKey}`, function (error, response, body) {
-
+    console.log("passs 2");
+    console.log(error);
     if (!error && response.statusCode == 200) {
       res.json(body);
     }
@@ -135,7 +135,7 @@ app.get('/directions/:origin/:destination', function(req, res){
   var directionKey = process.env.directionKey || googleAPI.directionKey
   var origin = req.params.origin;
   var destination = req.params.destination;
-  var url = 'https://maps.credentialss.com/maps/api/directions/json?mode=walking';
+  var url = 'https://maps.googleapis.com/maps/api/directions/json?mode=walking';
 
   request(`${url}&origin=${origin}&destination=${destination}&key=${credentials.directionKey}`, function (error, response, body){
 
@@ -173,5 +173,7 @@ app.get('/user', function(req, res){
     res.send();
   })
 })
+
+
 app.listen(port);
 console.log("The magic is happening on port:", port);
