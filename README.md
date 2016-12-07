@@ -24,6 +24,10 @@ Never Yelp Again
 2. npm start -- runs compiled server
 3. npm run react --runs developer server, skips compiling
 
+## Config
+
+1. See the _CONTRIBUTING.md file for detailed contribution guidelines and config details.
+
 
 
 
