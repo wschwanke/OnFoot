@@ -6,7 +6,7 @@ import './css/App.css';
 import getRestaurants from './lib/getRestaurants.js'
 import getAddress from './lib/getAddress.js'
 import getDirections from './lib/getDirections.js'
-import getAPI from './lib/getImageAPI.js'
+import getAPI from './lib/getImagesAPI.js'
 import isLogin from './lib/isLogin.js'
 
 
