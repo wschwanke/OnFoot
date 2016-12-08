@@ -30,10 +30,10 @@ import getSaveRestaurant from './lib/getSaveRestaurant.js'
 
 //Import called components
 import List from './List';
-import Directions from './Directions';
 import Loading from './Loading';
-import Nav from './Nav'
-import SaveRestaurants from './SaveRestaurants'
+import Nav from './Nav';
+import SaveRestaurants from './SaveRestaurants';
+
 
 
 class App extends Component {

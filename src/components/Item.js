@@ -1,6 +1,8 @@
 import React from 'react';
 import './css/Item.css';
-import postRestaurant from './lib/postRestaurant.js'
+import postRestaurant from './lib/postRestaurant.js';
+import DirectionsModal from './DirectionsModal';
+
 
 const Item = ({item, isLogin, API, showDirections, displayDirections}) => {
 
@@ -57,11 +59,13 @@ const Item = ({item, isLogin, API, showDirections, displayDirections}) => {
 
               {/* Show directions below list button */}
               <h4 className="directions-list">
+
               {item.directions && item.directions.map((x) => {
                 return (<h5>{x}</h5>)
               })}
 
             </h4>
+            <DirectionsModal />
 
           </figcaption>
         </figure>
