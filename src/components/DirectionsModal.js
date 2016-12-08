@@ -45,7 +45,6 @@ class RequestModal extends React.Component {
       }
     };
     let {isOpen, isSubOpen} = this.state;
-    console.log("directions are:",this.props.item.directions)
     return (
         <div>
           <button onClick={this.openModal.bind(this)}>

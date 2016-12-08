@@ -32,7 +32,6 @@ const Item = ({item, isLogin, API, showDirections, displayDirections}) => {
     }
     return result;
   }
-                console.log("The directions are.....", item.directions)
   return (
     <li>
       <span className="ribbon icon"><a href="/fav" title="title">{item.rating}, {priceLevel()}</a></span>
@@ -53,7 +52,7 @@ const Item = ({item, isLogin, API, showDirections, displayDirections}) => {
                 <button className='try-btn' onClick={saveRestaurant}>Try it later</button> : null
               }
             <DirectionsModal item={item} directionsClick={directionsClick.bind(this)}/>
-
+            <div>OPEN NOW? {item.opening_hours}</div>
           </figcaption>
         </figure>
       </a>
