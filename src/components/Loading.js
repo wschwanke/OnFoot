@@ -1,3 +1,5 @@
+//Functional component to show logo, name and location.  Also has button to trigger App
+
 import React from 'react';
 import './css/Loading.css';
 

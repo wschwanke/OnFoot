@@ -25,7 +25,7 @@ window.onload = function() {
   };
     navigator.geolocation.getCurrentPosition(geoSuccess, geoError);
 
-// for fetching google api - refactore the logic for react
+// for fetching google api - refactor the logic for react
   var fetch = function(){
     $.ajax({
     type: "GET",

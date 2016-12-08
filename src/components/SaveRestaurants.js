@@ -1,3 +1,5 @@
+//Functional component to show and hide the saved Restaurants.
+
 import React from 'react'
 
 const SaveRestaurants = ({data, hidSaveRestaurants}) => {

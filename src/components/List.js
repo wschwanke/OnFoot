@@ -1,3 +1,4 @@
+//Shows the restaurants found with the appropriate search by rendering one instance of item for each of them.
 import React from 'react';
 import './css/List.css';
 
@@ -14,6 +15,7 @@ const List = ({data, isLogin, showDirections, displayDirections, API}) => {
         {
           data === undefined ? null :
           //filters the data right here
+          // Renders one Item for data in the list.
             data.results.filter(result => result.rating >= 3.9 && result.price_level < 3)
             .map((result) =>
             <Item item={result} API={API} isLogin={isLogin} showDirections={showDirections} displayDirections={displayDirections}/>

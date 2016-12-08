@@ -1,8 +1,25 @@
+//                          App
+//  -------------------------|--------------------------
+//  |             |          |          |            |
+//  |           (old)        |          |           Map
+//  List      Directions   Loading     Nav     SaveRestaurants 
+//  |             |                     |       (Ordered list of results in <li>)          
+//Filter/Map     Steps                Login
+// Item           |                     |
+//               Map                  /login
+//              Step
+
+//Tech Stack Documentation
+// For navigator.geolocation and such
+// http://www.w3schools.com/html/html5_geolocation.asp
+// 
+
+//Standard imports
 import React, { Component } from 'react';
 import logo from '../logo.svg';
 import './css/App.css';
 
-
+//Import lib helper functions.
 import getRestaurants from './lib/getRestaurants.js'
 import getAddress from './lib/getAddress.js'
 import getDirections from './lib/getDirections.js'
@@ -11,7 +28,7 @@ import isLogin from './lib/isLogin.js'
 import getDisplayName from './lib/getDisplayName.js'
 import getSaveRestaurant from './lib/getSaveRestaurant.js'
 
-
+//Import called components
 import List from './List';
 import Directions from './Directions';
 import Loading from './Loading';
@@ -48,7 +65,7 @@ class App extends Component {
       }
     // Get the user's location:
     if (navigator.geolocation) {
-      //use an arrow function to not lose the this binding
+      //use an arrow function to not lose  this binding
       //watchPosition will constantly get the user's location
       navigator.geolocation.watchPosition( (position) => {
         console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
@@ -70,12 +87,23 @@ class App extends Component {
     }
   }
   // get all the restaurants nearby
+  //container function for lib/getRestaurants.js
+    // ^^ === sends lat/long to /fetchData endpoint via jQuery
+      // ^^ Google api call is in server.js
   getNearbyRestaurants(location){
     getRestaurants(location,(restaurants) => {
       this.setState({data:restaurants});
     })
   }
 
+//Container function for lib/getSaveRestaurants and updates state.
+  //^^ === GET request to /checkList endpoint.
+    // ^^ === retrieves 'user' from DB.  
+      // ^^ === user has saved restaurant IDs
+         //  Schema:
+         // id : Number,
+         // name : String,
+         // checkList : [ {placeId: String, place:String} ]
   showSaveRestaurants(){
     getSaveRestaurant((restaurants)=>{
       console.log("res",restaurants);
@@ -84,39 +112,47 @@ class App extends Component {
     })
   }
 
+//Updates state to not show save restaurants.
   hidSaveRestaurants(){
     this.setState({showSaveRestaurants: false});
   }
 
 
-  //this waits till you have rendered something to then run anything in here
+  //Grab location, environment variable and check for login on App load.
   componentDidMount() {
     this.getLocation()
 
    // calls getAPI and returns the environment variable API or deployment config API and
    // sets state to that so we can pass it down
+   // getAPI from lib/getImagesAPI
+     // ^ = GET request to fetchAPI endpoint.
+       // ^ = returns (process.env.imageKey || credentials.imageKey)
     getAPI((api)=>{
       this.setState({imageAPI:api})
 
     })
-
+// from lib/isLogin
+  // ^ =  GET request to isLogin
+    // ^ = checks for user in DB and returns data if found.
     isLogin((user)=>{
       this.setState({isLogin:user.isLogin});
       this.setState({displayName:user.name});
     })
   }
 
-  //this is for displaying the list, once this function was called it will hide the button
+  //Will show the list of restaurants and hide the find restaurants button.
   displayList(){
     this.setState({showList:true});
     this.setState({hideButton:true});
   }
 
-  //this is for displaying the Direction component, this needs to be called when a restaurant has been clicked
-  // we pass the desired destination Lat & Long, and the id; id corresponds to the Google maps JSON object id
+  //this is for displaying the List/Item components
+    // Gets and displays the text directions.
   displayDirections(destinationLatLng, id, e) {
     var location = {origin:this.state.latlong, destination: destinationLatLng};
-
+// getDirections from lib/getDirections
+  //^ = GET to /directions/ endpoint
+    //^ = Google maps API call for directions.
     getDirections(location,(steps) => {
       //get all data needed then replace the current display to a direction component
       this.setState({directions:steps});
@@ -155,14 +191,17 @@ class App extends Component {
     return (
       <div className="App">
 
-        {
+        {  //Nav shows login/logout and saved restaurants.
           <Nav isLogin={isLogin} displayName={this.state.displayName} showSaveRestaurants={() => this.showSaveRestaurants()}/>
         }
-
-        {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/}
+          
+        {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
+         //Functional component to show logo, name and location.  Also has button to trigger App
+        }
         <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
         {
           //check if showList is true then call the List component
+          //List shows the restaurants that are near.
           this.state.showList ?
           <List data={data} API={api} isLogin={isLogin} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
         }
@@ -173,7 +212,7 @@ class App extends Component {
            <Directions directions={this.state.directions}/> : null
         }
 
-        {
+        {  //Shows saved restaurants.
           this.state.showSaveRestaurants ?
           <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
         }

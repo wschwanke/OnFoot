@@ -1,3 +1,5 @@
+//Functional component to show login/logout and show the savedRestaurants list.
+
 import React from 'react'
 import './css/Nav.css';
 import LoginButton from './LoginButton'
