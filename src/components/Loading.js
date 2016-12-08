@@ -11,7 +11,8 @@ const Loading = ({location, hideButton, displayList}) => {
      <h1>Toof No!</h1>
      <div className="location-loading-container"><h5>{location}</h5></div>
 
-        {//check if hideButton is false then hide the button
+        {
+          //check if hideButton is false then hide the button
           hideButton ?
           null : <button className="load-list-button" onClick={displayList}>Take me some place close!</button>
         }
