@@ -24,6 +24,7 @@ class RequestModal extends React.Component {
     this.setState({
       isOpen: true
     });
+    this.props.directionsClick();
   };
 
   hideModal(){
@@ -44,6 +45,7 @@ class RequestModal extends React.Component {
       }
     };
     let {isOpen, isSubOpen} = this.state;
+    console.log("directions are:",this.props.item.directions)
     return (
         <div>
           <button onClick={this.openModal.bind(this)}>
@@ -56,7 +58,12 @@ class RequestModal extends React.Component {
             </ModalHeader>
             <div className='modal-inside'>
               <div>
-
+                {this.props.item.directions && this.props.item.directions.map((x) => {
+                  return (
+                    <div>{x}</div>
+                  )
+                })
+              }
               </div>
             </div>
           </Modal>

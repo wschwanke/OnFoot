@@ -8,7 +8,6 @@ const Item = ({item, isLogin, API, showDirections, displayDirections}) => {
 
   // preventDefault on directionsClick
   function directionsClick(e) {
-    e.preventDefault();
     displayDirections(geolocation, item.id);
   }
   function saveRestaurant(e) {
@@ -33,7 +32,7 @@ const Item = ({item, isLogin, API, showDirections, displayDirections}) => {
     }
     return result;
   }
-  //
+                console.log("The directions are.....", item.directions)
   return (
     <li>
       <span className="ribbon icon"><a href="/fav" title="title">{item.rating}, {priceLevel()}</a></span>
@@ -53,19 +52,7 @@ const Item = ({item, isLogin, API, showDirections, displayDirections}) => {
                 isLogin ?
                 <button className='try-btn' onClick={saveRestaurant}>Try it later</button> : null
               }
-
-              {/* Show directions in app */}
-              <button className='direction-btn' onClick={directionsClick}>Get Directions</button>
-
-              {/* Show directions below list button */}
-              <h4 className="directions-list">
-
-              {item.directions && item.directions.map((x) => {
-                return (<h5>{x}</h5>)
-              })}
-
-            </h4>
-            <DirectionsModal />
+            <DirectionsModal item={item} directionsClick={directionsClick.bind(this)}/>
 
           </figcaption>
         </figure>
