@@ -207,7 +207,6 @@ class App extends Component {
     var isLogin = this.state.isLogin
     return (
       <main className='container'>
-
         {  //Nav shows login/logout and saved restaurants.
           <Nav isLogin={isLogin} displayName={this.state.displayName} showSaveRestaurants={() => this.showSaveRestaurants()}/>
         }
