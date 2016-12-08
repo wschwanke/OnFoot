@@ -47,15 +47,15 @@ class App extends Component {
     this.state = {
       //original value so that its not just undefined
       location: `Getting your location...`,
-      latlong:undefined,
-      data:undefined,
+      latlong: undefined,
+      data: undefined,
       showList: false,
       hideButton: false,
       showDirections: false,
       directions: undefined,
-      imageAPI:undefined,
-      isLogin:false,
-      displayName:undefined,
+      imageAPI: undefined,
+      isLogin: false,
+      displayName: undefined,
       saveRestaurants: undefined,
       showSaveRestaurants: false,
       distance: 1500
@@ -92,6 +92,7 @@ class App extends Component {
       })
     }
   }
+
   // get all the restaurants nearby
   //container function for lib/getRestaurants.js
     // ^^ === sends lat/long to /fetchData endpoint via jQuery
@@ -205,7 +206,7 @@ class App extends Component {
     var api = this.state.imageAPI
     var isLogin = this.state.isLogin
     return (
-      <div className="App">
+      <main className='container'>
 
         {  //Nav shows login/logout and saved restaurants.
           <Nav isLogin={isLogin} displayName={this.state.displayName} showSaveRestaurants={() => this.showSaveRestaurants()}/>
@@ -226,8 +227,7 @@ class App extends Component {
           this.state.showSaveRestaurants ?
           <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
         }
-
-      </div>
+      </main>
     )
   }
 }

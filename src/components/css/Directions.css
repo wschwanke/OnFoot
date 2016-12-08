@@ -1,14 +1,3 @@
-@import url('https://fonts.googleapis.com/css?family=Droid+Sans');
-@import url('https://fonts.googleapis.com/css?family=Sigmar+One');
-
-/*body {
-	margin: 0 auto;
-	-webkit-font-smoothing: antialiased;
-	-moz-font-smoothing: antialiased;
-	font-smoothing: antialiased;
-	font-weight: 300;
-}*/
-
 .directions-list-container {
 	margin: 0 auto;
 	font: 1em 'Droid Sans', Helvetica, Arial, sans-serif;

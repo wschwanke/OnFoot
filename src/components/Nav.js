@@ -8,15 +8,14 @@ import getSaveRestaurant from './lib/getSaveRestaurant.js'
 const Nav = ({isLogin,displayName, showSaveRestaurants}) => {
 
   return(
-    <div className="nav">
+    <nav className='row flex-items-xs-right h-nav'>
     {
-      isLogin ? <a href="/logout">Logout</a> : <LoginButton login = {()=>Login()}/>
+      isLogin ? <div className='col-xs-2'><a className='nav-login' href='/logout'>Logout</a></div> : <div className='col-xs-2'><a className='nav-login' href='/login'>Login</a></div>
     }
     {
-      displayName ? <p onClick ={showSaveRestaurants}>{displayName}</p>: null
+      displayName ? <div className='col-xs'><p className='nav-displayname' onClick ={showSaveRestaurants}>{displayName}</p></div>: null
     }
-    </div>
-
+    </nav>
   )
 }
 
