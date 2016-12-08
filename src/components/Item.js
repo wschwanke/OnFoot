@@ -11,8 +11,10 @@ class Item extends Component {
   }
 
   directionsClick(e) {
+    var geolocation = `${this.props.item.geometry.location.lat},${this.props.item.geometry.location.lng}`;
     this.props.displayDirections(geolocation, this.props.item.id);
   }
+  
   saveRestaurant(e) {
     e.preventDefault();
     console.log("name",this.props.item.place_id,"id",this.props.item.name);
@@ -37,13 +39,11 @@ class Item extends Component {
   }
   
   render(){
-    console.log(this.props.item);
     // variable string for link to Google maps directions
   let queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + this.props.item.geometry.location.lat + "," + this.props.item.geometry.location.lng + "&dirflg=w"
 
   //get the latitude and longtitude of a restaurant
   var geolocation = `${this.props.item.geometry.location.lat},${this.props.item.geometry.location.lng}`;
-
   //url for google street view api
   var url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${geolocation}&key=${this.props.API}`
   let openText;
@@ -73,7 +73,7 @@ class Item extends Component {
               <a href={queryStr}><h2>Go</h2></a></button>
               {
                 this.props.isLogin ?
-                <button className='try-btn' onClick={saveRestaurant}>Try it later</button> : null
+                <button className='try-btn' onClick={this.saveRestaurant}>Try it later</button> : null
               }
             <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
             <div>{openText}</div>

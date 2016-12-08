@@ -174,6 +174,7 @@ class App extends Component {
       // set a directions property equal to the "steps" from Google's directions
       // (with quadratic time complexity :) )
       data[data.map(x => x.id).indexOf(id)]['directions'] = directionSteps;
+      console.log("The direction steps are ......", directionSteps)
 
       // In order to get the directions to display in each "card", we had to use forceUpdate.
       // There's probably a better way to handle this...
