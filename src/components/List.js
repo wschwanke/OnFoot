@@ -3,6 +3,7 @@ import React from 'react';
 import './css/List.css';
 
 import Item from './Item';
+import DirectionsModal from './DirectionsModal';
 
 const List = ({data, isLogin, showDirections, displayDirections, API}) => {
 
@@ -21,7 +22,6 @@ const List = ({data, isLogin, showDirections, displayDirections, API}) => {
             <Item item={result} API={API} isLogin={isLogin} showDirections={showDirections} displayDirections={displayDirections}/>
             )
         }
-
         </ul>
       </main>
     </div>
