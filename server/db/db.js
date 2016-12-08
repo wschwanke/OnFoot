@@ -1,4 +1,6 @@
 var mongoose = require('mongoose');
+mongoose.Promise = global.Promise;
+ 
 
 if(!process.env.dbUrl) {
 var mlab = require('../env/config.js')

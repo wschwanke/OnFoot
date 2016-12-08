@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 //need to import request module for ajax call
 var request = require('request')
 var path = require('path');
-//var credentials = require('./env/config.js')
+// credentials = require('./env/config.js')
 var createSession = require('./util.js');
 
 
