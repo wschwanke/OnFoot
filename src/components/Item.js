@@ -20,6 +20,14 @@ class Item extends Component {
   }
   
   // this function turns `item.price_level` into a dollar sign level
+  starRating(){
+    let score =this.props.item.rating;
+    let str=''
+    for (let i=0;i<Math.floor(score);i++){
+      str+='★';
+    }
+    return str;
+  }
   priceLevel() {
     var result = '';
     for (var i = 0; i < this.props.item.price_level; i++) {
@@ -39,8 +47,6 @@ class Item extends Component {
   //url for google street view api
   var url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${geolocation}&key=${this.props.API}`
   let openText;
-  console.log("Opening hours are", this.props.item.opening_hours)
-
   if (this.props.item.opening_hours){
     if (this.props.item.opening_hours.open_now===true){
     openText="Open now"
@@ -52,7 +58,7 @@ class Item extends Component {
   }
     return (
     <li>
-      <span className="ribbon icon"><a href="/fav" title="title">{this.props.item.rating}, {this.priceLevel()}</a></span>
+      <span className="ribbon icon"><a href="/fav" title="title">{this.props.item.rating}{this.starRating()}, {this.priceLevel()}</a></span>
       <a href="#">
         <span className="grid-number"><img src={this.props.item.icon} alt="Google maps icon" /></span>
         <figure>
