@@ -22,6 +22,7 @@ const List = ({data, isLogin, showDirections, displayDirections, API}) => {
             <Item item={result} API={API} isLogin={isLogin} showDirections={showDirections} displayDirections={displayDirections}/>
             )
         }
+        <div></div>
         </ul>
       </main>
     </div>
