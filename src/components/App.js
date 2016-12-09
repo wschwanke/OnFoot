@@ -198,6 +198,9 @@ class App extends Component {
       //console.log('Here are the steps results for the place you just clicked', steps);
     })
   }
+  changeRadius(num){
+    this.setState({location:num})
+  }
 
   render() {
     //set to a variable for a little better readability
@@ -216,7 +219,7 @@ class App extends Component {
          //Functional component to show logo, name and location.  Also has button to trigger App
         }
         <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
-        <ScrollBar />
+        <ScrollBar changeRadius={this.changeRadius.bind(this)}/>
         {
           //check if showList is true then call the List component
           //List shows the restaurants that are near.
