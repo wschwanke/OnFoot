@@ -7,7 +7,6 @@
 //Filter/Map                          Login
 // Item                                 |
 //                                   /login
-//               
 
 //Tech Stack Documentation
 // For navigator.geolocation and such
@@ -38,6 +37,7 @@ import List from './List';
 import Loading from './Loading';
 import Nav from './Nav';
 import SaveRestaurants from './SaveRestaurants';
+import ScrollBar from './ScrollBar';
 
 
 
@@ -215,19 +215,13 @@ class App extends Component {
          //Functional component to show logo, name and location.  Also has button to trigger App
         }
         <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
+        <ScrollBar />
         {
           //check if showList is true then call the List component
           //List shows the restaurants that are near.
           this.state.showList ?
           <List data={data} API={api} isLogin={isLogin} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
         }
-
-        {
-          //check if showDirections is true then call the Directions component
-          this.state.showDirections ?
-           <Directions directions={this.state.directions}/> : null
-        }
-
         {  //Shows saved restaurants.
           this.state.showSaveRestaurants ?
           <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
