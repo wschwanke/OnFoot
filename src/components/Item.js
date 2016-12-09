@@ -58,7 +58,7 @@ render(){
   }
 
   let savedButton;
-  if (!this.props.isLogin){
+  if (this.props.isLogin){
     savedButton = function(){
       return <button>Add to saved list</button>
     }
@@ -78,29 +78,12 @@ render(){
             <h3>{this.props.item.name}</h3>
             <p>{this.props.item.vicinity}</p>
             <p>{openText}</p>
-              {/* Link to map directions */}
-              <button className='list-location-button' target='_blank' href={queryStr}>Go</button>
-              {
-                this.props.isLogin ?
-                <button className='list-location-button' onClick={this.saveRestaurant}>Try it later</button> : null
-              }
+            <button className='list-location-button' target='_blank' href={queryStr}>Google Maps</button>
             <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
-<<<<<<< 757215ec029eb952fe7f2acacfba47c2c4b79b68
+            {savedButton()}
           </div>
         </div>
-      </div>
-||||||| merged common ancestors
-            <div>{openText}</div>
-          </figcaption>
-        </figure>
-      </a>
-=======
-            {savedButton()}
-            <div>{openText}</div> 
-          </figcaption>
-        </figure>
-      </a>
->>>>>>> Fixed slider bar
+      </div>    
     </li>
     );
   }

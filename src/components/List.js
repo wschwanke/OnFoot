@@ -5,15 +5,8 @@ import './css/List.css';
 import Item from './Item';
 import DirectionsModal from './DirectionsModal';
 
-<<<<<<< 757215ec029eb952fe7f2acacfba47c2c4b79b68
-const List = ({data, isLogin, showDirections, displayDirections, API}) => {
-||||||| merged common ancestors
-const List = ({data, isLogin, showDirections, displayDirections, API}) => {
-
-=======
 const List = ({data, isLogin, displayDirections, API}) => {
   console.log("List is showing whether we're logged in or not....", isLogin)
->>>>>>> Fixed slider bar
   return (
     <div className='container list'>
       <div className='row list-header'>
