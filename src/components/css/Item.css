@@ -8,7 +8,7 @@
 }
 
 .list-location ul li {
-  display: block;
+  display: flex;
   list-style: none;
 }
 
@@ -35,6 +35,49 @@
   position: absolute;
 }
 
+.list-location-info {
+  text-align: center;
+}
+
+.list-location-info > div {
+  padding: 0 15px 15px;
+}
+
+.list-location-info p {
+
+}
+
+.list-location-info h3 {
+  min-height: 65px;
+  margin-top: 10px;
+}
+
+.list-location-button {
+  display: block;
+  width: 60%;
+  margin: 0 auto 10px;
+  padding: 6px 16px;
+  color: #fff;
+  text-transform: uppercase;
+  background-color: #eb2d53;
+  outline: none;
+  border: none;
+  cursor: pointer;
+  transition: all .2s;
+}
+
+.list-location-button:hover {
+  background-color: #e5284d;
+}
+
+a.list-location-button {
+  text-decoration: none;
+}
+
+.list-location .list-location-button:last-child {
+  margin-bottom: 0;
+}
+
 .ribbon.icon {
   font-size: 18px;
 }
@@ -42,10 +85,10 @@
 .ribbon {
   position: absolute;
   top: 0;
-  right: 0px;
+  right: -11px;
   padding: 5px 10px;
   text-align: center;
-  z-index: 1;
+  z-index: 2;
   background: #67c;
 }
 

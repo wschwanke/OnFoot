@@ -74,7 +74,12 @@ render(){
             <h3>{this.props.item.name}</h3>
             <p>{this.props.item.vicinity}</p>
             <p>{openText}</p>
-            <button className='list-location-button' target='_blank' href={queryStr}>Google Maps</button>
+              {/* Link to map directions */}
+              <a className='list-location-button' target='_blank' href={queryStr}>Get Map</a>
+              {
+                this.props.isLogin ?
+                <button className='list-location-button' onClick={this.saveRestaurant}>Try it later</button> : null
+              }
             <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
             {savedButton()}
           </div>

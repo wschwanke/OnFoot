@@ -1,6 +1,25 @@
 body {
   background: #1AA1BC;
-  font-family: 'Open Sans', sans-serif;
+  font-family: 'Roboto', sans-serif;
+}
+
+a.button,
+.button {
+  display: block;
+  padding: 6px 14px;
+  font-size: 14px;
+  font-weight: 700;
+  text-align: center;
+  color: #fff;
+  text-transform: uppercase;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+a.button:hover,
+.button:hover {
+  text-decoration: none;
 }
 
 a.button,
