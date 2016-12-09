@@ -74,12 +74,7 @@ render(){
             <h3>{this.props.item.name}</h3>
             <p className='list-location-address'>{this.props.item.vicinity}</p>
             <p>{openText}</p>
-              {/* Link to map directions */}
               <a className='list-location-button' target='_blank' href={queryStr}>Get Map</a>
-              {
-                this.props.isLogin ?
-                <button className='list-location-button' onClick={this.saveRestaurant}>Try it later</button> : null
-              }
             <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
             {savedButton()}
           </div>
@@ -96,8 +91,8 @@ export default Item;
 
 function status(opening_hours, open_now) {
   if (open_now === true){
-    return "Open now"
+    return <div><div className='circle-container'><div className='text'>Open now </div><div className='green-circle'></div></div></div>
   }else{
-    return "Closed now"
+    return <div><div className='circle-container'><div className='text'>Closed now </div><div className='red-circle'></div></div></div>
   }
 }
