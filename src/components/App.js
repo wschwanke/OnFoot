@@ -221,13 +221,6 @@ class App extends Component {
           this.state.showList ?
           <List data={data} API={api} isLogin={isLogin} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
         }
-
-        {
-          //check if showDirections is true then call the Directions component
-          this.state.showDirections ?
-           <Directions directions={this.state.directions}/> : null
-        }
-
         {  //Shows saved restaurants.
           this.state.showSaveRestaurants ?
           <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
