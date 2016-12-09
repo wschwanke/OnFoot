@@ -58,10 +58,10 @@ class RequestModal extends React.Component {
                 {this.props.item.directions && this.props.item.directions.map((x) => {
                   return (
                     <div>{x}</div>
-                  )
-                })
-              }
-              </div>
+                    )
+                  })
+                }
+                </div>
               </div>
             </Modal>
         </div>

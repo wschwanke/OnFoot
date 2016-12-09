@@ -51,7 +51,6 @@ class App extends Component {
       data: undefined,
       showList: false,
       hideButton: false,
-      showDirections: false,
       directions: undefined,
       imageAPI: undefined,
       isLogin: false,
@@ -135,7 +134,17 @@ class App extends Component {
     this.setState({showSaveRestaurants: false});
   }
 
-
+  displaySavedButton(){
+    if (this.state.login===false){
+      return;
+    } else{
+      if (this.state.showSaveRestaurants===true){
+        return <button>Go back </button>
+      }else {
+        return <button> See saved restaurants </button>
+      }
+    } 
+  }
   //Grab location, environment variable and check for login on App load.
   componentDidMount() {
     this.getLocation()
@@ -225,11 +234,7 @@ class App extends Component {
           //check if showList is true then call the List component
           //List shows the restaurants that are near.
           this.state.showList ?
-          <List data={data} API={api} isLogin={isLogin} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
-        }
-        {  //Shows saved restaurants.
-          this.state.showSaveRestaurants ?
-          <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
+          <List data={data} API={api} isLogin={isLogin} displayDirections={this.displayDirections.bind(this)}/> : null
         }
       </main>
     )
