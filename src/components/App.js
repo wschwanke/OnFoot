@@ -99,7 +99,7 @@ class App extends Component {
       // ^^ Google api call is in server.js
     //Modified to accept variable distance.  
   getNearbyRestaurants(options){
-  
+    console.log('Options?',options);
     getRestaurants(options,(restaurants) => {
       this.setState({data:restaurants});
     })
