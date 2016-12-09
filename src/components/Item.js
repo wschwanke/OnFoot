@@ -20,7 +20,7 @@ class Item extends Component {
     console.log("name",this.props.item.place_id,"id",this.props.item.name);
     postRestaurant(item.place_id,item.name);
   }
-  
+
   // this function turns `item.price_level` into a dollar sign level
   starRating(){
     let score =this.props.item.rating;
@@ -37,6 +37,7 @@ class Item extends Component {
     }
     return result;
   }
+
   
   render(){
     // variable string for link to Google maps directions
@@ -57,6 +58,7 @@ class Item extends Component {
     openText="Unable to retrieve opening hours"
   }
     return (
+
     <li>
       <span className="ribbon icon"><a href="/fav" title="title">{this.props.item.rating}{this.starRating()}, {this.priceLevel()}</a></span>
       <a href="#">
