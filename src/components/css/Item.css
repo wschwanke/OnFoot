@@ -50,6 +50,14 @@
 .list-location-info h3 {
   min-height: 65px;
   margin-top: 10px;
+  line-height: 28px;
+}
+
+.list-location-address {
+  min-height: 37px;
+  font-weight: 500;
+  font-size: 19px;
+  line-height: 18px;
 }
 
 .list-location-button {
