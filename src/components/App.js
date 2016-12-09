@@ -205,6 +205,7 @@ class App extends Component {
     var data = this.state.data;
     var api = this.state.imageAPI;
     var isLogin = this.state.isLogin;
+    console.log(this.state.showList);
 
     return (
       <main className='container'>
@@ -223,7 +224,6 @@ class App extends Component {
           <List data={data} API={api} isLogin={isLogin} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
         }
         {  //Shows saved restaurants.
-
           this.state.showSaveRestaurants ?
           <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
         }

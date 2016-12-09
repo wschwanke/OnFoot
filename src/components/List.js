@@ -19,7 +19,7 @@ const List = ({data, isLogin, showDirections, displayDirections, API}) => {
             // Renders one Item for data in the list.
             data.results.filter(result => result.rating >= 3.9 && result.price_level < 3)
             .map((result) =>
-              <Item item={result} API={API} isLogin={isLogin} showDirections={showDirections} displayDirections={displayDirections}/>
+            <Item item={result} API={API} isLogin={isLogin} showDirections={showDirections} displayDirections={displayDirections}/>
             )
           }
         </ul>

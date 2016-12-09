@@ -39,7 +39,7 @@ class Item extends Component {
   }
 
 render(){
-  // variable string for link to Google maps directions
+   // variable string for link to Google maps directions
   let queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + this.props.item.geometry.location.lat + "," + this.props.item.geometry.location.lng + "&dirflg=w"
 
   //get the latitude and longtitude of a restaurant
@@ -56,23 +56,23 @@ render(){
   } else {
     openText="Unable to retrieve opening hours"
   }
-  return (
+    return (
     <li className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <div className='list-location-cont'>
       <span className="ribbon icon"><a href="/fav" title="title">{this.props.item.rating}{this.starRating()}, {this.priceLevel()}</a></span>
-        <div class='list-location-info'>
+        <div className='list-location-info'>
           <img className="list-location-img" src={url} alt="Photo of a restaurant" />
-          <div >
-            <h3>{item.name}</h3>
-            <p>{item.vicinity}</p>
+          <div>
+            <h3>{this.props.item.name}</h3>
+            <p>{this.props.item.vicinity}</p>
+            <p>{openText}</p>
               {/* Link to map directions */}
-              <a className='list-location-button' target='_blank' href={queryStr}>Go</a>
+              <button className='list-location-button' target='_blank' href={queryStr}>Go</button>
               {
                 this.props.isLogin ?
-                <button className='try-btn' onClick={this.saveRestaurant}>Try it later</button> : null
+                <button className='list-location-button' onClick={this.saveRestaurant}>Try it later</button> : null
               }
-            <DirectionsModal item={item} directionsClick={directionsClick.bind(this)}/>
-            <div>{openText}</div>
+            <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
           </div>
         </div>
       </div>
