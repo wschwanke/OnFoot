@@ -1,14 +1,67 @@
-.direction-btn {
-  background-color: #1AA1BC;
-}
-.direction-btn:hober {
-  background-color: #1AA1BF;
+.list-location {
+
 }
 
-.try-btn {
-  background-color: #eb2d53;
+.list-location ul {
+  padding: 0;
+  margin: 0;
 }
 
-.try-btn:hover {
-  background-color: #eb2d56;
+.list-location ul li {
+  display: block;
+  list-style: none;
+}
+
+.list-location-cont {
+  position: relative;
+  margin-bottom: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+}
+
+.list-location-cont h3 {
+  text-align: center;
+}
+
+.list-location-cont a {
+  color: #fff;
+}
+
+.list-location-img {
+  width: 100%;
+}
+
+.list-location-icon {
+  position: absolute;
+}
+
+.ribbon.icon {
+  font-size: 18px;
+}
+
+.ribbon {
+  position: absolute;
+  top: 0;
+  right: 4px;
+  padding: 5px 10px;
+  text-align: center;
+  z-index: 9999;
+  background: #67c;
+}
+
+.ribbon:before {
+  position: absolute;
+  right: 3px;
+  bottom: -8px;
+  border: solid transparent;
+  content: " ";
+  height: 0;
+  width: 0;
+  border-color: rgba(136, 183, 213, 0);
+  border-top-color: #ccc;
+  pointer-events: none;
+  border-width: 8px;
+  -ms-transform: rotate(135deg);
+  -webkit-transform: rotate(135deg);
+  transform: rotate(135deg);
 }

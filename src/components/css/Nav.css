@@ -1,25 +1,11 @@
 .h-nav {
-  margin: 15px 0;
+  margin-top: 15px;
+  margin-bottom: 15px;
 }
 
 nav p.displayname {
 
 }
-
-nav a.nav-login {
-  display: block;
-  padding: 6px 16px;
-  color: #fff;
-  text-align: center;
-  border: 2px solid;
-  border-radius: 8px;
-}
-
-
-nav a.nav-login:hover {
-  text-decoration: none;
-}
-
 
 .save-restaurant {
   position: absolute;

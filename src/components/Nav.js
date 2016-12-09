@@ -10,10 +10,10 @@ const Nav = ({isLogin,displayName, showSaveRestaurants}) => {
   return(
     <nav className='row flex-items-xs-right h-nav'>
     {
-      isLogin ? <div className='col-xs-2'><a className='nav-login' href='/logout'>Logout</a></div> : <div className='col-xs-2'><a className='nav-login' href='/login'>Login</a></div>
+      isLogin ? <div className='col-xs-5 col-sm-4 col-md-3 col-lg-2'><a className='button' href='/logout'>Logout</a></div> : <div className='col-xs-5 col-sm-4 col-md-3 col-lg-2'><a className='button' href='/login'>Login</a></div>
     }
     {
-      displayName ? <div className='col-xs'><p className='nav-displayname' onClick ={showSaveRestaurants}>{displayName}</p></div>: null
+      displayName ? <div className='col-xs col-sm col-md col-lg'><p className='nav-displayname' onClick ={showSaveRestaurants}>{displayName}</p></div>: null
     }
     </nav>
   )

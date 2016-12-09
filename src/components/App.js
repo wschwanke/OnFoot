@@ -167,8 +167,8 @@ class App extends Component {
     // Gets and displays the text directions.
   displayDirections(destinationLatLng, id, e) {
     var location = {origin:this.state.latlong, destination: destinationLatLng};
-// getDirections from lib/getDirections
-  //^ = GET to /directions/ endpoint
+    // getDirections from lib/getDirections
+    //^ = GET to /directions/ endpoint
     //^ = Google maps API call for directions.
     getDirections(location,(steps) => {
       //get all data needed then replace the current display to a direction component
@@ -195,22 +195,22 @@ class App extends Component {
       // In order to get the directions to display in each "card", we had to use forceUpdate.
       // There's probably a better way to handle this...
       this.forceUpdate();
-      console.log('Here are the steps results for the place you just clicked', steps);
+      //console.log('Here are the steps results for the place you just clicked', steps);
     })
   }
 
   render() {
     //set to a variable for a little better readability
-    var location = this.state.location
-    var data = this.state.data
-    var api = this.state.imageAPI
-    var isLogin = this.state.isLogin
+    var location = this.state.location;
+    var data = this.state.data;
+    var api = this.state.imageAPI;
+    var isLogin = this.state.isLogin;
+
     return (
       <main className='container'>
         {  //Nav shows login/logout and saved restaurants.
           <Nav isLogin={isLogin} displayName={this.state.displayName} showSaveRestaurants={() => this.showSaveRestaurants()}/>
         }
-          
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
         }
@@ -223,6 +223,7 @@ class App extends Component {
           <List data={data} API={api} isLogin={isLogin} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
         }
         {  //Shows saved restaurants.
+
           this.state.showSaveRestaurants ?
           <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
         }
