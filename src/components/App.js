@@ -104,14 +104,7 @@ class App extends Component {
       this.setState({data:restaurants});
     })
   }
-  
-  // As above, but accepts a distance parameter.
-  //container function for lib/getRestaurantswithVariableDistance
-  getRestaurantsWithVariableDistance(location,distance){
-    getRestaurantsWithVariableDistance(location,distance, (restaurants) => {
-      this.setState({data:restaurants});
-    })
-  }
+   
 
 //Container function for lib/getSaveRestaurants and updates state.
   //^^ === GET request to /checkList endpoint.
@@ -146,8 +139,10 @@ class App extends Component {
     } 
   }
   //Grab location, environment variable and check for login on App load.
+    //
   componentDidMount() {
-    this.getLocation()
+    //Commenting this out to refactor for button push.
+    //this.getLocation()
 
    // calls getAPI and returns the environment variable API or deployment config API and
    // sets state to that so we can pass it down
@@ -169,6 +164,7 @@ class App extends Component {
 
   //Will show the list of restaurants and hide the find restaurants button.
   displayList(){
+    this.getLocation();
     this.setState({showList:true});
     this.setState({hideButton:true});
   }
@@ -232,6 +228,7 @@ class App extends Component {
         {
           <ScrollBar changeRadius={this.changeRadius.bind(this)}/>
         }
+
         {
           //check if showList is true then call the List component
           //List shows the restaurants that are near.
