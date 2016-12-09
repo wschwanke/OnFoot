@@ -49,6 +49,12 @@ class RequestModal extends React.Component {
     return (
         <div>
           <button className='list-location-button' onClick={this.openModal.bind(this)}>Get directions</button>
+          <Modal isOpen={isOpen} size="modal-lg" onRequestHide={this.hideModal.bind(this)}>
+
+          <button onClick={this.openModal.bind(this)}>
+            Get directions
+          </button>
+
           <Modal isOpen={isOpen} onRequestHide={this.hideModal.bind(this)}>
             <ModalHeader >
               <ModalClose onClick={this.hideModal.bind(this)}/>

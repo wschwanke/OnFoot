@@ -56,6 +56,18 @@ render(){
   } else {
     openText="Unable to retrieve opening hours"
   }
+
+  let savedButton;
+  if (!this.props.isLogin){
+    savedButton = function(){
+      return <button>Add to saved list</button>
+    }
+  } else {
+    savedButton = function(){
+      return '';
+    }
+  }
+
     return (
     <li className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <div className='list-location-cont'>
@@ -73,9 +85,22 @@ render(){
                 <button className='list-location-button' onClick={this.saveRestaurant}>Try it later</button> : null
               }
             <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
+<<<<<<< 757215ec029eb952fe7f2acacfba47c2c4b79b68
           </div>
         </div>
       </div>
+||||||| merged common ancestors
+            <div>{openText}</div>
+          </figcaption>
+        </figure>
+      </a>
+=======
+            {savedButton()}
+            <div>{openText}</div> 
+          </figcaption>
+        </figure>
+      </a>
+>>>>>>> Fixed slider bar
     </li>
     );
   }

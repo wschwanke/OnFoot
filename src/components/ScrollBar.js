@@ -13,7 +13,6 @@ class ScrollBar extends Component {
     this.props.changeRadius(this.state.location)
   }
   onSlide(event) {
-    //every time the user types a new letter, the state is changed to the current input
     this.setState({location: event.target.value});
   }
   render(){

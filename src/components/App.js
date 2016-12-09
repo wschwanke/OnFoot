@@ -58,7 +58,8 @@ class App extends Component {
       displayName: undefined,
       saveRestaurants: undefined,
       showSaveRestaurants: false,
-      distance: 1500
+      distance: 1500,
+      radius:undefined
     };
   }
 
@@ -121,7 +122,7 @@ class App extends Component {
          // id : Number,
          // name : String,
          // checkList : [ {placeId: String, place:String} ]
-  showSaveRestaurants(){
+  getSavedRestaurants(){
     getSaveRestaurant((restaurants)=>{
       console.log("res",restaurants);
       this.setState({saveRestaurants: restaurants});
@@ -199,7 +200,7 @@ class App extends Component {
     })
   }
   changeRadius(num){
-    this.setState({location:num})
+    this.setState({radius:num})
   }
 
   render() {
@@ -213,7 +214,7 @@ class App extends Component {
     return (
       <main className='container'>
         {  //Nav shows login/logout and saved restaurants.
-          <Nav isLogin={isLogin} displayName={this.state.displayName} showSaveRestaurants={() => this.showSaveRestaurants()}/>
+          <Nav isLogin={isLogin} displayName={this.state.displayName}/>
         }
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
