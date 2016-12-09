@@ -38,9 +38,8 @@ class Item extends Component {
     return result;
   }
 
-  
-  render(){
-    // variable string for link to Google maps directions
+render(){
+   // variable string for link to Google maps directions
   let queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + this.props.item.geometry.location.lat + "," + this.props.item.geometry.location.lng + "&dirflg=w"
 
   //get the latitude and longtitude of a restaurant
@@ -58,30 +57,25 @@ class Item extends Component {
     openText="Unable to retrieve opening hours"
   }
     return (
-
-    <li>
+    <li className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+      <div className='list-location-cont'>
       <span className="ribbon icon"><a href="/fav" title="title">{this.props.item.rating}{this.starRating()}, {this.priceLevel()}</a></span>
-      <a href="#">
-        <span className="grid-number"><img src={this.props.item.icon} alt="Google maps icon" /></span>
-        <figure>
-          <img src={url} alt="Photo of a restaurant" />
-          <figcaption>
-
-            <h2>{this.props.item.name}</h2>
-            <h3>{this.props.item.vicinity}</h3>
-              <button className="loading-list-button">
-
+        <div className='list-location-info'>
+          <img className="list-location-img" src={url} alt="Photo of a restaurant" />
+          <div>
+            <h3>{this.props.item.name}</h3>
+            <p>{this.props.item.vicinity}</p>
+            <p>{openText}</p>
               {/* Link to map directions */}
-              <a href={queryStr}><h2>Go</h2></a></button>
+              <button className='list-location-button' target='_blank' href={queryStr}>Go</button>
               {
                 this.props.isLogin ?
-                <button className='try-btn' onClick={this.saveRestaurant}>Try it later</button> : null
+                <button className='list-location-button' onClick={this.saveRestaurant}>Try it later</button> : null
               }
             <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
-            <div>{openText}</div>
-          </figcaption>
-        </figure>
-      </a>
+          </div>
+        </div>
+      </div>
     </li>
     );
   }

@@ -47,15 +47,15 @@ class App extends Component {
     this.state = {
       //original value so that its not just undefined
       location: `Getting your location...`,
-      latlong:undefined,
-      data:undefined,
+      latlong: undefined,
+      data: undefined,
       showList: false,
       hideButton: false,
       showDirections: false,
       directions: undefined,
-      imageAPI:undefined,
-      isLogin:false,
-      displayName:undefined,
+      imageAPI: undefined,
+      isLogin: false,
+      displayName: undefined,
       saveRestaurants: undefined,
       showSaveRestaurants: false,
       distance: 1500
@@ -92,6 +92,7 @@ class App extends Component {
       })
     }
   }
+
   // get all the restaurants nearby
   //container function for lib/getRestaurants.js
     // ^^ === sends lat/long to /fetchData endpoint via jQuery
@@ -166,8 +167,8 @@ class App extends Component {
     // Gets and displays the text directions.
   displayDirections(destinationLatLng, id, e) {
     var location = {origin:this.state.latlong, destination: destinationLatLng};
-// getDirections from lib/getDirections
-  //^ = GET to /directions/ endpoint
+    // getDirections from lib/getDirections
+    //^ = GET to /directions/ endpoint
     //^ = Google maps API call for directions.
     getDirections(location,(steps) => {
       //get all data needed then replace the current display to a direction component
@@ -194,23 +195,23 @@ class App extends Component {
       // In order to get the directions to display in each "card", we had to use forceUpdate.
       // There's probably a better way to handle this...
       this.forceUpdate();
-      console.log('Here are the steps results for the place you just clicked', steps);
+      //console.log('Here are the steps results for the place you just clicked', steps);
     })
   }
 
   render() {
     //set to a variable for a little better readability
-    var location = this.state.location
-    var data = this.state.data
-    var api = this.state.imageAPI
-    var isLogin = this.state.isLogin
-    return (
-      <div className="App">
+    var location = this.state.location;
+    var data = this.state.data;
+    var api = this.state.imageAPI;
+    var isLogin = this.state.isLogin;
+    console.log(this.state.showList);
 
+    return (
+      <main className='container'>
         {  //Nav shows login/logout and saved restaurants.
           <Nav isLogin={isLogin} displayName={this.state.displayName} showSaveRestaurants={() => this.showSaveRestaurants()}/>
         }
-          
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
         }
@@ -226,8 +227,7 @@ class App extends Component {
           this.state.showSaveRestaurants ?
           <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
         }
-
-      </div>
+      </main>
     )
   }
 }

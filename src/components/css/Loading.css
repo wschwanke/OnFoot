@@ -1,60 +1,23 @@
-.loading-container {
-  font-family: 'Droid Sans', sans-serif;
-  border-radius: 14px; 
-  margin: 0 auto; 
-  margin-top: 30px;  
-  max-width: 95%;
-  margin-bottom: 50px;  
-  padding: 30px 0px 30px 0px;  
-  text-align: center;  
-  background-color: rgba(0, 0, 0, .1);
-}
-
-.location-loading-container {
-  font-family: 'Droid Sans', sans-serif;
-  border-radius: 14px;
-  margin: 0 auto;
-  max-width: 60%;
-  margin-top: 20px;
-  margin-bottom: 20px;
-  padding: 30px 0px 30px 0px;
+.loading {
+  margin-bottom: 30px;
+  padding: 15px 0;
   text-align: center;
-  background-color: rgba(0, 0, 0, .1);	
+  color: #fff;
+  background-color: rgba(0, 0, 0, .1);
+  border-radius: 8px;
 }
 
-button {
-  display       : block;
-  position       : relative;
-  padding        : 25px 0;
-  margin         : 25px auto;
-  font-family    : sans-serif;
-  font-size      : 14px;
-  font-weight    : bold;
-  text-transform : uppercase;
-  text-align     : center;
-  color          : white;
-  letter-spacing : 1px;
-  border         : none;
-  cursor         : pointer;
-  width          : 270px;
-  outline        : none;
-  overflow       : hidden;
-  box-sizing         : border-box;
-  -moz-box-sizing    : border-box;
-  -webkit-box-sizing : border-box;
+.loading div {
+  margin-bottom: 15px;
 }
 
-.load-list-button {
-  overflow         : hidden;
-  background-color : transparent;
-  border-radius: 14px;
-  border           : 3px solid white;
-  transition       : all 0.3s ease;
+.loading div:last-child {
+  margin-bottom: 0;
 }
-.load-list-button:hover {
-  background-color : white;
-  color            : #0E83CD;
-}
-.load-list-button:active {
-  transform: scale(1.1)
+
+.loading-location {
+  display: block;
+  padding: 15px 0;
+  background-color: rgba(0, 0, 0, .1);
+  border-radius: 8px;
 }
