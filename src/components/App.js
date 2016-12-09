@@ -1,18 +1,20 @@
 //                          App
 //  -------------------------|--------------------------
-//  |             |          |          |            |
-//  |           (old)        |          |           Map
-//  List      Directions   Loading     Nav     SaveRestaurants 
-//  |             |                     |       (Ordered list of results in <li>)          
-//Filter/Map     Steps                Login
-// Item           |                     |
-//               Map                  /login
-//              Step
+//  |                        |          |            |
+//  |                        |          |           Map
+//  List                  Loading     Nav     SaveRestaurants 
+//  |                                   |       (Ordered list of results in <li>)          
+//Filter/Map                          Login
+// Item                                 |
+//                                   /login
+//               
 
 //Tech Stack Documentation
 // For navigator.geolocation and such
 // http://www.w3schools.com/html/html5_geolocation.asp
-// 
+// For google maps api search:
+// https://developers.google.com/places/web-service/search
+//
 
 //Standard imports
 import React, { Component } from 'react';
@@ -27,6 +29,9 @@ import getAPI from './lib/getImagesAPI.js'
 import isLogin from './lib/isLogin.js'
 import getDisplayName from './lib/getDisplayName.js'
 import getSaveRestaurant from './lib/getSaveRestaurant.js'
+
+//New Libs for Team Troll
+import getRestaurantsWithVariableDistance from './lib/getRestaurantsWithVariableDistance';
 
 //Import called components
 import List from './List';
@@ -52,7 +57,8 @@ class App extends Component {
       isLogin:false,
       displayName:undefined,
       saveRestaurants: undefined,
-      showSaveRestaurants: false
+      showSaveRestaurants: false,
+      distance: 1500
     };
   }
 
@@ -71,7 +77,7 @@ class App extends Component {
         console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
         this.setState({latlong:`${position.coords.latitude},${position.coords.longitude}`});
         //passes in the location to start finding restaraunts
-        this.getNearbyRestaurants({location:this.state.latlong});
+        this.getNearbyRestaurants({location:this.state.latlong,distance:this.state.distance});
         //getAddress will take our longitude and latitude and find the nearest address to us
         getAddress({latlng:this.state.latlong},((location)=>{
           console.log(location)
@@ -90,8 +96,18 @@ class App extends Component {
   //container function for lib/getRestaurants.js
     // ^^ === sends lat/long to /fetchData endpoint via jQuery
       // ^^ Google api call is in server.js
-  getNearbyRestaurants(location){
-    getRestaurants(location,(restaurants) => {
+    //Modified to accept variable distance.  
+  getNearbyRestaurants(options){
+  
+    getRestaurants(options,(restaurants) => {
+      this.setState({data:restaurants});
+    })
+  }
+  
+  // As above, but accepts a distance parameter.
+  //container function for lib/getRestaurantswithVariableDistance
+  getRestaurantsWithVariableDistance(location,distance){
+    getRestaurantsWithVariableDistance(location,distance, (restaurants) => {
       this.setState({data:restaurants});
     })
   }
@@ -174,7 +190,6 @@ class App extends Component {
       // set a directions property equal to the "steps" from Google's directions
       // (with quadratic time complexity :) )
       data[data.map(x => x.id).indexOf(id)]['directions'] = directionSteps;
-      console.log("The direction steps are ......", directionSteps)
 
       // In order to get the directions to display in each "card", we had to use forceUpdate.
       // There's probably a better way to handle this...
