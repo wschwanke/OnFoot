@@ -58,7 +58,7 @@ class App extends Component {
       saveRestaurants: undefined,
       showSaveRestaurants: false,
       radius: 1500,
-      dollars: 1
+      dollars: 2
     };
   }
 

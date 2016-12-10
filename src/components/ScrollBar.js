@@ -28,9 +28,11 @@ class ScrollBar extends Component {
   //These are for the dollars slider.
   moneySubmit(event) {
     this.props.changeDollars(this.state.dollars);
+    console.log('Money value submitted', this.state.dollars);
   }
   moneySlide(event) {
     this.setState({dollars:event.target.value});
+    console.log('Money value updated ', event.target.value);
   }
 
   render(){
