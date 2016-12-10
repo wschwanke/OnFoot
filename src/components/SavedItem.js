@@ -52,8 +52,8 @@ render(){
             <p className='list-location-address'>{this.props.item.vicinity}</p>
               <a className='list-location-button' target='_blank' href={queryStr}>Get Map</a>
             <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
-            <button>Add a note</button>
-            <button>Delete from saved list</button>
+            <button className='button'>Add a note</button>
+            <button className='button'>Delete from saved list</button>
           </div>
         </div>
       </div>    

@@ -117,7 +117,9 @@ class App extends Component {
   getSavedRestaurants(){
     getSaveRestaurant((restaurants)=>{
       console.log("res",restaurants);
-      this.setState({savedRestaurantData: restaurants});
+      //if(this.state.savedRestaurantsData === undefined){
+        this.setState({savedRestaurantData: restaurants})
+     // }
       this.setState({showSaveRestaurants: true});
     })
   }
@@ -199,6 +201,7 @@ class App extends Component {
   changeRadius(num){
     this.setState({radius:num})
   }
+
 
   getOutOfSavedList(){
     //this.setState({showList:true})
