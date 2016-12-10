@@ -46,39 +46,53 @@ render(){
   var geolocation = `${this.props.item.geometry.location.lat},${this.props.item.geometry.location.lng}`;
   //url for google street view api
   var url = `https://maps.googleapis.com/maps/api/streetview?size=600x300&location=${geolocation}&key=${this.props.API}`
-  let openText;
-  if (this.props.item.opening_hours){
-    if (this.props.item.opening_hours.open_now===true){
-    openText="Open now"
-    }else{
-      openText="Closed now"
+  let openText = this.props.item.opening_hours ? status(this.props.item.opening_hours, this.props.item.opening_hours.open_now) : "Unable to retrieve opening hours"
+  
+
+  let savedButton;
+  if(!this.props.isLogin){
+    savedButton=function(){
+      return;
     }
-  } else {
-    openText="Unable to retrieve opening hours"
+  }else{
+    if(this.props.showSaveRestaurants){
+      savedButton=function(){
+        return <button>Go back</button>
+      }
+    }else {
+      return <button>Add to saved list</button>
+    }
   }
+
     return (
     <li className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
       <div className='list-location-cont'>
-      <span className="ribbon icon"><a href="/fav" title="title">{this.props.item.rating}{this.starRating()}, {this.priceLevel()}</a></span>
+      <span className="ribbon icon"><a href="/fav" title="title">{this.props.item.rating} {this.starRating()}, {this.priceLevel()}</a></span>
         <div className='list-location-info'>
           <img className="list-location-img" src={url} alt="Photo of a restaurant" />
           <div>
             <h3>{this.props.item.name}</h3>
             <p>{this.props.item.vicinity}</p>
             <p>{openText}</p>
-              {/* Link to map directions */}
-              <button className='list-location-button' target='_blank' href={queryStr}>Go</button>
-              {
-                this.props.isLogin ?
-                <button className='list-location-button' onClick={this.saveRestaurant}>Try it later</button> : null
-              }
+            <button className='list-location-button' target='_blank' href={queryStr}>Google Maps</button>
             <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
+            {savedButton()}
           </div>
         </div>
-      </div>
+      </div>    
     </li>
     );
   }
 };
 
+
+
 export default Item;
+
+function status(opening_hours, open_now) {
+  if (open_now === true){
+    return "Open now"
+  }else{
+    return "Closed now"
+  }
+}

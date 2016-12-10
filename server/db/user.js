@@ -5,7 +5,7 @@ var Schema = mongoose.Schema;
 var userSchema = new Schema({
   id : Number,
   name : String,
-  checkList : [ {placeId: String, place:String} ]
+  checkList : [ {placeId: String, place:String, notes:String} ]
 });
 
 var User = mongoose.model('User', userSchema);

@@ -51,14 +51,14 @@ class App extends Component {
       data: undefined,
       showList: false,
       hideButton: false,
-      showDirections: false,
       directions: undefined,
       imageAPI: undefined,
       isLogin: false,
       displayName: undefined,
       saveRestaurants: undefined,
       showSaveRestaurants: false,
-      distance: 1500
+      distance: 1500,
+      radius:undefined
     };
   }
 
@@ -121,7 +121,7 @@ class App extends Component {
          // id : Number,
          // name : String,
          // checkList : [ {placeId: String, place:String} ]
-  showSaveRestaurants(){
+  getSavedRestaurants(){
     getSaveRestaurant((restaurants)=>{
       console.log("res",restaurants);
       this.setState({saveRestaurants: restaurants});
@@ -134,7 +134,17 @@ class App extends Component {
     this.setState({showSaveRestaurants: false});
   }
 
-
+  displaySavedButton(){
+    if (this.state.login===false){
+      return;
+    } else{
+      if (this.state.showSaveRestaurants===true){
+        return <button>Go back </button>
+      }else {
+        return <button> See saved restaurants </button>
+      }
+    } 
+  }
   //Grab location, environment variable and check for login on App load.
   componentDidMount() {
     this.getLocation()
@@ -198,6 +208,9 @@ class App extends Component {
       //console.log('Here are the steps results for the place you just clicked', steps);
     })
   }
+  changeRadius(num){
+    this.setState({radius:num})
+  }
 
   render() {
     //set to a variable for a little better readability
@@ -210,22 +223,18 @@ class App extends Component {
     return (
       <main className='container'>
         {  //Nav shows login/logout and saved restaurants.
-          <Nav isLogin={isLogin} displayName={this.state.displayName} showSaveRestaurants={() => this.showSaveRestaurants()}/>
+          <Nav isLogin={isLogin} displayName={this.state.displayName}/>
         }
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
         }
         <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
-        <ScrollBar />
+        <ScrollBar changeRadius={this.changeRadius.bind(this)}/>
         {
           //check if showList is true then call the List component
           //List shows the restaurants that are near.
           this.state.showList ?
-          <List data={data} API={api} isLogin={isLogin} showDirections={this.state.showDirections} displayDirections={this.displayDirections.bind(this)}/> : null
-        }
-        {  //Shows saved restaurants.
-          this.state.showSaveRestaurants ?
-          <SaveRestaurants data = {this.state.saveRestaurants} hidSaveRestaurants = {() => this.hidSaveRestaurants()}/> : null
+          <List data={data} API={api} isLogin={isLogin} displayDirections={this.displayDirections.bind(this)}/> : null
         }
       </main>
     )

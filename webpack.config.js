@@ -38,12 +38,12 @@ module.exports = {
     new webpack.ProvidePlugin({
         "React": "react",
     }),
-    new BrowserSyncPlugin({
-      // browse to http://localhost:3000/ during development, 
-      // ./public directory is being served 
-      host: '127.0.0.1',
-      port: 4041,
-      proxy: 'http://127.0.0.1:4040'
-    })
+    // new BrowserSyncPlugin({
+    //   // browse to http://localhost:3000/ during development, 
+    //   // ./public directory is being served 
+    //   host: '127.0.0.1',
+    //   port: 4041,
+    //   proxy: 'http://127.0.0.1:4040'
+    // })
   ],
 };

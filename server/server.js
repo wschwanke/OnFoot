@@ -237,7 +237,7 @@ app.post('/checkList/:id/:name', function(req, res){
   var placeId = req.params.id;
   var placeName = req.params.name;
   console.log(user,placeId,placeName);
-  User.findOneAndUpdate({id:user},{$push:{"checkList":{placeIdid:placeId, place: placeName }}},
+  User.findOneAndUpdate({id:user},{$push:{"checkList":{placeIdid:placeId, place: placeName, notes:null }}},
     {safe: true, upsert: true, new : true},
          function(err, model) {
              console.log(err);

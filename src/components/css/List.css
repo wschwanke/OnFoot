@@ -1,6 +1,7 @@
 .list {
   background-color: rgba(0, 0, 0, .1);
   border-radius: 8px;
+  text-align:center;
 }
 
 .list-header {
