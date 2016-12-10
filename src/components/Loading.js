@@ -5,7 +5,7 @@ import './css/Loading.css';
 import ScrollBar from './ScrollBar';
 
 // We pass hideButton and displayList in and because we're using ES6 we dont have to use bind or props
-const Loading = ({isLogin, showSaveRestaurants, changeRadius, location, hideButton, displayList}) => {
+const Loading = ({changeDollars, isLogin, showSaveRestaurants, changeRadius, location, hideButton, displayList}) => {
   const locationText = () => {
   if (location) {
       return <div>{location}</div>
@@ -28,7 +28,7 @@ const Loading = ({isLogin, showSaveRestaurants, changeRadius, location, hideButt
         hideButton ? null : <span className="button col-xs-8 col-sm-6 col-sm-4 col-lg-3" onClick={displayList}>Take me some place close!</span>
       }
       </div>
-      <ScrollBar changeRadius={changeRadius}/>
+      <ScrollBar changeDollars={changeDollars} changeRadius={changeRadius}/>
     </div>
   );
 };

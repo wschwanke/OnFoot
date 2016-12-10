@@ -5,6 +5,7 @@ import './css/Nav.css';
 import LoginButton from './LoginButton'
 import getSaveRestaurant from './lib/getSaveRestaurant.js'
 
+
 const Nav = ({toggleSavedRestaurants, isLogin, displayName, showSaveRestaurants}) => {
 const displaySavedButton = () => {
     if (isLogin === false) {

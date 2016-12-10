@@ -29,6 +29,7 @@ import isLogin from './lib/isLogin.js'
 import getDisplayName from './lib/getDisplayName.js'
 import getSaveRestaurant from './lib/getSaveRestaurant.js'
 
+
 //New Libs for Team Troll
 import getRestaurantsWithVariableDistance from './lib/getRestaurantsWithVariableDistance';
 
@@ -37,7 +38,6 @@ import List from './List';
 import Loading from './Loading';
 import Nav from './Nav';
 import SaveRestaurants from './SaveRestaurants';
-
 
 
 
@@ -149,6 +149,8 @@ class App extends Component {
     })
   }
 
+
+
   //Will show the list of restaurants and hide the find restaurants button.
   displayList(){
     this.getLocation();
@@ -202,6 +204,14 @@ class App extends Component {
     this.setState({dollars:num});
   }
 
+  toggleSavedRestaurants(){
+   if(this.state.showSaveRestaurants===false){
+     this.setState({showSaveRestaurants:true})
+   } else{
+     this.setState({showSaveRestaurants:false})
+   }
+ }
+
   render() {
     //set to a variable for a little better readability
     var location = this.state.location;
@@ -220,11 +230,9 @@ class App extends Component {
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
 
-          <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
+          <Loading changeDollars={this.changeDollars.bind(this)} changeRadius={this.changeRadius.bind(this)} location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
         }
-        {
-          <ScrollBar changeRadius={this.changeRadius.bind(this)} changeDollars={this.changeDollars.bind(this)} />
-        }
+     
 
 
         {
