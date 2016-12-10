@@ -6,7 +6,7 @@ import DirectionsModal from './DirectionsModal';
 
 class Item extends Component {
   constructor (props) {
-    super()
+    super(props)
     this.state = {};
   }
 
@@ -17,8 +17,7 @@ class Item extends Component {
   
   saveRestaurant(e) {
     e.preventDefault();
-    console.log("name",this.props.item.place_id,"id",this.props.item.name);
-    postRestaurant(item.place_id,item.name);
+    postRestaurant(this.props.item.place_id,this.props.item.name,this.props.item.rating,this.props.item.price_level, this.props.item.vicinity, this.props.item.geometry);
   }
 
   // this function turns `item.price_level` into a dollar sign level
@@ -41,14 +40,19 @@ class Item extends Component {
 saveButton(){
   console.log("The save button was triggered","isLogin",this.props.isLogin, "this.props.showSaveRestaurants",this.props.showSaveRestaurants)
   if(this.props.isLogin===true&&this.props.showSaveRestaurants===false){
+<<<<<<< 69bb1dca78be26cd7b83caea2c06a0d44e4b3646
     return <button className='list-location-button'>Save this location</button>
+||||||| merged common ancestors
+    return <button>Save this location</button>
+=======
+    return <button onClick={this.saveRestaurant.bind(this)}>Save this location</button>
+>>>>>>> Now saving all info into database
   }
 }
-
 render(){
    // variable string for link to Google maps directions
   let queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + this.props.item.geometry.location.lat + "," + this.props.item.geometry.location.lng + "&dirflg=w"
-
+  console.log("AN ITEM", this.props.item);
   //get the latitude and longtitude of a restaurant
   var geolocation = `${this.props.item.geometry.location.lat},${this.props.item.geometry.location.lng}`;
   //url for google street view api

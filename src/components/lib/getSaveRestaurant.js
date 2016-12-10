@@ -3,7 +3,7 @@ import React from 'react'
 var getSaveRestaurant = (callback) => {
   $.get('/checkList')
   .done((restaurants)=>{
-    console.log("users",restaurants.checkList);
+    console.log("HERE ARE ALL THE RESTAURANTS",restaurants.checkList);
     callback(restaurants.checkList);
   })
   .fail(({responseJSON})=>{
