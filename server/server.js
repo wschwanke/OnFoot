@@ -74,7 +74,8 @@ app.get('/auth/facebook',
   function(req, res){});
 
 app.get('/auth/facebook/callback',
-  passport.authenticate('facebook', { authType: 'reauthenticate',failureRedirect: '/' }),
+  //passport.authenticate('facebook', { authType: 'reauthenticate',failureRedirect: '/' }),
+  passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
     console.log("req",req.user);
     User.findOne({id:req.user.id}).exec(function(err,found){
