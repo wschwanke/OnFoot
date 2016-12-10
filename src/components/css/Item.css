@@ -138,3 +138,23 @@ a.list-location-button {
 .circle-container div {
   display: inline-block;
 }
+
+.modal-header h4 {
+  margin-bottom: 15px;
+  font-size: 3.5rem;
+}
+
+.modal-header .close {
+  position: absolute;
+  top: 3px;
+  right: 10px;
+}
+
+.modal-inside {
+  margin-top: 20px;
+}
+
+.modal-inside div > div {
+  margin-bottom: 15px;
+  font-size: 1.5rem;
+}
