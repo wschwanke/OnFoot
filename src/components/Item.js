@@ -38,6 +38,13 @@ class Item extends Component {
     return result;
   }
 
+saveButton(){
+  if(this.props.isLogin===true&&this.props.showSaveRestaurants===false){
+    return <button>Save this location</button>
+  }else {
+    return
+  }
+}
 render(){
    // variable string for link to Google maps directions
   let queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + this.props.item.geometry.location.lat + "," + this.props.item.geometry.location.lng + "&dirflg=w"
@@ -49,20 +56,7 @@ render(){
   let openText = this.props.item.opening_hours ? status(this.props.item.opening_hours, this.props.item.opening_hours.open_now) : "Unable to retrieve opening hours"
   
 
-  let savedButton;
-  if(!this.props.isLogin){
-    savedButton=function(){
-      return;
-    }
-  }else{
-    if(this.props.showSaveRestaurants){
-      savedButton=function(){
-        return <button>Go back</button>
-      }
-    }else {
-      return <button>Add to saved list</button>
-    }
-  }
+  
 
     return (
     <li className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
@@ -76,7 +70,7 @@ render(){
             <p>{openText}</p>
               <a className='list-location-button' target='_blank' href={queryStr}>Get Map</a>
             <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
-            {savedButton()}
+            {this.saveButton()}
           </div>
         </div>
       </div>    
