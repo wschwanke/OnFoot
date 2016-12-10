@@ -102,7 +102,7 @@ a.list-location-button {
 
 .ribbon:before {
   position: absolute;
-  right: -4px;
+  right: 3px;
   bottom: -8px;
   border: solid transparent;
   content: " ";
