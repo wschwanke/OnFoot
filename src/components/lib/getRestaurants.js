@@ -1,8 +1,8 @@
 import $ from 'jquery';
 var getRestaurants = (options,callback) => {
-  console.log("location", options.location);
+  //console.log("location", options.location,'Distance? ',options.distance);
   //pass in the lat/long so we can get the results for our current location
-  $.get(`/fetchData/${options.location}/${options.distance}`,{
+  $.get(`/fetchData/${options.location}/${options.radius}`,{
 
   })
   .done((items) => {

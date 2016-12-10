@@ -29,6 +29,7 @@ import isLogin from './lib/isLogin.js'
 import getDisplayName from './lib/getDisplayName.js'
 import getSaveRestaurant from './lib/getSaveRestaurant.js'
 
+
 //New Libs for Team Troll
 import getRestaurantsWithVariableDistance from './lib/getRestaurantsWithVariableDistance';
 
@@ -37,7 +38,6 @@ import List from './List';
 import Loading from './Loading';
 import Nav from './Nav';
 import SaveRestaurants from './SaveRestaurants';
-
 
 
 
@@ -57,30 +57,30 @@ class App extends Component {
       displayName: undefined,
       saveRestaurants: undefined,
       showSaveRestaurants: false,
-      distance: 1500,
-      radius:undefined
+      radius: 1500,
+      dollars: 2
     };
   }
 
   getLocation() {
     if (navigator.geolocation) {
-      console.log('Geolocation is supported!');
+     // console.log('Geolocation is supported!');
       }
       else {
-      console.log('Geolocation is not supported for this Browser/OS.');
+    //  console.log('Geolocation is not supported for this Browser/OS.');
       }
     // Get the user's location:
     if (navigator.geolocation) {
       //use an arrow function to not lose  this binding
       //watchPosition will constantly get the user's location
       navigator.geolocation.watchPosition( (position) => {
-        console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
+       // console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
         this.setState({latlong:`${position.coords.latitude},${position.coords.longitude}`});
         //passes in the location to start finding restaraunts
-        this.getNearbyRestaurants({location:this.state.latlong,distance:this.state.distance});
+        this.getNearbyRestaurants({location:this.state.latlong,radius:this.state.radius});
         //getAddress will take our longitude and latitude and find the nearest address to us
         getAddress({latlng:this.state.latlong},((location)=>{
-          console.log(location)
+       //   console.log(location)
           //the location state will update each time this is run
           //split data into variables to increase readability
           var streetNum  = location[0].long_name
@@ -99,19 +99,12 @@ class App extends Component {
       // ^^ Google api call is in server.js
     //Modified to accept variable distance.  
   getNearbyRestaurants(options){
-  
+    console.log('Options?',options);
     getRestaurants(options,(restaurants) => {
       this.setState({data:restaurants});
     })
   }
-  
-  // As above, but accepts a distance parameter.
-  //container function for lib/getRestaurantswithVariableDistance
-  getRestaurantsWithVariableDistance(location,distance){
-    getRestaurantsWithVariableDistance(location,distance, (restaurants) => {
-      this.setState({data:restaurants});
-    })
-  }
+   
 
 //Container function for lib/getSaveRestaurants and updates state.
   //^^ === GET request to /checkList endpoint.
@@ -134,9 +127,9 @@ class App extends Component {
     this.setState({showSaveRestaurants: false});
   }
 
-  //Grab location, environment variable and check for login on App load.
+
   componentDidMount() {
-    this.getLocation()
+   
 
    // calls getAPI and returns the environment variable API or deployment config API and
    // sets state to that so we can pass it down
@@ -156,8 +149,11 @@ class App extends Component {
     })
   }
 
+
+
   //Will show the list of restaurants and hide the find restaurants button.
   displayList(){
+    this.getLocation();
     this.setState({showList:true});
     this.setState({hideButton:true});
   }
@@ -197,12 +193,25 @@ class App extends Component {
       //console.log('Here are the steps results for the place you just clicked', steps);
     })
   }
+
+  
+  //For altering radius in response to scrollbar.
   changeRadius(num){
     this.setState({radius:num})
   }
-  toggleSavedRestaurants(){
-    this.setState({showSaveRestaurants:!this.state.showSaveRestaurants})
+
+  //for altering dollars in response to scrollbar.
+  changeDollars(num){
+    this.setState({dollars:num});
   }
+
+  toggleSavedRestaurants(){
+   if(this.state.showSaveRestaurants===false){
+     this.setState({showSaveRestaurants:true})
+   } else{
+     this.setState({showSaveRestaurants:false})
+   }
+ }
 
   render() {
     //set to a variable for a little better readability
@@ -211,6 +220,8 @@ class App extends Component {
     var api = this.state.imageAPI;
     var isLogin = this.state.isLogin;
 
+   // console.log(this.state.showList);
+
     return (
       <main className='container'>
         {  //Nav shows login/logout and saved restaurants.
@@ -218,13 +229,17 @@ class App extends Component {
         }
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
-        
-        <Loading changeRadius={this.changeRadius.bind(this)} showSaveRestaurants={this.state.showSaveRestaurants} isLogin={this.state.isLogin} location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>}
+
+          <Loading changeDollars={this.changeDollars.bind(this)} changeRadius={this.changeRadius.bind(this)} location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
+        }
+
         {
           //check if showList is true then call the List component
           //List shows the restaurants that are near.
           this.state.showList ?
-          <List data={data} API={api} isLogin={isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> : null
+
+          <List dollars={this.state.dollars} data={data} API={api} isLogin={isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> : null
+
         }
       </main>
     )
