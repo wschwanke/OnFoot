@@ -41,7 +41,7 @@ class Item extends Component {
 saveButton(){
   console.log("The save button was triggered","isLogin",this.props.isLogin, "this.props.showSaveRestaurants",this.props.showSaveRestaurants)
   if(this.props.isLogin===true&&this.props.showSaveRestaurants===false){
-    return <button>Save this location</button>
+    return <button className='list-location-button'>Save this location</button>
   }
 }
 
@@ -59,7 +59,7 @@ render(){
   
 
     return (
-    <li className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
+    <li className="col-xs-12 col-sm-12 col-md-6 col-lg-4">
       <div className='list-location-cont'>
       <span className="ribbon icon"><a href="/fav" title="title">{this.props.item.rating} {this.starRating()}, {this.priceLevel()}</a></span>
         <div className='list-location-info'>

@@ -6,12 +6,14 @@ body {
 a.button,
 .button {
   display: block;
+  height: 36px;
   padding: 6px 14px;
   font-size: 14px;
   font-weight: 700;
   text-align: center;
   color: #fff;
   text-transform: uppercase;
+  background-color: transparent;
   border: 2px solid #fff;
   border-radius: 8px;
   cursor: pointer;
@@ -22,21 +24,7 @@ a.button:hover,
   text-decoration: none;
 }
 
-a.button,
-.button {
-  display: block;
-  padding: 6px 14px;
-  font-size: 14px;
-  font-weight: 700;
-  text-align: center;
-  color: #fff;
-  text-transform: uppercase;
-  border: 2px solid #fff;
-  border-radius: 8px;
-  cursor: pointer;
-}
-
-a.button:hover,
-.button:hover {
-  text-decoration: none;
+a.button:focus,
+.button:focus {
+  outline: 0;
 }
