@@ -38,6 +38,13 @@ class Item extends Component {
     return result;
   }
 
+saveButton(){
+  console.log("The save button was triggered","isLogin",this.props.isLogin, "this.props.showSaveRestaurants",this.props.showSaveRestaurants)
+  if(this.props.isLogin===true&&this.props.showSaveRestaurants===false){
+    return <button>Save this location</button>
+  }
+}
+
 render(){
    // variable string for link to Google maps directions
   let queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + this.props.item.geometry.location.lat + "," + this.props.item.geometry.location.lng + "&dirflg=w"
@@ -49,20 +56,7 @@ render(){
   let openText = this.props.item.opening_hours ? status(this.props.item.opening_hours, this.props.item.opening_hours.open_now) : "Unable to retrieve opening hours"
   
 
-  let savedButton;
-  if(!this.props.isLogin){
-    savedButton=function(){
-      return;
-    }
-  }else{
-    if(this.props.showSaveRestaurants){
-      savedButton=function(){
-        return <button>Go back</button>
-      }
-    }else {
-      return <button>Add to saved list</button>
-    }
-  }
+  
 
     return (
     <li className="col-xs-12 col-sm-6 col-md-4 col-lg-4">
@@ -74,14 +68,9 @@ render(){
             <h3>{this.props.item.name}</h3>
             <p className='list-location-address'>{this.props.item.vicinity}</p>
             <p>{openText}</p>
-              {/* Link to map directions */}
               <a className='list-location-button' target='_blank' href={queryStr}>Get Map</a>
-              {
-                this.props.isLogin ?
-                <button className='list-location-button' onClick={this.saveRestaurant}>Try it later</button> : null
-              }
             <DirectionsModal item={this.props.item} directionsClick={this.directionsClick.bind(this)}/>
-            {savedButton()}
+            {this.saveButton()}
           </div>
         </div>
       </div>    
@@ -96,8 +85,8 @@ export default Item;
 
 function status(opening_hours, open_now) {
   if (open_now === true){
-    return "Open now"
+    return <div><div className='circle-container'><div className='text'>Open now </div><div className='green-circle'></div></div></div>
   }else{
-    return "Closed now"
+    return <div><div className='circle-container'><div className='text'>Closed now </div><div className='red-circle'></div></div></div>
   }
 }

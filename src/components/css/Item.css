@@ -116,3 +116,25 @@ a.list-location-button {
   -webkit-transform: rotate(135deg);
   transform: rotate(135deg);
 }
+.red-circle {
+  border-radius:50%;
+  background-color:red;
+  height:14px;
+  width:14px;
+   margin-left:4px;
+}
+.green-circle {
+  border-radius:50%;
+  background-color:green;
+  height:14px;
+  width:14px;
+  margin-left:4px;
+}
+.circle-container {
+  width:120px;
+  margin:0 auto;
+}
+
+.circle-container div {
+  display: inline-block;
+}

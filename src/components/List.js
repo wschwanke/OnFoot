@@ -4,9 +4,7 @@ import './css/List.css';
 
 import Item from './Item';
 import DirectionsModal from './DirectionsModal';
-
-const List = ({data, isLogin, displayDirections, API}) => {
-  console.log("List is showing whether we're logged in or not....", isLogin)
+const List = ({data, isLogin, showSaveRestaurants, displayDirections, API}) => {
   return (
     <div className='container list'>
       <div className='row list-header'>
@@ -20,7 +18,7 @@ const List = ({data, isLogin, displayDirections, API}) => {
             // Renders one Item for data in the list.
             data.results.filter(result => result.rating >= 3.9 && result.price_level < 3)
             .map((result) =>
-            <Item item={result} API={API} isLogin={isLogin} displayDirections={displayDirections}/>
+            <Item item={result} API={API} isLogin={isLogin} showSaveRestaurants={showSaveRestaurants} displayDirections={displayDirections}/>
             )
           }
         </ul>
