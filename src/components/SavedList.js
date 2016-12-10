@@ -4,7 +4,7 @@ import './css/List.css';
 
 import Item from './Item';
 
-class SavedItem extends Component {
+class SavedList extends Component {
   constructor (props) {
     super(props)
     this.state = {};
@@ -18,8 +18,8 @@ class SavedItem extends Component {
       <div className='container list-location'>
         <ul className='row'>
           {
-            restaurants.map((restaurant) =>
-            <Item item={restaurant} API={API} displayDirections={displayDirections}/>
+            this.props.data.map((restaurant) =>
+            <Item item={restaurant} API={this.props.API} displayDirections={this.props.displayDirections}/>
             )
           }
         </ul>

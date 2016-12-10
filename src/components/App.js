@@ -215,7 +215,7 @@ class App extends Component {
       if(this.state.showSaveRestaurants===false){
         return <List dollars={this.state.dollars} data={this.state.data} API={this.state.imageAPI} isLogin={this.state.isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> 
       }else{
-        return <SavedList data={this.state.savedRestaurants} API={this.state.imageAPI} displayDirections={this.displayDirections.bind(this)}/> 
+        return <SavedList data={this.state.savedRestaurantData} API={this.state.imageAPI} displayDirections={this.displayDirections.bind(this)}/> 
       }
     }
   }
