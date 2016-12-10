@@ -227,9 +227,11 @@ class App extends Component {
         }
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
+          <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
         }
-        <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
-        <ScrollBar changeRadius={this.changeRadius.bind(this)}/>
+        {
+          <ScrollBar changeRadius={this.changeRadius.bind(this)}/>
+        }
         {
           //check if showList is true then call the List component
           //List shows the restaurants that are near.
