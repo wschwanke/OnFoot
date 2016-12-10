@@ -75,11 +75,8 @@ render(){
             <p className='list-location-address'>{this.props.item.vicinity}</p>
             <p>{openText}</p>
               {/* Link to map directions */}
-<<<<<<< 9d7e7fca5060a087b456d2700c17c0c7de889e9c
               <a className='list-location-button' target='_blank' href={queryStr}>Get Map</a>
-=======
-              <a className='list-location-button' target='_blank' href={queryStr}>Go</a>
->>>>>>> Rebasing to get most recent changes.
+
               {
                 this.props.isLogin ?
                 <button className='list-location-button' onClick={this.saveRestaurant}>Try it later</button> : null

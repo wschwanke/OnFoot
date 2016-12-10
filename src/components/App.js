@@ -58,29 +58,29 @@ class App extends Component {
       saveRestaurants: undefined,
       showSaveRestaurants: false,
       distance: 1500,
-      radius:undefined
+      radius: 1500
     };
   }
 
   getLocation() {
     if (navigator.geolocation) {
-      console.log('Geolocation is supported!');
+     // console.log('Geolocation is supported!');
       }
       else {
-      console.log('Geolocation is not supported for this Browser/OS.');
+    //  console.log('Geolocation is not supported for this Browser/OS.');
       }
     // Get the user's location:
     if (navigator.geolocation) {
       //use an arrow function to not lose  this binding
       //watchPosition will constantly get the user's location
       navigator.geolocation.watchPosition( (position) => {
-        console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
+       // console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
         this.setState({latlong:`${position.coords.latitude},${position.coords.longitude}`});
         //passes in the location to start finding restaraunts
-        this.getNearbyRestaurants({location:this.state.latlong,distance:this.state.distance});
+        this.getNearbyRestaurants({location:this.state.latlong,radius:this.state.radius});
         //getAddress will take our longitude and latitude and find the nearest address to us
         getAddress({latlng:this.state.latlong},((location)=>{
-          console.log(location)
+       //   console.log(location)
           //the location state will update each time this is run
           //split data into variables to increase readability
           var streetNum  = location[0].long_name
@@ -138,11 +138,10 @@ class App extends Component {
       }
     } 
   }
-  //Grab location, environment variable and check for login on App load.
-    //
+ //Load API on App load
+   //Check if logged in.
   componentDidMount() {
-    //Commenting this out to refactor for button push.
-    //this.getLocation()
+   
 
    // calls getAPI and returns the environment variable API or deployment config API and
    // sets state to that so we can pass it down
@@ -204,6 +203,7 @@ class App extends Component {
       //console.log('Here are the steps results for the place you just clicked', steps);
     })
   }
+
   changeRadius(num){
     this.setState({radius:num})
   }
@@ -214,7 +214,7 @@ class App extends Component {
     var data = this.state.data;
     var api = this.state.imageAPI;
     var isLogin = this.state.isLogin;
-    console.log(this.state.showList);
+   // console.log(this.state.showList);
 
     return (
       <main className='container'>
