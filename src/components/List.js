@@ -3,20 +3,8 @@ import React from 'react';
 import './css/List.css';
 
 import Item from './Item';
-<<<<<<< 2b48ce93ff87b986e906adfd1dc76b9a26140c68
-import DirectionsModal from './DirectionsModal';
 
-const List = ({dollars, data, isLogin, displayDirections, API}) => {
-  //console.log("List is showing whether we're logged in or not....", isLogin)
-  
-
-||||||| merged common ancestors
-import DirectionsModal from './DirectionsModal';
-const List = ({data, isLogin, showSaveRestaurants, displayDirections, API}) => {
-=======
-
-const List = ({data, isLogin, showSaveRestaurants, displayDirections, API}) => {
->>>>>>> Database is connected and functional. Rewriting list to now render saved items
+const List = ({dollars, data, isLogin, showSaveRestaurants, displayDirections, API}) => {
   return (
     <div className='container list'>
       <div className='row list-header'>

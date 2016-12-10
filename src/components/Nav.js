@@ -1,37 +1,8 @@
-//Functional component to show login/logout and show the savedRestaurants list.
-
 import React, { Component } from 'react'
 import './css/Nav.css';
 import LoginButton from './LoginButton'
 import getSaveRestaurant from './lib/getSaveRestaurant.js'
 
-<<<<<<< 2b48ce93ff87b986e906adfd1dc76b9a26140c68
-<<<<<<< 42d10f836a1540057efd485ec4ede0bceda70622
-
-||||||| merged common ancestors
-=======
-<<<<<<< 69bb1dca78be26cd7b83caea2c06a0d44e4b3646
->>>>>>> Now saving all info into database
-const Nav = ({toggleSavedRestaurants, isLogin, displayName, showSaveRestaurants}) => {
-const displaySavedButton = () => {
-    if (isLogin === false) {
-||||||| merged common ancestors
-const Nav = ({toggleSavedRestaurants, isLogin,displayName, showSaveRestaurants}) => {
-const displaySavedButton = () => {
-    if (isLogin===false){
-=======
-||||||| merged common ancestors
-<<<<<<< 69bb1dca78be26cd7b83caea2c06a0d44e4b3646
-const Nav = ({toggleSavedRestaurants, isLogin, displayName, showSaveRestaurants}) => {
-const displaySavedButton = () => {
-    if (isLogin === false) {
-||||||| merged common ancestors
-const Nav = ({toggleSavedRestaurants, isLogin,displayName, showSaveRestaurants}) => {
-const displaySavedButton = () => {
-    if (isLogin===false){
-=======
-=======
->>>>>>> Database is connected and functional. Rewriting list to now render saved items
 
 class Nav extends Component {
   constructor (props) {
