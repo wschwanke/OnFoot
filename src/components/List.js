@@ -5,6 +5,7 @@ import './css/List.css';
 import Item from './Item';
 import DirectionsModal from './DirectionsModal';
 const List = ({data, isLogin, showSaveRestaurants, displayDirections, API}) => {
+
   return (
     <div className='container list'>
       <div className='row list-header'>
@@ -16,7 +17,7 @@ const List = ({data, isLogin, showSaveRestaurants, displayDirections, API}) => {
             data === undefined ? null :
             //filters the data right here
             // Renders one Item for data in the list.
-            data.results.filter(result => result.rating >= 3.9 && result.price_level < 3)
+            data.results.filter(result => result.rating >= 3.9 && result.price_level <= this.props.dollars)
             .map((result) =>
             <Item item={result} API={API} isLogin={isLogin} showSaveRestaurants={showSaveRestaurants} displayDirections={displayDirections}/>
             )

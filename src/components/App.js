@@ -57,8 +57,8 @@ class App extends Component {
       displayName: undefined,
       saveRestaurants: undefined,
       showSaveRestaurants: false,
-      distance: 1500,
-      radius: 1500
+      radius: 1500,
+      dollars: 1
     };
   }
 
@@ -191,12 +191,15 @@ class App extends Component {
       //console.log('Here are the steps results for the place you just clicked', steps);
     })
   }
-
+  
+  //For altering radius in response to scrollbar.
   changeRadius(num){
     this.setState({radius:num})
   }
-  toggleSavedRestaurants(){
-    this.setState({showSaveRestaurants:!this.state.showSaveRestaurants})
+
+  //for altering dollars in response to scrollbar.
+  changeDollars(num){
+    this.setState({dollars:num});
   }
 
   render() {
@@ -220,7 +223,7 @@ class App extends Component {
           <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
         }
         {
-          <ScrollBar changeRadius={this.changeRadius.bind(this)}/>
+          <ScrollBar changeRadius={this.changeRadius.bind(this)} changeDollars={this.changeDollars.bind(this)} />
         }
 
 
@@ -228,7 +231,9 @@ class App extends Component {
           //check if showList is true then call the List component
           //List shows the restaurants that are near.
           this.state.showList ?
-          <List data={data} API={api} isLogin={isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> : null
+
+          <List dollars={this.state.dollars} data={data} API={api} isLogin={isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> : null
+
         }
       </main>
     )
