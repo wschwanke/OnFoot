@@ -5,8 +5,18 @@ import './css/Nav.css';
 import LoginButton from './LoginButton'
 import getSaveRestaurant from './lib/getSaveRestaurant.js'
 
-const Nav = ({isLogin,displayName, showSaveRestaurants}) => {
-
+const Nav = ({toggleSavedRestaurants, isLogin,displayName, showSaveRestaurants}) => {
+const displaySavedButton = () => {
+    if (isLogin===false){
+      return
+    } else{
+      if (showSaveRestaurants===true){
+        return <button onClick={toggleSavedRestaurants}>Go back</button>
+      }else {
+        return <button onClick={toggleSavedRestaurants}>Show saved restaurants</button>
+      }
+    } 
+  }
   return(
     <nav className='row flex-items-xs-right h-nav'>
     {
@@ -15,6 +25,7 @@ const Nav = ({isLogin,displayName, showSaveRestaurants}) => {
     {
       displayName ? <div className='col-xs col-sm col-md col-lg'><p className='nav-displayname' onClick ={showSaveRestaurants}>{displayName}</p></div>: null
     }
+    {displaySavedButton()}
     </nav>
   )
 }

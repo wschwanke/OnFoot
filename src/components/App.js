@@ -134,17 +134,6 @@ class App extends Component {
     this.setState({showSaveRestaurants: false});
   }
 
-  displaySavedButton(){
-    if (this.state.login===false){
-      return;
-    } else{
-      if (this.state.showSaveRestaurants===true){
-        return <button>Go back </button>
-      }else {
-        return <button> See saved restaurants </button>
-      }
-    } 
-  }
   //Grab location, environment variable and check for login on App load.
   componentDidMount() {
     this.getLocation()
@@ -210,17 +199,10 @@ class App extends Component {
   }
   changeRadius(num){
     this.setState({radius:num})
-    console.log("I have been clicked")
   }
-  showSavedRestaurantsButton(){
-  if (this.state.isLogin===true){
-    if(this.state.showSaveRestaurants===true){
-      return <button>Go back</button>
-    }else {
-      return <button>Show saved restaurants</button>
-    }
+  toggleSavedRestaurants(){
+    this.setState({showSaveRestaurants:!this.state.showSaveRestaurants})
   }
-}
 
   render() {
     //set to a variable for a little better readability
@@ -232,13 +214,12 @@ class App extends Component {
     return (
       <main className='container'>
         {  //Nav shows login/logout and saved restaurants.
-          <Nav isLogin={isLogin} displayName={this.state.displayName}/>
+          <Nav showSaveRestaurants={this.state.showSaveRestaurants} toggleSavedRestaurants={this.toggleSavedRestaurants.bind(this)} isLogin={isLogin} displayName={this.state.displayName}/>
         }
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
         
-        <Loading changeRadius={this.changeRadius.bind(this)} location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>}
-        {this.showSavedRestaurantsButton()}
+        <Loading changeRadius={this.changeRadius.bind(this)} showSaveRestaurants={this.state.showSaveRestaurants} isLogin={this.state.isLogin} location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>}
         {
           //check if showList is true then call the List component
           //List shows the restaurants that are near.
