@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import './css/Item.css';
+import './css/Slider.css';
 
 class ScrollBar extends Component {
   constructor (props) {
@@ -18,7 +18,7 @@ class ScrollBar extends Component {
   render(){
   	return (
   		<div>
-  			<div>How far away do you want to go?</div>
+  			<div className='slider-text'>How far away do you want to walk?</div>
   			<input type='range' name="miles" min="500" max="2500" onChange={this.onSlide.bind(this)}></input>
   			<button type='submit' onClick={this.onSubmit.bind(this)}>Submit</button>
   		</div>

@@ -37,7 +37,7 @@ import List from './List';
 import Loading from './Loading';
 import Nav from './Nav';
 import SaveRestaurants from './SaveRestaurants';
-import ScrollBar from './ScrollBar';
+
 
 
 
@@ -46,7 +46,7 @@ class App extends Component {
     super()
     this.state = {
       //original value so that its not just undefined
-      location: `Getting your location...`,
+      location: null,
       latlong: undefined,
       data: undefined,
       showList: false,
@@ -210,6 +210,7 @@ class App extends Component {
   }
   changeRadius(num){
     this.setState({radius:num})
+    console.log("I have been clicked")
   }
   showSavedRestaurantsButton(){
   if (this.state.isLogin===true){
@@ -235,14 +236,8 @@ class App extends Component {
         }
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
-          <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
-        }
-        {
-          <ScrollBar changeRadius={this.changeRadius.bind(this)}/>
-        }
-
-        <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
-        <ScrollBar changeRadius={this.changeRadius.bind(this)}/>
+        
+        <Loading changeRadius={this.changeRadius.bind(this)} location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>}
         {this.showSavedRestaurantsButton()}
         {
           //check if showList is true then call the List component
