@@ -211,6 +211,15 @@ class App extends Component {
   changeRadius(num){
     this.setState({radius:num})
   }
+  showSavedRestaurantsButton(){
+  if (this.state.isLogin===true){
+    if(this.state.showSaveRestaurants===true){
+      return <button>Go back</button>
+    }else {
+      return <button>Show saved restaurants</button>
+    }
+  }
+}
 
   render() {
     //set to a variable for a little better readability
@@ -218,7 +227,6 @@ class App extends Component {
     var data = this.state.data;
     var api = this.state.imageAPI;
     var isLogin = this.state.isLogin;
-    console.log(this.state.showList);
 
     return (
       <main className='container'>
@@ -232,11 +240,15 @@ class App extends Component {
         {
           <ScrollBar changeRadius={this.changeRadius.bind(this)}/>
         }
+
+        <Loading location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
+        <ScrollBar changeRadius={this.changeRadius.bind(this)}/>
+        {this.showSavedRestaurantsButton()}
         {
           //check if showList is true then call the List component
           //List shows the restaurants that are near.
           this.state.showList ?
-          <List data={data} API={api} isLogin={isLogin} displayDirections={this.displayDirections.bind(this)}/> : null
+          <List data={data} API={api} isLogin={isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> : null
         }
       </main>
     )

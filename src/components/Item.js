@@ -39,12 +39,12 @@ class Item extends Component {
   }
 
 saveButton(){
+  console.log("The save button was triggered","isLogin",this.props.isLogin, "this.props.showSaveRestaurants",this.props.showSaveRestaurants)
   if(this.props.isLogin===true&&this.props.showSaveRestaurants===false){
     return <button>Save this location</button>
-  }else {
-    return
   }
 }
+
 render(){
    // variable string for link to Google maps directions
   let queryStr = "https://www.google.com/maps?saddr=My+Location&daddr=" + this.props.item.geometry.location.lat + "," + this.props.item.geometry.location.lng + "&dirflg=w"
