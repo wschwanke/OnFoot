@@ -199,6 +199,7 @@ class App extends Component {
   changeRadius(num){
     this.setState({radius:num})
   }
+
   getOutOfSavedList(){
     //this.setState({showList:true})
     this.setState({showSaveRestaurants:false})
@@ -206,8 +207,7 @@ class App extends Component {
 
   changeDollars(num){
     this.setState({dollars:num});
-  }
-
+}
   renderWhichList(){
     if(this.state.showList===false){
       return null;
@@ -215,11 +215,11 @@ class App extends Component {
       if(this.state.showSaveRestaurants===false){
         return <List dollars={this.state.dollars} data={this.state.data} API={this.state.imageAPI} isLogin={this.state.isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> 
       }else{
-        return <SavedList data={this.state.savedRestaurantData} API={this.state.imageAPI} displayDirections={this.displayDirections.bind(this)}/> 
+        return <SavedList data={this.state.savedRestaurants} API={this.state.imageAPI} displayDirections={this.displayDirections.bind(this)}/> 
       }
     }
   }
-  render() {
+render() {
 
     return (
       <main className='container'>
