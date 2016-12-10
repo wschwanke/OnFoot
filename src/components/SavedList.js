@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import './css/List.css';
 
-import Item from './Item';
+import SavedItem from './SavedItem';
 
 class SavedList extends Component {
   constructor (props) {
@@ -19,7 +19,7 @@ class SavedList extends Component {
         <ul className='row'>
           {
             this.props.data.map((restaurant) =>
-            <Item item={restaurant} API={this.props.API} displayDirections={this.props.displayDirections}/>
+            <SavedItem item={restaurant} API={this.props.API} displayDirections={this.props.displayDirections}/>
             )
           }
         </ul>
