@@ -74,7 +74,6 @@ app.get('/auth/facebook',
   function(req, res){});
 
 app.get('/auth/facebook/callback',
-  //passport.authenticate('facebook', { authType: 'reauthenticate',failureRedirect: '/' }),
   passport.authenticate('facebook', { failureRedirect: '/' }),
   function(req, res) {
     console.log("req",req.user);
@@ -209,17 +208,23 @@ app.get('/username', function(req, res){
   })
 })
 
-app.post('/checkList/:id/:name', function(req, res){
+app.post('/saveRestaurant', function(req, res){
+  console.log("We are reaching server.js")
   var user = req.session.userID;
-  var placeId = req.params.id;
-  var placeName = req.params.name;
-  console.log(user,placeId,placeName);
-  User.findOneAndUpdate({id:user},{$push:{"checkList":{placeIdid:placeId, place: placeName, notes:null }}},
+  console.log("Here is the request body!!!!!!!!!!!!!", req.body)
+  var place_id = req.body.place_id;
+  var name = req.body.name;
+  var rating = req.body.rating;
+  var price_level = req.body.price_level;
+  var vicinity = req.body.vicinity;
+  var geometry = req.body.geometry;
+  //console.log("THE STUFF! ---->", user,place_id,name, rating, price_level, vicinity);
+  User.findOneAndUpdate({id:user},{$push:{"checkList":{place_id:place_id, name:name, rating:rating, price_level:price_level, vicinity:vicinity, geometry:geometry, notes:null }}},
     {safe: true, upsert: true, new : true},
-         function(err, model) {
-             console.log(err);
-             res.send("success");
-         }
+      function(err, model) {
+        console.log(err);
+        res.send("success");
+       }
   )
 })
 

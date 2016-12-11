@@ -35,6 +35,7 @@ import getRestaurantsWithVariableDistance from './lib/getRestaurantsWithVariable
 
 //Import called components
 import List from './List';
+import SavedList from './SavedList';
 import Loading from './Loading';
 import Nav from './Nav';
 import SaveRestaurants from './SaveRestaurants';
@@ -49,13 +50,13 @@ class App extends Component {
       location: null,
       latlong: undefined,
       data: undefined,
+      savedRestaurantData:undefined,
       showList: false,
       hideButton: false,
       directions: undefined,
       imageAPI: undefined,
       isLogin: false,
       displayName: undefined,
-      saveRestaurants: undefined,
       showSaveRestaurants: false,
       radius: 1500,
       dollars: 2
@@ -99,7 +100,6 @@ class App extends Component {
       // ^^ Google api call is in server.js
     //Modified to accept variable distance.  
   getNearbyRestaurants(options){
-    console.log('Options?',options);
     getRestaurants(options,(restaurants) => {
       this.setState({data:restaurants});
     })
@@ -117,7 +117,9 @@ class App extends Component {
   getSavedRestaurants(){
     getSaveRestaurant((restaurants)=>{
       console.log("res",restaurants);
-      this.setState({saveRestaurants: restaurants});
+      //if(this.state.savedRestaurantsData === undefined){
+        this.setState({savedRestaurantData: restaurants})
+     // }
       this.setState({showSaveRestaurants: true});
     })
   }
@@ -200,47 +202,38 @@ class App extends Component {
     this.setState({radius:num})
   }
 
-  //for altering dollars in response to scrollbar.
-  changeDollars(num){
-    this.setState({dollars:num});
+
+  getOutOfSavedList(){
+    //this.setState({showList:true})
+    this.setState({showSaveRestaurants:false})
   }
 
-  toggleSavedRestaurants(){
-   if(this.state.showSaveRestaurants===false){
-     this.setState({showSaveRestaurants:true})
-   } else{
-     this.setState({showSaveRestaurants:false})
-   }
- }
-
-  render() {
-    //set to a variable for a little better readability
-    var location = this.state.location;
-    var data = this.state.data;
-    var api = this.state.imageAPI;
-    var isLogin = this.state.isLogin;
-
-   // console.log(this.state.showList);
+  changeDollars(num){
+    this.setState({dollars:num});
+}
+  renderWhichList(){
+    if(this.state.showList===false){
+      return null;
+    }else{
+      if(this.state.showSaveRestaurants===false){
+        return <List dollars={this.state.dollars} data={this.state.data} API={this.state.imageAPI} isLogin={this.state.isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> 
+      }else{
+        return <SavedList data={this.state.savedRestaurantData} API={this.state.imageAPI} displayDirections={this.displayDirections.bind(this)}/> 
+      }
+    }
+  }
+render() {
 
     return (
       <main className='container'>
         {  //Nav shows login/logout and saved restaurants.
-          <Nav showSaveRestaurants={this.state.showSaveRestaurants} toggleSavedRestaurants={this.toggleSavedRestaurants.bind(this)} isLogin={isLogin} displayName={this.state.displayName}/>
+          <Nav getOutOfSavedList={this.getOutOfSavedList.bind(this)} getSavedRestaurants={this.getSavedRestaurants.bind(this)} showSaveRestaurants={this.state.showSaveRestaurants} isLogin={this.state.isLogin} displayName={this.state.displayName}/>
         }
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
-
-          <Loading changeDollars={this.changeDollars.bind(this)} changeRadius={this.changeRadius.bind(this)} location={location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>
-        }
-
-        {
-          //check if showList is true then call the List component
-          //List shows the restaurants that are near.
-          this.state.showList ?
-
-          <List dollars={this.state.dollars} data={data} API={api} isLogin={isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> : null
-
-        }
+        
+        <Loading changeDollars={this.changeDollars.bind(this)} changeRadius={this.changeRadius.bind(this)} showSaveRestaurants={this.state.showSaveRestaurants} isLogin={this.state.isLogin} location={this.state.location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>}
+        {this.renderWhichList()}
       </main>
     )
   }
