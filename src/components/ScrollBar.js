@@ -3,55 +3,18 @@
 import React, { Component } from 'react';
 import './css/Slider.css';
 
-class ScrollBar extends Component {
-  constructor (props) {
-    super()
-    this.state = {
-    	location:1000,
-      dollars: 1
-    };
-  }
-  
-
-
-  //These functions are exclusively for the radius slider
-  onSubmit(event) {
-    this.props.changeRadius(this.state.location);
-  }
-  onSlide(event) {
-    this.setState({location: event.target.value});
-   // console.log('Location changed to ', this.state.location);
-
-
-  }
-  
-  //These are for the dollars slider.
-  moneySubmit(event) {
-    this.props.changeDollars(this.state.dollars);
-    console.log('Money value submitted', this.state.dollars);
-  }
-  moneySlide(event) {
-    this.setState({dollars:event.target.value});
-    console.log('Money value updated ', event.target.value);
-  }
-
-  render(){
-  	return (
-  		<div>
-
+const ScrollBar = (props) => {
+	return (
+		<div className='row flex-items-xs-left'>
+      <div className="col-xs-6">
   			<div className='slider-text'>How far away do you want to walk?</div>
-
-  			<input type='range' name="meters" min="500" max="3000" onChange={this.onSlide.bind(this)}></input>
-
-  			<button type='submit' onClick={this.onSubmit.bind(this)}>Submit</button>
-
-        <div>How many dollaz?</div>
-
-        <input type='range' name="dollars" min="1" max="4" onChange={this.moneySlide.bind(this)}></input>
-
-        <button type='submit' onClick={this.moneySubmit.bind(this)}>Submit</button>
-  		</div>
-  	)
-  }
+  			<input type='range' name="meters" min="500" max="3000" onChange={props.handleRadiusFilter} value={props.radius}/>
+      </div>
+      <div className="col-xs-6">
+        <div>What is your price range?</div>
+        <input type='range' name="dollars" min="1" max="4" onChange={props.handlePriceFilter} value={props.dollars}/>
+      </div>
+		</div>
+	)
 }
 export default ScrollBar;

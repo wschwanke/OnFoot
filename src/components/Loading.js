@@ -6,7 +6,7 @@ import ScrollBar from './ScrollBar';
 import ManualAddressInput from './ManualAddressInput';
 
 // We pass hideButton and displayList in and because we're using ES6 we dont have to use bind or props
-const Loading = ({isLogin, showSaveRestaurants, changeRadius, location, hideButton, displayList, locEnabled, manualAddress, handleManualAddressInput}) => {
+const Loading = ({changeDollars, isLogin, showSaveRestaurants, changeRadius, location, hideButton, displayList, locEnabled, manualAddress, handleManualAddressInput, radius, dollars, handleRadiusFilter, handlePriceFilter}) => {
   const locationText = () => {
   if (location) {
       return <div>{location}</div>
@@ -32,7 +32,7 @@ const Loading = ({isLogin, showSaveRestaurants, changeRadius, location, hideButt
         hideButton ? null : <span className="button col-xs-8 col-sm-6 col-sm-4 col-lg-3" onClick={displayList}>Take me some place close!</span>
       }
       </div>
-      <ScrollBar changeDollars={changeDollars} changeRadius={changeRadius}/>
+      <ScrollBar radius={radius} dollars={dollars} handleRadiusFilter={handleRadiusFilter} handlePriceFilter={handlePriceFilter}/>
     </div>
   );
 };
