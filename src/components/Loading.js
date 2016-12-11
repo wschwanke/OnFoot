@@ -3,9 +3,10 @@
 import React from 'react';
 import './css/Loading.css';
 import ScrollBar from './ScrollBar';
+import ManualAddressInput from './ManualAddressInput';
 
 // We pass hideButton and displayList in and because we're using ES6 we dont have to use bind or props
-const Loading = ({changeDollars, isLogin, showSaveRestaurants, changeRadius, location, hideButton, displayList}) => {
+const Loading = ({isLogin, showSaveRestaurants, changeRadius, location, hideButton, displayList, locEnabled, manualAddress, handleManualAddressInput}) => {
   const locationText = () => {
   if (location) {
       return <div>{location}</div>
@@ -17,10 +18,13 @@ const Loading = ({changeDollars, isLogin, showSaveRestaurants, changeRadius, loc
   return (
     <div className='container loading'>
       <div className='row flex-items-xs-center'>
-        <h1 className='col-xs'>Food Walker</h1>
+        <h1 className='col-xs app-title'>Food Walker</h1>
       </div>
       <div className='row flex-items-xs-center'>
-        <span className="col-xs-10 col-sm-8 col-md-7 col-lg-6 loading-location">{locationText()}</span>
+        {
+          locEnabled ? <span className="col-xs-10 col-sm-8 col-md-7 col-lg-6 loading-location">{locationText()}</span> :
+          <ManualAddressInput manualAddress={manualAddress} handleManualAddressInput={handleManualAddressInput}/>
+        }
       </div>
       <div className="row flex-items-xs-center">
       {

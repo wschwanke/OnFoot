@@ -28,6 +28,7 @@ import getAPI from './lib/getImagesAPI.js'
 import isLogin from './lib/isLogin.js'
 import getDisplayName from './lib/getDisplayName.js'
 import getSaveRestaurant from './lib/getSaveRestaurant.js'
+import getLatLong from './lib/getLatLong.js'
 
 
 //New Libs for Team Troll
@@ -60,16 +61,30 @@ class App extends Component {
       showSaveRestaurants: false,
       radius: 1500,
       dollars: 2
+      distance: 1500,
+      radius:undefined,
+      locEnabled: true,
+      manualAddress: ''
     };
+
+    this.getLatLong = _.debounce((options, callback) => {
+      getLatLong(options, callback);
+    },1000);
+  }
+
+  handleManualAddressInput(e) {
+    this.setState({manualAddress: e.target.value});
+    let options = {
+      address: this.state.manualAddress
+    }
+    this.getLatLong(options, (res) => {
+      this.setState({latlong: `${res.lat},${res.lng}`}, () => {
+        this.getNearbyRestaurants({location:this.state.latlong, distance:this.state.distance})
+      });
+    });
   }
 
   getLocation() {
-    if (navigator.geolocation) {
-     // console.log('Geolocation is supported!');
-      }
-      else {
-    //  console.log('Geolocation is not supported for this Browser/OS.');
-      }
     // Get the user's location:
     if (navigator.geolocation) {
       //use an arrow function to not lose  this binding
@@ -88,8 +103,11 @@ class App extends Component {
           var streetName = location[1].long_name
           //the location state will update each time this is run
           this.setState({location: `Current Location: ${streetNum} ${streetName}`})
-
         }))
+      }, (err) => {
+        if (err.code == err.PERMISSION_DENIED) {
+          this.setState({locEnabled: false});
+        }
       })
     }
   }
@@ -196,7 +214,6 @@ class App extends Component {
     })
   }
 
-  
   //For altering radius in response to scrollbar.
   changeRadius(num){
     this.setState({radius:num})
@@ -216,13 +233,19 @@ class App extends Component {
       return null;
     }else{
       if(this.state.showSaveRestaurants===false){
-        return <List dollars={this.state.dollars} data={this.state.data} API={this.state.imageAPI} isLogin={this.state.isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> 
+        return <List dollars={this.state.dollars} data={this.state.data} API={this.state.imageAPI} isLogin={this.state.isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)} locEnabled={this.state.locEnabled} manualAddress={this.state.manualAddress} handleManualAddressInput={this.handleManualAddressInput.bind(this)}/> 
       }else{
         return <SavedList data={this.state.savedRestaurantData} API={this.state.imageAPI} displayDirections={this.displayDirections.bind(this)}/> 
       }
     }
   }
-render() {
+
+  render() {
+    //set to a variable for a little better readability
+    var location = this.state.location;
+    var data = this.state.data;
+    var api = this.state.imageAPI;
+    var isLogin = this.state.isLogin;
 
     return (
       <main className='container'>
@@ -231,7 +254,6 @@ render() {
         }
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
-        
         <Loading changeDollars={this.changeDollars.bind(this)} changeRadius={this.changeRadius.bind(this)} showSaveRestaurants={this.state.showSaveRestaurants} isLogin={this.state.isLogin} location={this.state.location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>}
         {this.renderWhichList()}
       </main>
