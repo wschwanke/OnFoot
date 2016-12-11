@@ -145,7 +145,7 @@ app.get('/', function(req,res){
 
 app.get('/fetchData/:location/:radius',function(req,res){
   var mapKey = process.env.mapKey || credentials.mapKey
-  location = req.params.location
+  var location = req.params.location
    console.log('Request?', req.params);
    let radius = req.params.radius;
      //Data validation.
@@ -157,10 +157,36 @@ app.get('/fetchData/:location/:radius',function(req,res){
     //  types = restaurant/gas_station/etc
     // %7Cgas_station%7C&sensor=false
   //var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant'
-    var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius='+radius+'&types=restaurant/';
+  var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius='+radius+'&types=restaurant';
   console.log("pass 1");
   request(`${url}&location=${location}&key=${mapKey}`, function (error, response, body) {
-    console.log('Error?',error);
+    console.log(error);
+    if (!error && response.statusCode == 200) {
+      console.log(body);
+      res.json(body);
+    }
+  })
+})
+
+//As above, but will accept a 'distance' value with which to set the search.
+app.get('/variableDistanceSearch/:location/:distance',function(req,res){
+  var mapKey = process.env.mapKey || credentials.mapKey
+  console.log('Distance request?', req.params);
+  location = req.params.location
+  distance = req.params.distance;
+  //Data validation.
+  if (distance < 250 ) {distance = 250};
+  if (distance > 3000) {distance = 3000};
+  //query starts after 'json', which defines the format of returned data
+    //  mapKey from config.js = API key.
+    //  radius = distance in meters
+    //  types = restaurant/gas_station/etc
+    // %7Cgas_station%7C&sensor=false
+  var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius='+distance+'&types=restaurant';
+
+  console.log("pass 2");
+  request(`${url}&location=${location}&key=${mapKey}`, function (error, response, body) {
+    console.log(error);
     if (!error && response.statusCode == 200) {
       console.log('body?', body);
       res.json(body);
@@ -194,6 +220,18 @@ app.get('/fetchAddress/:latlng',function(req,res){
   var latlng = req.params.latlng
   request(`http://maps.googleapis.com/maps/api/geocode/json?latlng=${latlng}`,function (error, response, body){
     if (!error && response.statusCode == 200) {
+      res.json(body);
+    }
+  })
+})
+
+app.get('/fetchLatLong/:address', (req, res) => {
+  var mapKey = process.env.mapKey || credentials.mapKey;
+  let address = req.params.address;
+  let url = 'https://maps.googleapis.com/maps/api/geocode/json?'
+  request(`${url}&address=${address}&key=${mapKey}`, (err, response, body) => {
+    console.log(err);
+    if (!err && response.statusCode == 200) {
       res.json(body);
     }
   })

@@ -28,6 +28,7 @@ import getAPI from './lib/getImagesAPI.js'
 import isLogin from './lib/isLogin.js'
 import getDisplayName from './lib/getDisplayName.js'
 import getSaveRestaurant from './lib/getSaveRestaurant.js'
+import getLatLong from './lib/getLatLong.js'
 
 
 //New Libs for Team Troll
@@ -58,18 +59,41 @@ class App extends Component {
       isLogin: false,
       displayName: undefined,
       showSaveRestaurants: false,
-      radius: 1500,
-      dollars: 2
+      radius: 500,
+      dollars: 1,
+      locEnabled: true,
+      manualAddress: ''
     };
+
+    // Get latitude and longitude from an address
+    this.getLatLong = _.debounce((options, callback) => {
+      getLatLong(options, callback);
+    }, 1000);
+    this.handleRadiusFilterSliderEvent = this.handleRadiusFilterSliderEvent.bind(this);
+    this.handlePriceFilterSliderEvent = this.handlePriceFilterSliderEvent.bind(this);
+  }
+
+  handleManualAddressInput(e) {
+    this.setState({manualAddress: e.target.value});
+    let options = {
+      address: this.state.manualAddress
+    }
+    this.getLatLong(options, (res) => {
+      this.setState({latlong: `${res.lat},${res.lng}`}, () => {
+        this.getNearbyRestaurants({location:this.state.latlong,radius:this.state.radius});
+      });
+    });
+  }
+
+  handleRadiusFilterSliderEvent(e) {
+    this.setState({radius: e.target.value});
+  }
+
+  handlePriceFilterSliderEvent(e) {
+    this.setState({dollars: e.target.value})
   }
 
   getLocation() {
-    if (navigator.geolocation) {
-     // console.log('Geolocation is supported!');
-      }
-      else {
-    //  console.log('Geolocation is not supported for this Browser/OS.');
-      }
     // Get the user's location:
     if (navigator.geolocation) {
       //use an arrow function to not lose  this binding
@@ -78,18 +102,20 @@ class App extends Component {
        // console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
         this.setState({latlong:`${position.coords.latitude},${position.coords.longitude}`});
         //passes in the location to start finding restaraunts
-        this.getNearbyRestaurants({location:this.state.latlong,radius:this.state.radius});
         //getAddress will take our longitude and latitude and find the nearest address to us
         getAddress({latlng:this.state.latlong},((location)=>{
-       //   console.log(location)
+          //console.log(location)
           //the location state will update each time this is run
           //split data into variables to increase readability
           var streetNum  = location[0].long_name
           var streetName = location[1].long_name
           //the location state will update each time this is run
           this.setState({location: `Current Location: ${streetNum} ${streetName}`})
-
         }))
+      }, (err) => {
+        if (err.code == err.PERMISSION_DENIED) {
+          this.setState({locEnabled: false});
+        }
       })
     }
   }
@@ -99,7 +125,7 @@ class App extends Component {
     // ^^ === sends lat/long to /fetchData endpoint via jQuery
       // ^^ Google api call is in server.js
     //Modified to accept variable distance.  
-  getNearbyRestaurants(options){
+  getNearbyRestaurants(options, callback){
     getRestaurants(options,(restaurants) => {
       this.setState({data:restaurants});
     })
@@ -131,8 +157,6 @@ class App extends Component {
 
 
   componentDidMount() {
-   
-
    // calls getAPI and returns the environment variable API or deployment config API and
    // sets state to that so we can pass it down
    // getAPI from lib/getImagesAPI
@@ -142,6 +166,8 @@ class App extends Component {
       this.setState({imageAPI:api})
 
     })
+
+    this.getLocation();
 // from lib/isLogin
   // ^ =  GET request to isLogin
     // ^ = checks for user in DB and returns data if found.
@@ -155,9 +181,9 @@ class App extends Component {
 
   //Will show the list of restaurants and hide the find restaurants button.
   displayList(){
-    this.getLocation();
+    this.getNearbyRestaurants({location:this.state.latlong, radius:this.state.radius});
     this.setState({showList:true});
-    this.setState({hideButton:true});
+    this.setState({hideButton:false});
   }
 
   //this is for displaying the List/Item components
@@ -196,21 +222,11 @@ class App extends Component {
     })
   }
 
-  
-  //For altering radius in response to scrollbar.
-  changeRadius(num){
-    this.setState({radius:num})
-  }
-
-
   getOutOfSavedList(){
     //this.setState({showList:true})
     this.setState({showSaveRestaurants:false})
   }
 
-  changeDollars(num){
-    this.setState({dollars:num});
-}
   renderWhichList(){
     if(this.state.showList===false){
       return null;
@@ -222,7 +238,13 @@ class App extends Component {
       }
     }
   }
-render() {
+
+  render() {
+    //set to a variable for a little better readability
+    var location = this.state.location;
+    var data = this.state.data;
+    var api = this.state.imageAPI;
+    var isLogin = this.state.isLogin;
 
     return (
       <main className='container'>
@@ -231,8 +253,20 @@ render() {
         }
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
-        
-        <Loading changeDollars={this.changeDollars.bind(this)} changeRadius={this.changeRadius.bind(this)} showSaveRestaurants={this.state.showSaveRestaurants} isLogin={this.state.isLogin} location={this.state.location} hideButton={this.state.hideButton} displayList={() => this.displayList()}/>}
+          <Loading
+          showSaveRestaurants={this.state.showSaveRestaurants}
+          isLogin={this.state.isLogin}
+          location={this.state.location}
+          hideButton={this.state.hideButton}
+          displayList={() => this.displayList()}
+          locEnabled={this.state.locEnabled}
+          manualAddress={this.state.manualAddress}
+          handleManualAddressInput={this.handleManualAddressInput.bind(this)}
+          radius={this.state.radius}
+          dollars={this.state.dollars}
+          handleRadiusFilter={this.handleRadiusFilterSliderEvent}
+          handlePriceFilter={this.handlePriceFilterSliderEvent}/>
+        }
         {this.renderWhichList()}
       </main>
     )

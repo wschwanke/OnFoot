@@ -7,6 +7,13 @@
   border-radius: 8px;
 }
 
+.app-title {
+  font-family: 'Permanent Marker';
+  font-size: 4rem;
+  text-shadow: 1px 1px 2px #444;
+  letter-spacing: 2px;
+}
+
 .loading > div {
   margin-bottom: 15px;
 }
