@@ -139,9 +139,6 @@
     -moz-animation-delay:1.82s;
 }
 
-
-
-
 @keyframes bounce_fountainTextG{
   0%{
     transform:scale(1);
@@ -200,4 +197,24 @@
     -moz-transform:scale(.5);
     color:rgb(21,131,153);
   }
+}
+
+::-webkit-input-placeholder { /* WebKit browsers */
+opacity: .9;
+-webkit-opacity: .9;
+ -khtml-opacity: .9;
+ color:rgba(255,255,255,.9);
+
+}
+
+::-moz-placeholder { /* Mozilla Firefox 19+ */
+  opacity:  .9;
+ color:rgba(255,255,255,.9);
+}
+
+:-ms-input-placeholder { /* Internet Explorer 10+ */
+  opacity:  .9;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=90)";
+ color:rgba(255,255,255,.9);
+
 }
