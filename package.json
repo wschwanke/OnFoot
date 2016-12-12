@@ -62,6 +62,6 @@
     "build": "node_modules/.bin/webpack --watch --devtools inline-source-map",
     "test": "react-scripts test --env=jsdom",
     "start": "nodemon server/server.js ",
-    "deploy": "npm run build && npm start"
+    "deploy": "npm start"
   }
 }
