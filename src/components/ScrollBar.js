@@ -7,7 +7,7 @@ const ScrollBar = (props) => {
 	return (
 		<div className='row flex-items-xs-left'>
       <div className="col-xs-6">
-  			<div className='slider-text'>How far away do you want to walk?</div>
+  			<div className='slider-text'>How far would you like to walk?</div>
   			<input type='range' name="meters" min="500" max="3000" onChange={props.handleRadiusFilter} value={props.radius}/>
       </div>
       <div className="col-xs-6">

@@ -98,6 +98,8 @@ a.list-location-button {
   text-align: center;
   z-index: 2;
   background: #67c;
+  color: #fff;
+  min-width: 70px;
 }
 
 .ribbon:before {

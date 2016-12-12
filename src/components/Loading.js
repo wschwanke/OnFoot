@@ -29,7 +29,7 @@ const Loading = ({changeDollars, isLogin, showSaveRestaurants, changeRadius, loc
       <div className="row flex-items-xs-center">
       {
         //check if hideButton is false then hide the button
-        hideButton ? null : <span className="button col-xs-8 col-sm-6 col-sm-4 col-lg-3" onClick={displayList}>Take me some place close!</span>
+        hideButton ? null : <span className="button col-xs-8 col-sm-6 col-sm-4 col-lg-3" onClick={displayList}>Find me some food!</span>
       }
       </div>
       <ScrollBar radius={radius} dollars={dollars} handleRadiusFilter={handleRadiusFilter} handlePriceFilter={handlePriceFilter}/>

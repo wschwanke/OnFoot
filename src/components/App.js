@@ -50,6 +50,10 @@ class App extends Component {
       //original value so that its not just undefined
       location: null,
       latlong: undefined,
+      objLatLng: {
+        lat: null,
+        lng: null
+      },
       data: undefined,
       savedRestaurantData:undefined,
       showList: false,
@@ -59,7 +63,7 @@ class App extends Component {
       isLogin: false,
       displayName: undefined,
       showSaveRestaurants: false,
-      radius: 500,
+      radius: 1750,
       dollars: 1,
       locEnabled: true,
       manualAddress: ''
@@ -79,6 +83,7 @@ class App extends Component {
       address: this.state.manualAddress
     }
     this.getLatLong(options, (res) => {
+      this.setState({objLatLng: {lat: res.lat, lng: res.lng}})
       this.setState({latlong: `${res.lat},${res.lng}`}, () => {
         this.getNearbyRestaurants({location:this.state.latlong,radius:this.state.radius});
       });
@@ -101,6 +106,8 @@ class App extends Component {
       navigator.geolocation.watchPosition( (position) => {
        // console.log("Success! latitude: ", position.coords.latitude, "longitude:", position.coords.longitude)
         this.setState({latlong:`${position.coords.latitude},${position.coords.longitude}`});
+        this.setState({objLatLng: {lat: position.coords.latitude, lng: position.coords.longitude}})
+        //this.setState({objLatLng: {lat: position.coords.latitude, lng: position.coords.longitude}});
         //passes in the location to start finding restaraunts
         //getAddress will take our longitude and latitude and find the nearest address to us
         getAddress({latlng:this.state.latlong},((location)=>{
@@ -110,7 +117,7 @@ class App extends Component {
           var streetNum  = location[0].long_name
           var streetName = location[1].long_name
           //the location state will update each time this is run
-          this.setState({location: `Current Location: ${streetNum} ${streetName}`})
+          this.setState({location: `${streetNum} ${streetName}`});
         }))
       }, (err) => {
         if (err.code == err.PERMISSION_DENIED) {
@@ -218,7 +225,7 @@ class App extends Component {
       // In order to get the directions to display in each "card", we had to use forceUpdate.
       // There's probably a better way to handle this...
       this.forceUpdate();
-      //console.log('Here are the steps results for the place you just clicked', steps);
+      //ÏHere are the steps results for the place you just clicked', steps);
     })
   }
 
@@ -232,8 +239,19 @@ class App extends Component {
       return null;
     }else{
       if(this.state.showSaveRestaurants===false){
-        return <List dollars={this.state.dollars} data={this.state.data} API={this.state.imageAPI} isLogin={this.state.isLogin} showSaveRestaurants={this.state.showSaveRestaurants} displayDirections={this.displayDirections.bind(this)}/> 
-      }else{
+        return (
+          <List
+            dollars={this.state.dollars}
+            radius={this.state.radius}
+            data={this.state.data}
+            API={this.state.imageAPI}
+            isLogin={this.state.isLogin}
+            showSaveRestaurants={this.state.showSaveRestaurants}
+            displayDirections={this.displayDirections.bind(this)}
+            objLatLng={this.state.objLatLng}
+          />
+        )
+      } else {
         return <SavedList data={this.state.savedRestaurantData} API={this.state.imageAPI} displayDirections={this.displayDirections.bind(this)}/> 
       }
     }
@@ -249,25 +267,48 @@ class App extends Component {
     return (
       <main className='container'>
         {  //Nav shows login/logout and saved restaurants.
-          <Nav getOutOfSavedList={this.getOutOfSavedList.bind(this)} getSavedRestaurants={this.getSavedRestaurants.bind(this)} showSaveRestaurants={this.state.showSaveRestaurants} isLogin={this.state.isLogin} displayName={this.state.displayName}/>
+          <Nav
+            getOutOfSavedList={this.getOutOfSavedList.bind(this)}
+            getSavedRestaurants={this.getSavedRestaurants.bind(this)}
+            showSaveRestaurants={this.state.showSaveRestaurants}
+            isLogin={this.state.isLogin}
+            displayName={this.state.displayName
+          }/>
         }
         {/*We're accepting this button's state from the root state, so we can keep our button inside of our Loading component*/
          //Functional component to show logo, name and location.  Also has button to trigger App
           <Loading
-          showSaveRestaurants={this.state.showSaveRestaurants}
-          isLogin={this.state.isLogin}
-          location={this.state.location}
-          hideButton={this.state.hideButton}
-          displayList={() => this.displayList()}
-          locEnabled={this.state.locEnabled}
-          manualAddress={this.state.manualAddress}
-          handleManualAddressInput={this.handleManualAddressInput.bind(this)}
-          radius={this.state.radius}
-          dollars={this.state.dollars}
-          handleRadiusFilter={this.handleRadiusFilterSliderEvent}
-          handlePriceFilter={this.handlePriceFilterSliderEvent}/>
+            showSaveRestaurants={this.state.showSaveRestaurants}
+            isLogin={this.state.isLogin}
+            location={this.state.location}
+            hideButton={this.state.hideButton}
+            displayList={() => this.displayList()}
+            locEnabled={this.state.locEnabled}
+            manualAddress={this.state.manualAddress}
+            handleManualAddressInput={this.handleManualAddressInput.bind(this)}
+            radius={this.state.radius}
+            dollars={this.state.dollars}
+            handleRadiusFilter={this.handleRadiusFilterSliderEvent}
+            handlePriceFilter={this.handlePriceFilterSliderEvent}
+          />
         }
-        {this.renderWhichList()}
+        {
+          this.state.showSaveRestaurants ?
+            <SavedList data={this.state.savedRestaurantData} API={this.state.imageAPI} displayDirections={this.displayDirections.bind(this)}/> : null
+        }
+        {
+          this.state.showList ?
+          <List
+            dollars={this.state.dollars}
+            radius={this.state.radius}
+            data={this.state.data}
+            API={this.state.imageAPI}
+            isLogin={this.state.isLogin}
+            showSaveRestaurants={this.state.showSaveRestaurants}
+            displayDirections={this.displayDirections.bind(this)}
+            objLatLng={this.state.objLatLng}
+          /> : null
+        }
       </main>
     )
   }

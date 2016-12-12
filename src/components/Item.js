@@ -23,7 +23,7 @@ class Item extends Component {
   // this function turns `item.price_level` into a dollar sign level
   starRating(){
     let score =this.props.item.rating;
-    let str=''
+    let str=' '
     for (let i=0;i<Math.floor(score);i++){
       str+='★';
     }
@@ -58,7 +58,12 @@ render(){
     return (
     <li className="col-xs-12 col-sm-12 col-md-6 col-lg-4">
       <div className='list-location-cont'>
-      <span className="ribbon icon"><a href="/fav" title="title">{this.props.item.rating} {this.starRating()}, {this.priceLevel()}</a></span>
+      <span className="ribbon icon">
+        {this.props.item.rating} 
+        {this.starRating()}
+        {this.props.item.rating ? ' - ' : null}
+        {this.priceLevel()}
+        </span>
         <div className='list-location-info'>
           <img className="list-location-img" src={url} alt="Photo of a restaurant" />
           <div>

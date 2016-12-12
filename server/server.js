@@ -157,8 +157,7 @@ app.get('/fetchData/:location/:radius',function(req,res){
     //  types = restaurant/gas_station/etc
     // %7Cgas_station%7C&sensor=false
   //var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=1500&types=restaurant'
-  var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius='+radius+'&types=restaurant';
-  console.log("pass 1");
+  var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=3000&types=restaurant';
   request(`${url}&location=${location}&key=${mapKey}`, function (error, response, body) {
     console.log(error);
     if (!error && response.statusCode == 200) {
@@ -182,9 +181,8 @@ app.get('/variableDistanceSearch/:location/:distance',function(req,res){
     //  radius = distance in meters
     //  types = restaurant/gas_station/etc
     // %7Cgas_station%7C&sensor=false
-  var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius='+distance+'&types=restaurant';
-
-  console.log("pass 2");
+  //var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius='+distance+'&types=restaurant';
+  var url='https://maps.googleapis.com/maps/api/place/nearbysearch/json?radius=3000&types=restaurant';
   request(`${url}&location=${location}&key=${mapKey}`, function (error, response, body) {
     console.log(error);
     if (!error && response.statusCode == 200) {
